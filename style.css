@@ -1,0 +1,48 @@
+body{
+	font-size: 1em;
+}
+header div{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.container{
+	max-width: 1500px; 
+	margin: 0 auto;
+}
+.headerflex{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.navbar{
+	display: flex;
+	justify-content: space-between;
+}
+.navbar a{
+	text-decoration: none;
+	padding: 5px;
+	border: 1px solid black;
+	margin: 5px;
+	margin-bottom: 0;
+}
+.cash{
+	padding: 2px;
+	border: 1px solid black;
+	margin: 1px;
+}
+main{
+
+}
+.maingrid{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+}
+.gif{
+	grid-row-start: 1;
+	grid-row-end: 3;
+	grid-column-start: 2;
+	grid-column-end: 3;
+	background-color: black;
+	color: white;
+}
