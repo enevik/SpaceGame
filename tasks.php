@@ -8,7 +8,9 @@
 
 require 'header.php';
 ?>
-
+<div class="container">
+    <h1>hey</h1>
+</div>
 
 <?php
 require 'footer.php';
