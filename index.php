@@ -24,11 +24,5 @@ require 'header.php';
             </div>
         </div>
     </div>
-</main>
-<footer>
-    <div class="container">
-
-    </div>
-</footer>
-</body>
-</html>
+<?php
+require 'footer.php';
