@@ -15,7 +15,7 @@ require 'header.php';
             <h2>Planeet : Mars</h2>
         </div>
         <div class="image">
-            <img src="images/mars-image.jpg" alt="">
+            <img src="images/mars-image.jpg" alt="Image of Mars">
         </div>
         <div class="info">
             <h3>Informatie over mars</h3>
