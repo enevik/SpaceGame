@@ -125,3 +125,7 @@ h1 {
 	margin: auto;
 	text-align: center;
 }
+
+.task {
+	margin-bottom: 10px;
+}
