@@ -35,10 +35,15 @@ header div{
 	margin-bottom: 0;
 	color: white;
 }
-.cash{
-	padding: 2px;
-	border: 1px solid #000000;
-	margin: 1px;
+.cac{
+	display: flex;
+	flex-direction: column;
+}
+.cash p{
+	margin: 5px;
+}
+.commodities p{
+	margin: 5px;
 }
 main{
 	min-height: 100%;

@@ -35,19 +35,17 @@ require 'databaseController.php';
                 <a href="#station">station</a>
             </div>
         </div>
-        <div class="cash">
-            <p>Cash:<?php echo $users[0]['cash'] ?></p>
 
 
+        <div class="cac">
+            <div class="cash">
+                <p>Cash:<?php echo $users[0]['cash'] ?></p>
+            </div>
 
-
-
-
+            <div class="commodities">
+            <p>Commodities:<?php echo $users[0]['commodities'] ?></p>
 
         </div>
-
-        <div class="commodities">
-            <p>Commodities:<?php echo $users[0]['commodities'] ?></p>
 
 
 
