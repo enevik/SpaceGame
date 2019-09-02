@@ -10,15 +10,17 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-    $cash = 10;
-
-    $realcash = $users[0]['cash'];
-    $length = intval($_POST['material']);
-    $amount = $length * $cash;
-    $add = $realcash += $amount;
+    
 
 
     if (isset($_POST['material'])) {
+
+        $cash = 10;
+
+        $realcash = $users[0]['cash'];
+        $length = intval($_POST['material']);
+        $amount = $length * $cash;
+        $add = $realcash += $amount;
 
         $id = 1;
         /*$sql = "INSERT INTO `users` (cash)
