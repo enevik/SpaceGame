@@ -49,6 +49,11 @@ main{
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 1fr 1fr;
 }
+
+.sellmsterial {
+	text-align: center;
+}
+
 .gif{
 	grid-row-start: 1;
 	grid-row-end: 3;

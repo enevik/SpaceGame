@@ -5,6 +5,10 @@
  * Date: 29-8-2019
  * Time: 11:44
  */
+
+require 'databaseController.php';
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,8 +36,27 @@
             </div>
         </div>
         <div class="cash">
-            <p>Cash</p>
+            <p>Cash:<?php echo $users[0]['cash'] ?></p>
+
+
+
+
+
+
+
         </div>
+
+        <div class="commodities">
+            <p>Commodities:<?php echo $users[0]['commodities'] ?></p>
+
+
+
+
+
+
+
+        </div>
+
     </div>
 </header>
 <main>
