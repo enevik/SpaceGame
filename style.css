@@ -1,11 +1,13 @@
 html, body{
-	height: 100%;
+	min-height: 100%;
 }
 body{
 	font-size: 1em;
 	margin: 0;
 	color: #ffffff;
 }
+
+/* Header Page */
 header{
 	background-color: #000;
 }
@@ -45,9 +47,15 @@ header div{
 .commodities p{
 	margin: 5px;
 }
+
+/* main page */
 main{
-	min-height: 100%;
+	height: 100%;
 	background-image: url(Images/background.jpg);
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 .maingrid{
 	display: grid;
