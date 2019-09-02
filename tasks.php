@@ -15,22 +15,24 @@ require 'header.php';
             <h2>Planeet : Mars</h2>
         </div>
         <div class="image">
-            <img src="images/mars-image.jpg" alt="Image of Mars">
+            <img src="images/mars-image.png" alt="Image of Mars">
         </div>
         <div class="info">
             <h3>Informatie over mars</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum error labore, magnam maiores modi officiis quis similique. Animi at cumque eos, ex iste quod reiciendis velit vitae voluptas voluptatibus? Repellendus.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum error labore, magnam maiores modi officiis quis similique. Animi at cumque eos, ex iste quod reiciendis velit vitae voluptas voluptatibus? Repellendus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem delectus ducimus est et expedita explicabo, impedit itaque iure laborum magnam neque quaerat quas quidem, repellat suscipit tempora temporibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem consectetur cumque cupiditate dicta dolor dolore eligendi, ipsa iure iusto libero maxime modi molestias nulla odit praesentium quam, quibusdam rem sint!</p>
         </div>
-        <div class="task">
-            <div class="info-task">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam aliquid, asperiores beatae cupiditate delectus eligendi iste, libero maxime, minus modi necessitatibus omnis quas quasi suscipit? Magni non ratione voluptatibus?</p>
-            </div>
-            <div class="commodities">
-                <p>1.200</p>
-            </div>
-            <div class="button">
-                <button>Go!</button>
-            </div>
+    </div>
+    <div class="task">
+        <div class="info-task">
+            <h3>Task</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam aliquid, asperiores beatae cupiditate delectus eligendi iste, libero maxime, minus modi necessitatibus omnis quas quasi suscipit? Magni non ratione voluptatibus?</p>
+        </div>
+        <div class="commodities">
+            <h3>Commodities</h3>
+            <p>1.200</p>
+        </div>
+        <div class="button">
+            <button>Go!</button>
         </div>
     </div>
 </div>
