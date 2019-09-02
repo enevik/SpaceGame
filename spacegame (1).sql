@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 02 sep 2019 om 12:19
+-- Gegenereerd op: 02 sep 2019 om 12:25
 -- Serverversie: 10.1.39-MariaDB
 -- PHP-versie: 7.3.5
 
