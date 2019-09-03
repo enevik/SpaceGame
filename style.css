@@ -1,5 +1,5 @@
 html, body{
-	min-height: 100%;
+	height: 100%;
 }
 body{
 	font-size: 1em;
@@ -49,7 +49,7 @@ header div{
 }
 
 /* main page */
-main{
+body{
 	height: 100%;
 	background-image: url(Images/background.jpg);
 	background-attachment: fixed;
@@ -141,4 +141,22 @@ h1 {
 
 .task {
 	margin-bottom: 10px;
+}
+
+/*upgradestation*/
+.upgradestationGrid{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 5%;
+}
+.upgradestationGrid div *{
+	text-align: center;
+}
+.upgradestationGrid div img{
+	display: flex;
+	justify-content: center;	
+	margin: auto;
+}
+.upgradestationGrid div ul {
+	list-style: none;
 }

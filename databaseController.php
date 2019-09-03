@@ -3,15 +3,23 @@
 require 'config.php';
 session_start();
 
+
+ /*   //header('Location: index.php');
+    exit;
+}*/
+
 $sql = "SELECT * FROM `users`";
 $query = $db->query($sql);
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
+
+
     
 
 
-    if (isset($_POST['material'])) {
+//if($_SERVER['REQUEST_METHOD'] != 'POST') {
+    if ($_POST['type'] == 'material') {
 
         $cash = 10;
 
@@ -35,8 +43,8 @@ values (:cash)";
             WHERE id = :id';
         $prepare = $db->prepare($sql);
         $prepare->execute([
-            ':cash'         => $add,
-            ':id'           => $id
+            ':cash' => $add,
+            ':id' => $id
         ]);
 
 
@@ -47,6 +55,7 @@ values (:cash)";
 
 
     }
+//}
 
 
     if ($_POST['type'] === 'createuser') {
