@@ -8,8 +8,6 @@ $query = $db->query($sql);
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
-
-
     
 
 
@@ -51,4 +49,16 @@ values (:cash)";
     }
 
 
+    if ($_POST['type'] === 'createuser') {
+        $username = $_POST['username'];
+
+        $sql = "INSERT INTO users (name) VALUES (:username)";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':username' => $username
+        ]);
+
+        header("location: index.php");
+        exit;
+    }
 
