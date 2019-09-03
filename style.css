@@ -1,5 +1,5 @@
 html, body{
-	min-height: 100%;
+	height: 100%;
 }
 body{
 	font-size: 1em;
@@ -49,7 +49,7 @@ header div{
 }
 
 /* main page */
-main{
+body{
 	height: 100%;
 	background-image: url(Images/background.jpg);
 	background-attachment: fixed;
