@@ -22,6 +22,19 @@ require 'header.php';
 
         </form>
     </div>
+
+    <div class="content">
+        <form action="databaseController.php" method="post">
+            <input type="hidden" name="type" value="loginuser">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username">
+            </div>
+
+            <input type="submit" value="Login">
+
+        </form>
+    </div>
 </div>
 
 

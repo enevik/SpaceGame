@@ -39,7 +39,7 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
                 <a href="trading.php">shop</a>
                 <a href="tasks.php">tasks</a>
                 <a href="upgradestation.php">station</a>
-                <a href="createuser.php">Create new user</a>
+                <a href="create_login.php">Create new user</a>
             </div>
         </div>
 

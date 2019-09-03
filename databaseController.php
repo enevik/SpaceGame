@@ -73,3 +73,21 @@ values (:cash)";
         exit;
     }
 
+    if ($_POST['type'] === 'loginuser') {
+        $username = $_POST['username'];
+
+        $sql = "SELECT * FROM users WHERE name=:username";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':username' => $username
+        ]);
+
+        $users = $prepare->fetch();
+
+        $users = $users['id'];
+
+
+
+
+        header( "location: index.php?id=$users");
+    }
