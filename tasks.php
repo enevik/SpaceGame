@@ -41,7 +41,7 @@ require 'header.php';
             <h2>Planeet : Jupiter</h2>
         </div>
         <div class="image">
-            <img src="images/mars-image.png" alt="Image of Mars">
+            <img src="images/jupiter-image.png" alt="Image of Mars">
         </div>
         <div class="info">
             <h3>Informatie over Jupiter</h3>
@@ -55,7 +55,7 @@ require 'header.php';
         </div>
         <div class="commodities">
             <h3>Commodities</h3>
-            <p>1.200</p>
+            <p>3.200</p>
         </div>
         <div class="button">
             <button>Go!</button>
@@ -67,7 +67,7 @@ require 'header.php';
             <h2>Planeet : Saturnus</h2>
         </div>
         <div class="image">
-            <img src="images/mars-image.png" alt="Image of Mars">
+            <img src="images/saturnus-image.png" alt="Image of Mars">
         </div>
         <div class="info">
             <h3>Informatie over Saturnus</h3>
@@ -81,7 +81,7 @@ require 'header.php';
         </div>
         <div class="commodities">
             <h3>Commodities</h3>
-            <p>1.200</p>
+            <p>4.800</p>
         </div>
         <div class="button">
             <button>Go!</button>
