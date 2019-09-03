@@ -21,6 +21,8 @@ require 'header.php';
 
 
     <div class="sellmsterial">
+        <input type="hidden" name="type" value="material">
+
         <label for="username">Grondstoffen:</label>
         <input type="text" name="material" id="material" placeholder="vul aantal grondstoffen in">
 
