@@ -6,7 +6,13 @@
  * Time: 11:44
  */
 
-require 'databaseController.php';
+//require 'databaseController.php';
+
+require 'config.php';
+
+$sql = "SELECT * FROM `users`";
+$query = $db->query($sql);
+$users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
