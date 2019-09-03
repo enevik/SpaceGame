@@ -60,11 +60,13 @@ values (:cash)";
 
     if ($_POST['type'] === 'createuser') {
         $username = $_POST['username'];
+        $cash = 5000;
 
-        $sql = "INSERT INTO users (name) VALUES (:username)";
+        $sql = "INSERT INTO users (name, cash) VALUES (:username, :cash)";
         $prepare = $db->prepare($sql);
         $prepare->execute([
-            ':username' => $username
+            ':username' => $username,
+            ':cash' => $cash
         ]);
 
         header("location: index.php");

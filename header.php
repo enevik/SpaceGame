@@ -35,10 +35,11 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div>
             <div class="navbar">
-                <a href="#home">Home</a>
-                <a href="#shop">shop</a>
-                <a href="#tasks">tasks</a>
-                <a href="#station">station</a>
+                <a href="index.php">Home</a>
+                <a href="trading.php">shop</a>
+                <a href="tasks.php">tasks</a>
+                <a href="upgradestation.php">station</a>
+                <a href="createuser.php">Create new user</a>
             </div>
         </div>
 
