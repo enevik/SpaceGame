@@ -32,7 +32,10 @@ require 'header.php';
             <p>1.200</p>
         </div>
         <div class="button">
-            <button>Go!</button>
+            <form action="databaseController.php" method="post">
+                <input type="hidden" name="type" value="mine_mars">
+                <input type="submit" value="Mine">
+            </form>
         </div>
     </div>
 
