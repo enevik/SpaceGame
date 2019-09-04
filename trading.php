@@ -7,6 +7,23 @@
  */
 
 require 'header.php';
+
+$id = $_GET['id'];
+
+
+$sql = "SELECT * FROM users WHERE id = :id";
+$prepare = $db->prepare($sql);
+$prepare->execute([
+    ':id' => $id
+
+]);
+
+//$query = $db->query($sql);
+$contact = $prepare->fetch(PDO::FETCH_ASSOC);
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -17,10 +34,10 @@ require 'header.php';
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<form action="databaseController.php" method="post">
+<form action="databaseController.php?id=<?=$id;?>" method="post">
 
 
-    <div class="sellmsterial">
+    <div class="sellmaterial">
         <input type="hidden" name="type" value="material">
 
         <label for="username">Grondstoffen:</label>

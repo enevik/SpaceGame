@@ -1,6 +1,7 @@
 <?php
 
 require 'config.php';
+
 session_start();
 
 
@@ -14,21 +15,31 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-
+/**/
     
 
 
 //if($_SERVER['REQUEST_METHOD'] != 'POST') {
     if ($_POST['type'] == 'material') {
 
+        $id = $_GET['id'];
+        $sql = "SELECT * FROM users WHERE id = :id";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':id' => $id
+
+        ]);
+
+        $users = $prepare->fetch(PDO::FETCH_ASSOC);
+
         $cash = 10;
 
-        $realcash = $users[0]['cash'];
+        $realcash = $users['cash'];
         $length = intval($_POST['material']);
         $amount = $length * $cash;
         $add = $realcash += $amount;
 
-        $id = 1;
+        //$id = 1;
         /*$sql = "INSERT INTO `users` (cash)
 values (:cash)";
 
@@ -74,6 +85,7 @@ values (:cash)";
     }
 
     if ($_POST['type'] === 'loginuser') {
+
         $username = $_POST['username'];
 
         $sql = "SELECT * FROM users WHERE name=:username";
@@ -85,7 +97,6 @@ values (:cash)";
         $users = $prepare->fetch();
 
         $users = $users['id'];
-
 
 
 

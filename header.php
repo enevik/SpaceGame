@@ -9,10 +9,33 @@
 //require 'databaseController.php';
 
 require 'config.php';
+//require 'databaseController.php';
+session_start();
+
 
 $sql = "SELECT * FROM `users`";
 $query = $db->query($sql);
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
+
+//if ( isset($_SESSION['username']) ) {
+
+$id = isset($_GET['id']) ;
+   // $id = $_GET['id'];
+
+    $sql = "SELECT * FROM users WHERE id = :id";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':id' => $id
+
+    ]);
+
+//$query = $db->query($sql);
+    $userid = $prepare->fetch(PDO::FETCH_ASSOC);
+
+//}
+
+
+
 
 
 ?>
@@ -36,21 +59,26 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
         <div>
             <div class="navbar">
                 <a href="index.php">Home</a>
-                <a href="trading.php">shop</a>
+                <a href="trading.php?id=<?=$id;?>">shop</a>
+
                 <a href="tasks.php">tasks</a>
                 <a href="upgradestation.php">station</a>
-                <a href="create_login.php">Create new user</a>
+           <a href="create_login.php">Create new user</a>
+
+
+
+
             </div>
         </div>
 
 
         <div class="cac">
             <div class="cash">
-                <p>Cash:<?php echo $users[0]['cash'] ?></p>
+                <p>Cash:<?php echo $userid['cash']?></p>
             </div>
 
             <div class="commodities">
-            <p>Commodities:<?php echo $users[0]['commodities'] ?></p>
+            <p>Commodities:<?php echo $userid['commodities']?></p>
 
         </div>
 
