@@ -10,7 +10,7 @@
 
 require 'config.php';
 //require 'databaseController.php';
-session_start();
+//session_start();
 
 
 $sql = "SELECT * FROM `users`";
@@ -19,7 +19,7 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 //if ( isset($_SESSION['username']) ) {
 
-$id = isset($_GET['id']) ;
+$id = $_GET['id'] ;
    // $id = $_GET['id'];
 
     $sql = "SELECT * FROM users WHERE id = :id";
