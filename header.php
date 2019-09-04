@@ -58,12 +58,12 @@ $id = $_GET['id'] ;
         </div>
         <div>
             <div class="navbar">
-                <a href="index.php">Home</a>
+                <a href="index.php?id=<?=$id;?>">Home</a>
                 <a href="trading.php?id=<?=$id;?>">shop</a>
 
-                <a href="tasks.php">tasks</a>
-                <a href="upgradestation.php">station</a>
-           <a href="create_login.php">Create new user</a>
+                <a href="tasks.php?id=<?=$id;?>">tasks</a>
+                <a href="upgradestation.php?id=<?=$id;?>">station</a>
+           <a href="create_login.php?id=<?=$id;?>">Create new user</a>
 
 
 
