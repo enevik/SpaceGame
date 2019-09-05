@@ -16,7 +16,7 @@ require 'header.php';
             <form action="databaseController.php" method="post">
                 <input type="hidden" name="type" value="createuser">
                 <div class="form-group">
-                    <label for="username">Username</label>
+                    <label for="username">Username: </label>
                     <input type="text" name="username" id="username">
                 </div>
 
@@ -30,7 +30,7 @@ require 'header.php';
                 <form action="databaseController.php" method="post">
                     <input type="hidden" name="type" value="loginuser">
                     <div class="form-group">
-                        <label for="username">Username</label>
+                        <label for="username">Username: </label>
                         <input type="text" name="username" id="username">
                     </div>
 
