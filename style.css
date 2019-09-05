@@ -185,3 +185,10 @@ h1 {
 	background: rgba( 232, 49, 49, 0.5);
 	border-radius: 15px;
 }
+
+.content input[type=submit] {
+	border: none;
+	border-radius: 15px;
+	padding: 15px 32px;
+	background: #ed2f2f;
+}
