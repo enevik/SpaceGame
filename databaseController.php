@@ -13,8 +13,6 @@ $sql = "SELECT * FROM `users`";
 $query = $db->query($sql);
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
-
-
 /**/
     
 
@@ -98,7 +96,44 @@ values (:cash)";
 
         $users = $users['id'];
 
-
-
         header( "location: index.php?id=$users");
+    }
+
+    if ($_POST['type'] === 'mine_mars') {
+
+        $id = $_GET['id'];
+
+        $sql = "UPDATE users SET commodities = commodities + 1200 WHERE id = :id";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':id' => $id
+        ]);
+
+        header("location: index.php?id=$id");
+    }
+
+    if ($_POST['type'] === 'mine_jupiter') {
+
+        $id = $_GET['id'];
+
+        $sql = "UPDATE users SET commodities = commodities + 3200 WHERE id = :id";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':id' => $id
+        ]);
+
+        header("location: index.php?id=$id");
+    }
+
+    if ($_POST['type'] === 'mine_saturnus') {
+
+        $id = $_GET['id'];
+
+        $sql = "UPDATE users SET commodities = commodities + 4800 WHERE id = :id";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':id' => $id
+        ]);
+
+        header("location: index.php?id=$id");
     }

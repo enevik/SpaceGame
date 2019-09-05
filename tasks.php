@@ -32,7 +32,7 @@ require 'header.php';
             <p>1.200</p>
         </div>
         <div class="button">
-            <form action="databaseController.php" method="post">
+            <form action="databaseController.php?id=<?=$id?>" method="post">
                 <input type="hidden" name="type" value="mine_mars">
                 <input type="submit" value="Mine">
             </form>
@@ -61,7 +61,10 @@ require 'header.php';
             <p>3.200</p>
         </div>
         <div class="button">
-            <button>Go!</button>
+            <form action="databaseController.php?id=<?=$id?>" method="post">
+                <input type="hidden" name="type" value="mine_jupiter">
+                <input type="submit" value="Mine">
+            </form>
         </div>
     </div>
 
@@ -87,7 +90,10 @@ require 'header.php';
             <p>4.800</p>
         </div>
         <div class="button">
-            <button>Go!</button>
+            <form action="databaseController.php?id=<?=$id?>" method="post">
+                <input type="hidden" name="type" value="mine_saturnus">
+                <input type="submit" value="Mine">
+            </form>
         </div>
     </div>
 </div>
