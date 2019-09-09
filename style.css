@@ -1,7 +1,18 @@
 html, body{
 	height: 100%;
 }
+
+@font-face {
+	font-family: 'bariol';
+	src : url('fonts/Bariol/Bariol-Regular.eot') format('embedded-opentype'),
+	url('fonts/Bariol/Bariol-Regular.woff') format('woff'),
+	url('fonts/Bariol/Bariol-Regular.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
 body{
+	font-family: 'bariol';
 	font-size: 1em;
 	margin: 0;
 	color: #ffffff;
@@ -139,6 +150,13 @@ h1 {
 	text-align: center;
 }
 
+.task input[type=submit] {
+	border: none;
+	border-radius: 15px;
+	padding: 15px 32px;
+	background: #ed2f2f;
+}
+
 .task {
 	margin-bottom: 10px;
 }
@@ -159,4 +177,26 @@ h1 {
 }
 .upgradestationGrid div ul {
 	list-style: none;
+}
+
+/*Login/create page*/
+
+.grid-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 5px;
+}
+
+.grid-container .content {
+	padding: 40px;
+	background: rgba( 232, 49, 49, 0.5);
+	border-radius: 15px;
+}
+
+.content input[type=submit] {
+	border: none;
+	border-radius: 15px;
+	padding: 15px 32px;
+	background: #ed2f2f;
+	margin: 20px;
 }
