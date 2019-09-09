@@ -1,85 +1,42 @@
 <?php
 require 'header.php';
 $userid = $_GET['id'];
-$sql = "SELECT * FROM ships WHERE id = '$userid'";
+$sql = "SELECT * FROM ships WHERE userid = $userid";
 $query = $db->query($sql);
 $ships = $query->fetchAll(PDO::FETCH_ASSOC);
+
+//$shipname = $ships['shipname'];
+
+//var_dump($ships);
+
+foreach ($ships as $ship) {
+
+    $shipname = htmlentities($ship['shipname']);
+
+}
 
 ?>
     <div class="container">
         <div class="upgradestationGrid">
-            <?
-            foreach ($ships as $ship) {
-
-            }
+            <?php
+            //var_dump($ships);die;
 
 
+                //$email = htmlentities($contact['email']);
+                //$achternaam = htmlentities($contact['achternaam']); //htmlentities beschermt tegen html injectie bij form invoer
+                //$voornaam = htmlentities($contact['voornaam']);
 
-            <div>
-                <h3>Mars</h3>
-                <img src="Images/spaceship.png" alt="">
-                <ul>
-                    <li>motor <button>update</button></li>
-                    <li>brandstof <button>update</button></li>
-                    <li>vleugels <button>update</button></li>
-                </ul>
-            </div>
-            <div>
-                <h3>Jupiter</h3>
-                <img src="Images/spaceship.png" alt="">
-                <ul>
-                    <li>motor <button>update</button></li>
-                    <li>brandstof <button>update</button></li>
-                    <li>vleugels <button>update</button></li>
-                </ul>
-            </div>
-            <div>
-                <h3>Venus</h3>
-                <img src="Images/spaceship.png" alt="">
-                <ul>
-                    <li>motor <button>update</button></li>
-                    <li>brandstof <button>update</button></li>
-                    <li>vleugels <button>update</button></li>
-                </ul>
-            </div>
-            <div>
-                <h3>Mercurius</h3>
-                <img src="Images/spaceship.png" alt="">
-                <ul>
-                    <li>motor <button>update</button></li>
-                    <li>brandstof <button>update</button></li>
-                    <li>vleugels <button>update</button></li>
-                </ul>
-            </div>
-            <div>
-                <h3>Saturnus</h3>
-                <img src="Images/spaceship.png" alt="">
-                <ul>
-                    <li>motor <button>update</button></li>
-                    <li>brandstof <button>update</button></li>
-                    <li>vleugels <button>update</button></li>
-                </ul>
-            </div>
-            <div>
-                <h3>Uranus</h3>
-                <img src="Images/spaceship.png" alt="">
-                <ul>
-                    <li>motor <button>update</button></li>
-                    <li>brandstof <button>update</button></li>
-                    <li>vleugels <button>update</button></li>
-                </ul>
-            </div>
-            <div>
-                <h3>Neptunus</h3>
-                <img src="Images/spaceship.png" alt="">
-                <ul>
-                    <li>motor <button>update</button></li>
-                    <li>brandstof <button>update</button></li>
-                    <li>vleugels <button>update</button></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+
+
+                echo "<li> $shipname</li>";
+
+
+
+
+
+
+            ?>
+
 
 
 
