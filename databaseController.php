@@ -95,8 +95,10 @@ values (:cash)";
         $users = $prepare->fetch();
 
         $users = $users['id'];
+        $_SESSION['id'] = $users['id'];
 
         header( "location: index.php?id=$users");
+        exit;
     }
 
     if ($_POST['type'] === 'mine_mars') {
@@ -137,3 +139,56 @@ values (:cash)";
 
         header("location: index.php?id=$id");
     }
+
+if ($_POST['type'] === 'buy_hispania') {
+
+    $id = $_GET['id'];
+
+    $sql = "UPDATE users SET cash = cash - 60000 WHERE id = :id";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':id' => $id
+    ]);
+
+    $sql1 = "INSERT INTO ships (userid, id) VALUES (:userid, :id)";
+    $prepare = $db->prepare($sql1);
+    $prepare->execute([
+        'userid' => $id,
+        ':id' => '1'
+    ]);
+
+    header("location: index.php?id=$id");
+}
+
+if ($_POST['type'] === 'buy_hunter') {
+
+    $id = $_GET['id'];
+
+    $sql = "UPDATE users SET cash = cash - 80000 WHERE id = :id";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':id' => $id
+    ]);
+
+    header("location: index.php?id=$id");
+}
+
+if ($_POST['type'] === 'buy_millenium') {
+
+    $id = $_GET['id'];
+
+    $sql = "UPDATE users SET cash = cash - 100000 WHERE id = :id";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':id' => $id
+    ]);
+
+    $sql = "UPDATE ships SET userid WHERE id = :id";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':id' => $id
+    ]);
+
+
+    header("location: index.php?id=$id");
+}
