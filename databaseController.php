@@ -2,7 +2,7 @@
 
 require 'config.php';
 
-//session_start();
+session_start();
 
 
  /*   //header('Location: index.php');
@@ -96,6 +96,10 @@ values (:cash)";
 
         $users = $users['id'];
         $_SESSION['id'] = $users['id'];
+        //$_SESSION['username'] = $username;
+        //$_SESSION['commodities'] = $users['commodities'];
+        //$_SESSION['cash'] = $users['cash'];
+        //$_SESSION['loginCheck'] = true;
 
         header( "location: index.php?id=$users");
         exit;
@@ -110,6 +114,8 @@ values (:cash)";
         $prepare->execute([
             ':id' => $id
         ]);
+
+
 
         header("location: index.php?id=$id");
     }
@@ -177,7 +183,40 @@ if ($_POST['type'] === 'buy_millenium') {
 
     $id = $_GET['id'];
 
-    $sql = "UPDATE users SET cash = cash - 100000 WHERE id = :id";
+    $shipname = 'Millenium Falcon';
+
+    $sql2 = "SELECT * FROM users WHERE id = :id";
+    $prepare2 = $db->prepare($sql2);
+    $prepare2->execute([
+        ':id' => $id
+    ]);
+    $users = $prepare2->fetch(PDO::FETCH_ASSOC);
+    //$Name = $users['username'];
+
+    $sql = "INSERT INTO ships ( shipname, userid) 
+        VALUES ( :shipname, :userid)";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        //':Name' => $name,
+        ':shipname' => $shipname,
+        ':userid' => $id,
+    ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*$sql = "UPDATE users SET cash = cash - 100000 WHERE id = :id";
     $prepare = $db->prepare($sql);
     $prepare->execute([
         ':id' => $id
@@ -187,7 +226,7 @@ if ($_POST['type'] === 'buy_millenium') {
     $prepare = $db->prepare($sql);
     $prepare->execute([
         ':id' => $id
-    ]);
+    ]);*/
 
 
     header("location: index.php?id=$id");

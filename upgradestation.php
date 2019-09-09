@@ -1,9 +1,20 @@
 <?php
 require 'header.php';
+$userid = $_GET['id'];
+$sql = "SELECT * FROM ships WHERE id = '$userid'";
+$query = $db->query($sql);
+$ships = $query->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
     <div class="container">
         <div class="upgradestationGrid">
+            <?
+            foreach ($ships as $ship) {
+
+            }
+
+
+
             <div>
                 <h3>Mars</h3>
                 <img src="Images/spaceship.png" alt="">

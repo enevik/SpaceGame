@@ -27,7 +27,7 @@ header div{
 	margin-right: 10px;
 }
 .container{
-	max-width: 80%; 
+	max-width: 80%;
 	margin: 0 auto;
 	min-height: 100%;
 }
@@ -161,7 +161,7 @@ h1 {
 	margin-bottom: 10px;
 }
 
-/*upgradestation*/
+/upgradestation/
 .upgradestationGrid{
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -172,7 +172,7 @@ h1 {
 }
 .upgradestationGrid div img{
 	display: flex;
-	justify-content: center;	
+	justify-content: center;
 	margin: auto;
 }
 .upgradestationGrid div ul {

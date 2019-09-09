@@ -12,15 +12,19 @@ require 'config.php';
 //require 'databaseController.php';
 session_start();
 
+//if(isset($_SESSION['username'])) {
+    $sql = "SELECT * FROM `users`";
+    $query = $db->query($sql);
+    $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
-$sql = "SELECT * FROM `users`";
-$query = $db->query($sql);
-$users = $query->fetchAll(PDO::FETCH_ASSOC);
+//if (session_id()) {
 
-if ( isset($_SESSION['id'] )) {
+    //$id = $_SESSION['id'];
+ //$id = $_GET['id'];
 
-    $id = $_SESSION['id'];
-    // $id = $_GET['id'];
+//}
+
+$id = isset($_GET['id']) ? $_GET['id'] : '';
 
 
     $sql = "SELECT * FROM users WHERE id = :id";
@@ -34,12 +38,43 @@ if ( isset($_SESSION['id'] )) {
     $userid = $prepare->fetch(PDO::FETCH_ASSOC);
 
 
-}
+    //$id = $_SESSION['id'];
 
 
 
 
+
+
+/*$sql = "SELECT * FROM `users`";
+$query = $db->query($sql);
+$users = $query->fetchAll(PDO::FETCH_ASSOC);
+
+//if ( isset($_SESSION['id'] )) {
+
+    $id = $_SESSION['id'];
+    // $id = $_GET['id'];
+
+//}
+
+
+    $sql = "SELECT * FROM users WHERE id = :id";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':id' => $id
+
+    ]);
+
+//$query = $db->query($sql);
+    $userid = $prepare->fetch(PDO::FETCH_ASSOC);
+
+*/
 ?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,12 +94,12 @@ if ( isset($_SESSION['id'] )) {
         </div>
         <div>
             <div class="navbar">
-                <a href="index.php">Home</a>
-                <a href="trading.php">shop</a>
+                <a href="index.php?id=<?=$id?>">Home</a>
+                <a href="trading.php?id=<?=$id?>">shop</a>
 
-                <a href="tasks.php">tasks</a>
-                <a href="upgradestation.php">station</a>
-           <a href="create_login.php">Create new user</a>
+                <a href="tasks.php?id=<?=$id?>">tasks</a>
+                <a href="upgradestation.php?id=<?=$id?>">station</a>
+           <a href="create_login.php?id=<?=$id?>">Create new user</a>
 
 
 
@@ -75,11 +110,18 @@ if ( isset($_SESSION['id'] )) {
 
         <div class="cac">
             <div class="cash">
-                <p>Cash:<?php if ( isset($_SESSION['id'] )) { echo $userid['cash']; }?></p>
+
+
+                    <p>Cash: <?php echo $userid['cash'] ?></p>
+
+
             </div>
 
             <div class="commodities">
-            <p>Commodities:<?php if ( isset($_SESSION['id'] )) { echo $userid['commodities']; }?></p>
+
+                    <p>Commodities: <?php echo $userid['commodities'] ?></strong></p>
+
+
 
         </div>
 
