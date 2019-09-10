@@ -10,9 +10,7 @@ $ships = $query->fetchAll(PDO::FETCH_ASSOC);
 //var_dump($ships);
 
 foreach ($ships as $ship) {
-
     $shipname = htmlentities($ship['shipname']);
-
 }
 
 ?>
@@ -26,15 +24,7 @@ foreach ($ships as $ship) {
                 //$achternaam = htmlentities($contact['achternaam']); //htmlentities beschermt tegen html injectie bij form invoer
                 //$voornaam = htmlentities($contact['voornaam']);
 
-
-
-                echo "<li> $shipname</li>";
-
-
-
-
-
-
+                echo "<li> <p>$shipname </p><img src='Images/falcon_spaceship.png'></li>";
             ?>
 
 
