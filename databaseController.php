@@ -56,6 +56,13 @@ values (:cash)";
             ':id' => $id
         ]);
 
+        $sql2 = "UPDATE users SET commodities = commodities - $length WHERE id = :id";
+        $prepare = $db->prepare($sql2);
+        $prepare->execute([
+            ':id' => $id
+        ]);
+
+
 
         // $realcash += $amount;
 
