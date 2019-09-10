@@ -7,13 +7,13 @@ require 'header.php';
             <div class="personalinformation">
                 <h2>Persoonlijke informatie</h2>
                 <div>
-                    <p>naam</p>
+                    <p>Name: <?php echo $userid['name'] ?></p>
                     <p>schepen</p>
-                    <p>cash</p>
+                    <p>Cash: <?php echo $userid['cash'] ?></p>
                 </div>
             </div>
             <div class="gif">
-                <h2> Hier komt een Gif</h2>
+                <img src="Images/saturnus.gif" alt="hier is een gif van saturnus">
             </div>
             <div class="tasks">
                 <h2>Tasks</h2>
