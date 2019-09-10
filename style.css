@@ -173,7 +173,8 @@ h1 {
 	margin-bottom: 10px;
 }
 
-/upgradestation/
+/*/upgradestation/*/
+
 .upgradestationGrid{
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -189,6 +190,9 @@ h1 {
 }
 .upgradestationGrid div ul {
 	list-style: none;
+}
+.upgradestationGrid li{
+	font-size: 25px;
 }
 
 /*Login/create page*/
