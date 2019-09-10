@@ -1,30 +1,97 @@
 <?php
 require 'header.php';
 $userid = $_GET['id'];
-$sql = "SELECT * FROM ships WHERE userid = $userid";
-$query = $db->query($sql);
-$ships = $query->fetchAll(PDO::FETCH_ASSOC);
 
-//$shipname = $ships['shipname'];
+
+
+/*$sql = "SELECT * FROM ownedships WHERE userid = $userid";
+$query = $db->query($sql);
+$ships = $query->fetchAll(PDO::FETCH_ASSOC);*/
+
+
+$sql5 = " SELECT *  FROM ownedships 
+   LEFT JOIN ships
+     ON ships.id = ownedships.shipid
+ WHERE ownedships.userid = $userid";
+
+//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+$query = $db->query($sql5);
+$shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+/*$sql3 = "SELECT * FROM ownedships WHERE userid=:userid";
+$prepare3 = $db->prepare($sql3);
+$prepare3->execute([
+    ':userid' => $userid
+]);
+
+$ships = $prepare3->fetch();
 
 //var_dump($ships);
 
-foreach ($ships as $ship) {
-    $shipname = htmlentities($ship['shipname']);
-}
+$shipid = $ships['shipid'];
+
+
+/*$sql4 = "SELECT * FROM ships WHERE id=:id";
+$prepare4 = $db->prepare($sql4);
+$prepare4->execute([
+    ':id' => $shipid
+]);*/
+
+/*foreach ($shipid as $shipi) {
+    $sql = "SELECT * FROM ships WHERE id = $shipi";
+    $query = $db->query($sql);
+    $shipinfos = $query->fetch(PDO::FETCH_ASSOC);
+}*/
+
+
+
+
+
+//$shipinfos = $prepare4->fetch();
+
+
+
+
+
+//$shipname = $ships['shipname'];
+
+//var_dump($shipinfos);
+
+
+//echo $shipinfos['shipname'];
+
+//$shipinfos = array();
+
+/*foreach( $shipinfos as $shipinfo)
+{
+
+    echo $shipinfo['shipname'];
+
+    //...
+}*/
+
+
+foreach ($shipinfos as $shipinfo) {
+$shipname = htmlentities($shipinfo['shipname']);
+//echo $shipname;
+
 
 ?>
-    <div class="container">
-        <div class="upgradestationGrid">
-            <?php
-            //var_dump($ships);die;
+<div class="container">
+    <div class="upgradestationGrid">
+        <?php
+        //var_dump($shipname);die;
 
 
-                //$email = htmlentities($contact['email']);
-                //$achternaam = htmlentities($contact['achternaam']); //htmlentities beschermt tegen html injectie bij form invoer
-                //$voornaam = htmlentities($contact['voornaam']);
+        //$email = htmlentities($contact['email']);
+        //$achternaam = htmlentities($contact['achternaam']); //htmlentities beschermt tegen html injectie bij form invoer
+        //$voornaam = htmlentities($contact['voornaam']);
 
-                echo "<li> <p>$shipname </p><img src='Images/falcon_spaceship.png'></li>";
+        echo "<li> <p>$shipname</p><img src='Images/falcon_spaceship.png'></li>";
+        
+        }
             ?>
 
 

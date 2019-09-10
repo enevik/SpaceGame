@@ -131,7 +131,7 @@ values (:cash)";
 
         $id = $_GET['id'];
 
-        $sql = "UPDATE users SET commodities = commodities + 3200 WHERE id = :id";
+        $sql = "UPDATE users  SET commodities = commodities + 3200 WHERE id = :id";
         $prepare = $db->prepare($sql);
         $prepare->execute([
             ':id' => $id
@@ -177,20 +177,7 @@ if ($_POST['type'] === 'buy_hunter') {
 
     $id = $_GET['id'];
 
-    $sql = "UPDATE users SET cash = cash - 80000 WHERE id = :id";
-    $prepare = $db->prepare($sql);
-    $prepare->execute([
-        ':id' => $id
-    ]);
-
-    header("location: index.php?id=$id");
-}
-
-if ($_POST['type'] === 'buy_millenium') {
-
-    $id = $_GET['id'];
-
-    $shipname = 'Millenium Falcon';
+    $shipname = 'Hunter-Gratzner';
 
     $sql2 = "SELECT * FROM users WHERE id = :id";
     $prepare2 = $db->prepare($sql2);
@@ -200,13 +187,66 @@ if ($_POST['type'] === 'buy_millenium') {
     $users = $prepare2->fetch(PDO::FETCH_ASSOC);
     //$Name = $users['username'];
 
-    $sql = "INSERT INTO ships ( shipname, userid) 
-        VALUES ( :shipname, :userid)";
+
+
+    $sql3 = "SELECT * FROM ships WHERE shipname=:shipname";
+    $prepare3 = $db->prepare($sql3);
+    $prepare3->execute([
+        ':shipname' => $shipname
+    ]);
+
+    $shipinfo = $prepare3->fetch();
+
+    $shipid = $shipinfo['id'];
+
+
+    $sql = "INSERT INTO ownedships ( shipid, userid) 
+        VALUES ( :shipid, :userid)";
     $prepare = $db->prepare($sql);
     $prepare->execute([
         //':Name' => $name,
-        ':shipname' => $shipname,
-        ':userid' => $id,
+        ':shipid' => $shipid,
+        ':userid' => $id
+    ]);
+
+
+    header("location: index.php?id=$id");
+}
+
+if ($_POST['type'] === 'buy_millenium') {
+
+    $id = $_GET['id'];
+
+    $shipname = 'Millenium';
+
+    $sql2 = "SELECT * FROM users WHERE id = :id";
+    $prepare2 = $db->prepare($sql2);
+    $prepare2->execute([
+        ':id' => $id
+    ]);
+    $users = $prepare2->fetch(PDO::FETCH_ASSOC);
+    //$Name = $users['username'];
+
+
+
+    $sql3 = "SELECT * FROM ships WHERE shipname=:shipname";
+    $prepare3 = $db->prepare($sql3);
+    $prepare3->execute([
+        ':shipname' => $shipname
+    ]);
+
+    $shipinfo = $prepare3->fetch();
+
+    $shipid = $shipinfo['id'];
+
+
+    $sql = "INSERT INTO ownedships ( shipid, userid) 
+        VALUES ( :shipid, :userid)";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        //':Name' => $name,
+        ':shipid' => $shipid,
+        ':userid' => $id
     ]);
 
 
