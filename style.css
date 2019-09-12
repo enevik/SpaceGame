@@ -72,19 +72,31 @@ body{
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 1fr 1fr;
+	grid-gap: 5px;
 }
-
-.sellmaterial {
-	text-align: center;
+.maingrid div *{
+	padding-left: 15px;
 }
-
+.personalinformation{
+	background: rgba(232,49,49,0.5);
+	border-radius: 15px;
+}
+.tasks{
+	background: rgba(232,49,49,0.5);	
+	border-radius: 	15px;
+}
 .gif{
 	grid-row-start: 1;
 	grid-row-end: 3;
 	grid-column-start: 2;
 	grid-column-end: 3;
-	background-color: black;
-	color: white;
+}
+.gif img{
+	height: auto;
+	width: 100%;
+}
+.sellmaterial {
+	text-align: center;
 }
 footer{
 	display: flex;
@@ -161,7 +173,8 @@ h1 {
 	margin-bottom: 10px;
 }
 
-/upgradestation/
+/*/upgradestation/*/
+
 .upgradestationGrid{
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -177,6 +190,9 @@ h1 {
 }
 .upgradestationGrid div ul {
 	list-style: none;
+}
+.upgradestationGrid li{
+	font-size: 25px;
 }
 
 /*Login/create page*/
@@ -217,4 +233,30 @@ h1 {
 
 .grid-container .grid-item ol {
 	list-style-type: none;
+}
+
+/*upgradestation page*/
+
+.upgradestationGrid{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.upgradestationGrid li{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-decoration: none;
+	text-align: center;
+	background: rgba(232, 49, 49, 0.5);
+	border-radius: 15px;
+	padding: 30px;
+	padding-bottom: 0px;
+}
+.upgradestationGrid{
+	font-size: 1.5em;
+}
+.upgradestationGrid li img{
+	display: flex;
 }

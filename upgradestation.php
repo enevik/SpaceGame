@@ -1,85 +1,185 @@
 <?php
 require 'header.php';
 $userid = $_GET['id'];
-$sql = "SELECT * FROM ships WHERE id = '$userid'";
+
+
+
+/*$sql = "SELECT * FROM ownedships WHERE userid = $userid";
 $query = $db->query($sql);
-$ships = $query->fetchAll(PDO::FETCH_ASSOC);
+$ships = $query->fetchAll(PDO::FETCH_ASSOC);*/
+
+
+$sql5 = " SELECT *  FROM ownedships 
+   LEFT JOIN ships
+     ON ships.id = ownedships.shipid
+ WHERE ownedships.userid = $userid";
+
+//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+$query = $db->query($sql5);
+$shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+/*$sql3 = "SELECT * FROM ownedships WHERE userid=:userid";
+$prepare3 = $db->prepare($sql3);
+$prepare3->execute([
+    ':userid' => $userid
+]);
+
+$ships = $prepare3->fetch();
+
+//var_dump($ships);
+
+$shipid = $ships['shipid'];
+
+
+/*$sql4 = "SELECT * FROM ships WHERE id=:id";
+$prepare4 = $db->prepare($sql4);
+$prepare4->execute([
+    ':id' => $shipid
+]);*/
+
+/*foreach ($shipid as $shipi) {
+    $sql = "SELECT * FROM ships WHERE id = $shipi";
+    $query = $db->query($sql);
+    $shipinfos = $query->fetch(PDO::FETCH_ASSOC);
+}*/
+
+
+
+
+
+//$shipinfos = $prepare4->fetch();
+
+
+
+
+
+//$shipname = $ships['shipname'];
+
+//var_dump($shipinfos);
+
+
+//echo $shipinfos['shipname'];
+
+//$shipinfos = array();
+
+/*foreach( $shipinfos as $shipinfo)
+{
+
+    echo $shipinfo['shipname'];
+
+    //...
+}*/
+
+
+foreach ($shipinfos as $shipinfo) {
+$shipname = htmlentities($shipinfo['shipname']);
+//echo $shipname;
+
 
 ?>
-    <div class="container">
-        <div class="upgradestationGrid">
-            <?
-            foreach ($ships as $ship) {
-
-            }
+<div class="container">
+    <div class="upgradestationGrid">
 
 
+        <?php
+        //var_dump($shipname);die;
 
-            <div>
-                <h3>Mars</h3>
-                <img src="Images/spaceship.png" alt="">
-                <ul>
-                    <li>motor <button>update</button></li>
-                    <li>brandstof <button>update</button></li>
-                    <li>vleugels <button>update</button></li>
-                </ul>
-            </div>
-            <div>
-                <h3>Jupiter</h3>
-                <img src="Images/spaceship.png" alt="">
-                <ul>
-                    <li>motor <button>update</button></li>
-                    <li>brandstof <button>update</button></li>
-                    <li>vleugels <button>update</button></li>
-                </ul>
-            </div>
-            <div>
-                <h3>Venus</h3>
-                <img src="Images/spaceship.png" alt="">
-                <ul>
-                    <li>motor <button>update</button></li>
-                    <li>brandstof <button>update</button></li>
-                    <li>vleugels <button>update</button></li>
-                </ul>
-            </div>
-            <div>
-                <h3>Mercurius</h3>
-                <img src="Images/spaceship.png" alt="">
-                <ul>
-                    <li>motor <button>update</button></li>
-                    <li>brandstof <button>update</button></li>
-                    <li>vleugels <button>update</button></li>
-                </ul>
-            </div>
-            <div>
-                <h3>Saturnus</h3>
-                <img src="Images/spaceship.png" alt="">
-                <ul>
-                    <li>motor <button>update</button></li>
-                    <li>brandstof <button>update</button></li>
-                    <li>vleugels <button>update</button></li>
-                </ul>
-            </div>
-            <div>
-                <h3>Uranus</h3>
-                <img src="Images/spaceship.png" alt="">
-                <ul>
-                    <li>motor <button>update</button></li>
-                    <li>brandstof <button>update</button></li>
-                    <li>vleugels <button>update</button></li>
-                </ul>
-            </div>
-            <div>
-                <h3>Neptunus</h3>
-                <img src="Images/spaceship.png" alt="">
-                <ul>
-                    <li>motor <button>update</button></li>
-                    <li>brandstof <button>update</button></li>
-                    <li>vleugels <button>update</button></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+
+
+
+
+
+
+        if ($shipname == 'Millenium') {
+
+            echo "<li> <p>$shipname</p><img src='Images/falcon_spaceship.png'></li>";
+
+
+            echo     "<div class='button'>
+                <form action='databaseController.php?id={$id}' method='post'>
+                    <input type='hidden' name='type' value='upgrade_millenium_engine'>
+                    <input type='submit' value='Upgrade Engine'>
+                </form>
+            </div>";
+
+            echo     "<div class='button'>
+                <form action='databaseController.php?id={$id}' method='post'>
+                    <input type='hidden' name='type' value='upgrade_millenium_cargo'>
+                    <input type='submit' value='Upgrade Cargo hold'>
+                </form>
+            </div>";
+
+        }
+
+        if ($shipname == 'Hispenia') {
+
+            echo "<li> <p>$shipname</p><img src='Images/falcon_spaceship.png'></li>";
+
+
+            echo     "<div class='button'>
+                <form action='databaseController.php?id={$id}' method='post'>
+                    <input type='hidden' name='type' value='upgrade_hispenia_engine'>
+                    <input type='submit' value='Upgrade Engine'>
+                </form>
+            </div>";
+
+            echo     "<div class='button'>
+                <form action='databaseController.php?id={$id}' method='post'>
+                    <input type='hidden' name='type' value='upgrade_hispenia_cargo'>
+                    <input type='submit' value='Upgrade Cargo hold'>
+                </form>
+            </div>";
+
+
+
+
+
+        }
+
+
+        if ($shipname == 'Hunter-Gratzner') {
+
+
+
+            echo "<li> <p>$shipname</p><img src='Images/falcon_spaceship.png'></li>";
+
+
+            echo     "<div class='button'>
+                <form action='databaseController.php?id={$id}' method='post'>
+                    <input type='hidden' name='type' value='upgrade_hunter_engine'>
+                    <input type='submit' value='Upgrade Engine'>
+                </form>
+            </div>";
+
+            echo     "<div class='button'>
+                <form action='databaseController.php?id={$id}' method='post'>
+                    <input type='hidden' name='type' value='upgrade_hunter_cargo'>
+                    <input type='submit' value='Upgrade Cargo hold'>
+                </form>
+            </div>";
+
+
+
+        }
+
+
+
+        }
+?>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
