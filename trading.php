@@ -59,7 +59,7 @@ $contact = $prepare->fetch(PDO::FETCH_ASSOC);
             <h2>Hispenia</h2>
         </div>
         <div class="image">
-            <img src="images/mars-image.png" alt="Image of Mars">
+            <img src="Images/hispenia.png" alt="Image of Mars">
         </div>
         <div class="info">
             <h3>Informatie over schip</h3>
@@ -88,7 +88,7 @@ $contact = $prepare->fetch(PDO::FETCH_ASSOC);
             <h2>Hunter-Gratzner</h2>
         </div>
         <div class="image">
-            <img src="images/jupiter-image.png" alt="Image of Mars">
+            <img src="images/Hunter-Gratzner.png" alt="Image of Mars">
         </div>
         <div class="info">
             <h3>Informatie over schip</h3>
@@ -117,7 +117,7 @@ $contact = $prepare->fetch(PDO::FETCH_ASSOC);
             <h2>Millenium Falcon</h2>
         </div>
         <div class="image">
-            <img src="images/saturnus-image.png" alt="Image of Mars">
+            <img src="images/falcon_spaceship.png" alt="Image of falcon (spaceship)">
         </div>
         <div class="info">
             <h3>Informatie over schip</h3>

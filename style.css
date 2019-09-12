@@ -193,6 +193,20 @@ h1 {
 }
 .upgradestationGrid li{
 	font-size: 25px;
+	margin: 5px;
+}
+.button form input{
+	border: none;
+    border-radius: 15px;
+    background-color: red;
+    color: white;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin: 5px;
+}
+.Hunter-Gratzner{
+	width: 420px;
+	height: auto;
 }
 
 /*Login/create page*/
