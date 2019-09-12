@@ -10,7 +10,7 @@
 
 require 'config.php';
 //require 'databaseController.php';
-session_start();
+
 
 //if(isset($_SESSION['username'])) {
     $sql = "SELECT * FROM `users`";
@@ -100,6 +100,7 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
                 <a href="tasks.php?id=<?=$id?>">tasks</a>
                 <a href="upgradestation.php?id=<?=$id?>">station</a>
            <a href="create_login.php?id=<?=$id?>">Create new user</a>
+                <a href="leaderbord.php">Leaderbord</a>
 
 
 

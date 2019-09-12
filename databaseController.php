@@ -2,7 +2,7 @@
 
 require 'config.php';
 
-session_start();
+
 
 
  /*   //header('Location: index.php');
@@ -106,18 +106,36 @@ values (:cash)";
     }
 
     if ($_POST['type'] === 'mine_mars') {
+        session_start();
 
-        $id = $_GET['id'];
+        if (!isset($_SESSION['countdown'])) {
+            $_SESSION['countdown'] = 5;
+            $_SESSION['time_started'] = time();
+        }
 
-        $sql = "UPDATE users SET commodities = commodities + 1200 WHERE id = :id";
-        $prepare = $db->prepare($sql);
-        $prepare->execute([
-            ':id' => $id
-        ]);
+        $now = time();
+        $timeSince = $now - $_SESSION['time_started'];
+        $remainingSeconds = abs($_SESSION['countdown']);
+
+
+        if ($remainingSeconds < 1) {
+            $id = $_GET['id'];
+
+            $sql = "UPDATE users SET commodities = commodities + 1200 WHERE id = :id";
+            $prepare = $db->prepare($sql);
+            $prepare->execute([
+                ':id' => $id
+            ]);
+            header("location: index.php?id=$id");
+        }
 
 
 
-        header("location: index.php?id=$id");
+
+
+
+
+        exit;
     }
 
     if ($_POST['type'] === 'mine_jupiter') {
