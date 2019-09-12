@@ -81,18 +81,104 @@ $shipname = htmlentities($shipinfo['shipname']);
 ?>
 <div class="container">
     <div class="upgradestationGrid">
+
+
         <?php
         //var_dump($shipname);die;
 
 
-        //$email = htmlentities($contact['email']);
-        //$achternaam = htmlentities($contact['achternaam']); //htmlentities beschermt tegen html injectie bij form invoer
-        //$voornaam = htmlentities($contact['voornaam']);
 
-        echo "<li> <p>$shipname</p><img src='Images/falcon_spaceship.png'></li>";
-        
+
+
+
+
+        if ($shipname == 'Millenium') {
+
+            echo "<li> <p>$shipname</p><img src='Images/falcon_spaceship.png'></li>";
+
+
+            echo     "<div class='button'>
+                <form action='databaseController.php?id={$id}' method='post'>
+                    <input type='hidden' name='type' value='upgrade_millenium_engine'>
+                    <input type='submit' value='Upgrade Engine'>
+                </form>
+            </div>";
+
+            echo     "<div class='button'>
+                <form action='databaseController.php?id={$id}' method='post'>
+                    <input type='hidden' name='type' value='upgrade_millenium_cargo'>
+                    <input type='submit' value='Upgrade Cargo hold'>
+                </form>
+            </div>";
+
         }
-            ?>
+
+        if ($shipname == 'Hispenia') {
+
+            echo "<li> <p>$shipname</p><img src='Images/falcon_spaceship.png'></li>";
+
+
+            echo     "<div class='button'>
+                <form action='databaseController.php?id={$id}' method='post'>
+                    <input type='hidden' name='type' value='upgrade_hispenia_engine'>
+                    <input type='submit' value='Upgrade Engine'>
+                </form>
+            </div>";
+
+            echo     "<div class='button'>
+                <form action='databaseController.php?id={$id}' method='post'>
+                    <input type='hidden' name='type' value='upgrade_hispenia_cargo'>
+                    <input type='submit' value='Upgrade Cargo hold'>
+                </form>
+            </div>";
+
+
+
+
+
+        }
+
+
+        if ($shipname == 'Hunter-Gratzner') {
+
+
+
+            echo "<li> <p>$shipname</p><img src='Images/falcon_spaceship.png'></li>";
+
+
+            echo     "<div class='button'>
+                <form action='databaseController.php?id={$id}' method='post'>
+                    <input type='hidden' name='type' value='upgrade_hunter_engine'>
+                    <input type='submit' value='Upgrade Engine'>
+                </form>
+            </div>";
+
+            echo     "<div class='button'>
+                <form action='databaseController.php?id={$id}' method='post'>
+                    <input type='hidden' name='type' value='upgrade_hunter_cargo'>
+                    <input type='submit' value='Upgrade Cargo hold'>
+                </form>
+            </div>";
+
+
+
+        }
+
+
+
+        }
+?>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
