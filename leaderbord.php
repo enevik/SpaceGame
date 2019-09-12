@@ -8,7 +8,7 @@
 
 require 'header.php';
 
-$sql = "SELECT * from users";
+$sql = "SELECT * from users ORDER BY cash DESC";
 $query = $db->query($sql);
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
