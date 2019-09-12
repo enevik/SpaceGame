@@ -100,7 +100,7 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
                 <a href="tasks.php?id=<?=$id?>">tasks</a>
                 <a href="upgradestation.php?id=<?=$id?>">station</a>
            <a href="create_login.php?id=<?=$id?>">Create new user</a>
-                <a href="leaderbord.php">Leaderbord</a>
+                <a href="leaderbord.php?id=<?=$id?>">Leaderbord</a>
 
 
 
