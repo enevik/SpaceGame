@@ -1,6 +1,8 @@
 <?php
 require 'header.php';
-$userid = $_GET['id'];
+//$userid = $_GET['id'];
+
+$userid = isset($_GET['id']) ? $_GET['id'] : '';
 
 
 
@@ -8,6 +10,7 @@ $userid = $_GET['id'];
 $query = $db->query($sql);
 $ships = $query->fetchAll(PDO::FETCH_ASSOC);*/
 
+if($userid) {
 
 $sql5 = " SELECT *  FROM ownedships 
    LEFT JOIN ships
@@ -17,7 +20,6 @@ $sql5 = " SELECT *  FROM ownedships
 //$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
 $query = $db->query($sql5);
 $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
-
 
 
 /*$sql3 = "SELECT * FROM ownedships WHERE userid=:userid";
@@ -46,13 +48,7 @@ $prepare4->execute([
 }*/
 
 
-
-
-
 //$shipinfos = $prepare4->fetch();
-
-
-
 
 
 //$shipname = $ships['shipname'];
@@ -73,7 +69,9 @@ $prepare4->execute([
 }*/
 
 
-foreach ($shipinfos as $shipinfo) {
+foreach ($shipinfos
+
+as $shipinfo) {
 $shipname = htmlentities($shipinfo['shipname']);
 //echo $shipname;
 
@@ -145,6 +143,7 @@ $shipname = htmlentities($shipinfo['shipname']);
                     </form>
                 </div>
             </li>";
+        }
         }
         }
 ?>

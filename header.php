@@ -35,7 +35,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
     ]);
 
 //$query = $db->query($sql);
-    $userid = $prepare->fetch(PDO::FETCH_ASSOC);
+    $userinfo = $prepare->fetch(PDO::FETCH_ASSOC);
 
 
     //$id = $_SESSION['id'];
@@ -113,14 +113,14 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
             <div class="cash">
 
 
-                    <p>Cash: <?php echo $userid['cash'] ?></p>
+                    <p>Cash: <?php echo $userinfo['cash'] ?></p>
 
 
             </div>
 
             <div class="commodities">
 
-                    <p>Commodities: <?php echo $userid['commodities'] ?></strong></p>
+                    <p>Commodities: <?php echo $userinfo['commodities'] ?></strong></p>
 
 
 
