@@ -78,7 +78,7 @@ $contact = $prepare->fetch(PDO::FETCH_ASSOC);
         <div class="button">
             <form action="databaseController.php?id=<?=$id?>" method="post">
                 <input type="hidden" name="type" value="buy_hispenia">
-                <input type="submit" value="Mine">
+                <input type="submit" value="Buy">
             </form>
         </div>
     </div>
@@ -107,7 +107,7 @@ $contact = $prepare->fetch(PDO::FETCH_ASSOC);
         <div class="button">
             <form action="databaseController.php?id=<?=$id?>" method="post">
                 <input type="hidden" name="type" value="buy_hunter">
-                <input type="submit" value="Mine">
+                <input type="submit" value="Buy">
             </form>
         </div>
     </div>
@@ -136,7 +136,7 @@ $contact = $prepare->fetch(PDO::FETCH_ASSOC);
         <div class="button">
             <form action="databaseController.php?id=<?=$id?>" method="post">
                 <input type="hidden" name="type" value="buy_millenium">
-                <input type="submit" value="Mine">
+                <input type="submit" value="Buy">
             </form>
         </div>
     </div>

@@ -14,10 +14,51 @@ $query = $db->query($sql);
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 /**/
-    
 
 
-//if($_SERVER['REQUEST_METHOD'] != 'POST') {
+
+
+
+
+
+if ($_POST['type'] == 'business') {
+
+
+    $id = $_GET['id'];
+
+
+
+    $sql = 'UPDATE users SET
+              cash      = cash + 1000
+            WHERE id = :id';
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        //':cash' => $add,
+        ':id' => $id
+    ]);
+
+    $messages = array(
+        'Transferred passangers of spacebus',
+        'Traded commodities for more valuable ones',
+        'Fixed someone their ship'
+    );
+
+    $alert = $messages[rand(0, count($messages) - 1)];
+
+    echo "<script>
+        alert('$alert');
+        window.location.href='index.php?id=$id';
+        </script>";
+    exit;
+
+
+
+}
+
+
+
+
+
     if ($_POST['type'] == 'material') {
 
         $id = $_GET['id'];
@@ -117,17 +158,78 @@ values (:cash)";
     if ($_POST['type'] === 'mine_mars') {
         session_start();
 
-        if (!isset($_SESSION['countdown'])) {
+        $id = $_GET['id'];
+
+        $sql3 = "UPDATE users SET duration = 30 WHERE id = :id";
+        $prepare3 = $db->prepare($sql3);
+        $prepare3->execute([
+            ':id' => $id
+        ]);
+
+        $duration="";
+        //$id = 1;
+
+        $sql = "SELECT * FROM `users` WHERE id=$id";
+        $query = $db->query($sql);
+
+
+        while($users = $query->fetch(PDO::FETCH_ASSOC))
+        {
+            $duration=$users["duration"];
+        }
+
+        $_SESSION["duration"]=$duration;
+
+        $_SESSION["start_time"]=date("Y-m-d H:i:s");
+
+        $end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$_SESSION["duration"].'minutes', strtotime($_SESSION["start_time"])));
+
+
+        $_SESSION["end_time"]=$end_time;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        echo "<script>
+        //alert('Je hebt te weinig geld');
+        window.location.href='time.php';
+        </script>";
+        exit;
+
+
+
+
+
+
+
+
+
+
+
+        /*if (!isset($_SESSION['countdown'])) {
             $_SESSION['countdown'] = 5;
             $_SESSION['time_started'] = time();
         }
 
         $now = time();
         $timeSince = $now - $_SESSION['time_started'];
-        $remainingSeconds = abs($_SESSION['countdown']);
+        $remainingSeconds = abs($_SESSION['countdown']);*/
 
 
-        if ($remainingSeconds < 1) {
+        //if ($remainingSeconds < 1) {
             $id = $_GET['id'];
 
             $sql = "UPDATE users SET commodities = commodities + 1200 WHERE id = :id";
@@ -135,8 +237,15 @@ values (:cash)";
             $prepare->execute([
                 ':id' => $id
             ]);
-            header("location: index.php?id=$id");
-        }
+
+
+
+
+            //header("location: index.php?id=$id");
+        //}
+
+
+
 
 
 

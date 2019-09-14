@@ -1,9 +1,32 @@
+
+
+
 <?php
 require 'header.php';
 //$userid = $_GET['id'];
 
+
+
+
+
+
+
+
+
 $userid = isset($_GET['id']) ? $_GET['id'] : '';
 
+$id = $_GET['id'];
+
+
+?>
+<div class="button">
+    <form action="databaseController.php?id=<?=$id?>" method="post">
+        <input type="hidden" name="type" value="business">
+        <input type="submit" value="Make trades">
+    </form>
+</div>
+
+<?php
 
 
 /*$sql = "SELECT * FROM ownedships WHERE userid = $userid";
@@ -67,6 +90,8 @@ $prepare4->execute([
 
     //...
 }*/
+
+
 
 
 foreach ($shipinfos
@@ -148,4 +173,5 @@ $shipname = htmlentities($shipinfo['shipname']);
         }
 ?>
     </div>
+
 </div>
