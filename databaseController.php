@@ -5,6 +5,7 @@ require 'config.php';
 
 
 
+
  /*   //header('Location: index.php');
     exit;
 }*/
@@ -160,7 +161,26 @@ values (:cash)";
 
         $id = $_GET['id'];
 
-        $sql3 = "UPDATE users SET duration = 30 WHERE id = :id";
+        $shipnamee=$_POST['shipchoice'];
+
+       // $waittime;
+
+
+        if($shipnamee == 3) {
+            $waittime = 10;
+
+
+
+        }
+        if($shipnamee == 1) {
+            $waittime = 30;
+            //$_SESSION['waittime'] = $waittime;
+
+
+
+        }
+
+        $sql3 = "UPDATE users SET duration = $waittime WHERE id = :id";
         $prepare3 = $db->prepare($sql3);
         $prepare3->execute([
             ':id' => $id
