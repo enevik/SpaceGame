@@ -19,11 +19,13 @@ $id = $_GET['id'];
 
 
 ?>
-<div class="button">
-    <form action="databaseController.php?id=<?=$id?>" method="post">
-        <input type="hidden" name="type" value="business">
-        <input type="submit" value="Make trades">
-    </form>
+<div class="upgradestationstyle">
+    <div class="button">
+        <form action="databaseController.php?id=<?=$id?>" method="post">
+            <input type="hidden" name="type" value="business">
+            <input type="submit" value="Make trades">
+        </form>
+    </div>
 </div>
 
 <?php

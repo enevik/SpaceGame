@@ -283,3 +283,11 @@ h1 {
 	padding-top: 25px;
 	padding-bottom: 25px;
 }
+
+.upgradestationstyle input[type=submit] {
+	border: none;
+	border-radius: 15px;
+	padding: 15px 32px;
+	background: #ed2f2f;
+	margin: 5px;
+}
