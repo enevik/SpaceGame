@@ -1,13 +1,22 @@
 <?php
 require 'header.php';
+session_start();
+
+
+
+
 
 $userid = isset($_GET['id']) ? $_GET['id'] : '';
+
+
 
 
 
 /*$sql = "SELECT * FROM ownedships WHERE userid = $userid";
 $query = $db->query($sql);
 $ships = $query->fetchAll(PDO::FETCH_ASSOC);*/
+
+
 
 if($userid) {
 
@@ -73,8 +82,119 @@ if($userid) {
 
 
         ?>
+    <div id="response">Mars</div>
 
-        <div class="container">
+    <script type="text/javascript">
+
+        setInterval(function () {
+
+            var xmlhtpp = new XMLHttpRequest();
+            xmlhtpp.open("GET", "response.php", false);
+            xmlhtpp.send(null);
+            document.getElementById("response").innerHTML = xmlhtpp.responseText;
+
+
+
+
+
+
+
+
+        },1000)
+
+
+
+
+
+    </script>
+
+    <div id="response2">Jupiter</div>
+
+    <script type="text/javascript">
+
+        setInterval(function () {
+
+            var xmlhtpp = new XMLHttpRequest();
+            xmlhtpp.open("GET", "response2.php", false);
+            xmlhtpp.send(null);
+            document.getElementById("response2").innerHTML = xmlhtpp.responseText;
+
+
+
+
+
+
+        },1000)
+
+
+
+
+
+
+    </script>
+
+
+    <div id="response3">Saturnus</div>
+
+    <script type="text/javascript">
+
+
+
+        setInterval(function () {
+
+
+            var xmlhtpp = new XMLHttpRequest();
+            xmlhtpp.open("GET", "response3.php?id=<?=$id?>", false);
+            xmlhtpp.send(null);
+            document.getElementById("response3").innerHTML = xmlhtpp.responseText;
+
+            if (xmlhtpp <= 0) {
+
+                clearInterval(timer);
+                document.getElementById('countdown').innerHTML = 'EXPIRED!';
+
+                return;
+            }
+
+
+
+
+
+
+        },1000)
+
+    </script>
+
+    <div id="responseTrade">Trades</div>
+
+    <script type="text/javascript">
+
+
+
+        setInterval(function () {
+
+            var xmlhtpp = new XMLHttpRequest();
+            xmlhtpp.open("GET", "responseTrades.php", false);
+            xmlhtpp.send(null);
+            document.getElementById("responseTrade").innerHTML = xmlhtpp.responseText;
+
+
+
+
+
+
+        },1000)
+
+    </script>
+
+
+
+
+
+
+
+
+    <div class="container">
             <div class="maingrid">
                 <div class="personalinformation">
                     <h2>Persoonlijke informatie</h2>

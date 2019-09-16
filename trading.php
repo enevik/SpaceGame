@@ -11,6 +11,8 @@ require 'header.php';
 $id = $_GET['id'];
 
 
+
+
 $sql = "SELECT * FROM users WHERE id = :id";
 $prepare = $db->prepare($sql);
 $prepare->execute([

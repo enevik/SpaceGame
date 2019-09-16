@@ -23,9 +23,53 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
 if ($_POST['type'] == 'business') {
-
+    session_start();
 
     $id = $_GET['id'];
+
+    $sql3 = "UPDATE users SET duration = 1440 WHERE id = :id";
+    $prepare3 = $db->prepare($sql3);
+    $prepare3->execute([
+        ':id' => $id
+    ]);
+
+    $duration="";
+    //$id = 1;
+
+    $sql = "SELECT * FROM `users` WHERE id=$id";
+    $query = $db->query($sql);
+
+
+    while($users = $query->fetch(PDO::FETCH_ASSOC))
+    {
+        $duration=$users["duration"];
+    }
+
+    $_SESSION["duration"]=$duration;
+
+    $_SESSION["start_time"]=date("Y-m-d H:i:s");
+
+    $end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$_SESSION["duration"].'minutes', strtotime($_SESSION["start_time"])));
+
+
+    $_SESSION["end_timeTrade"]=$end_time;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -47,10 +91,13 @@ if ($_POST['type'] == 'business') {
     $alert = $messages[rand(0, count($messages) - 1)];
 
     echo "<script>
+        //alert('Je hebt te weinig geld');
         alert('$alert');
         window.location.href='index.php?id=$id';
         </script>";
     exit;
+
+
 
 
 
@@ -118,7 +165,7 @@ values (:cash)";
 //}
 
 
-    if ($_POST['type'] === 'createuser') {
+    if ($_POST['type'] == 'createuser') {
         $username = $_POST['username'];
         $cash = 5000;
 
@@ -133,7 +180,8 @@ values (:cash)";
         exit;
     }
 
-    if ($_POST['type'] === 'loginuser') {
+    if ($_POST['type'] == 'loginuser') {
+        session_start();
 
         $username = $_POST['username'];
 
@@ -167,13 +215,22 @@ values (:cash)";
 
 
         if($shipnamee == 3) {
-            $waittime = 10;
+            $waittime = 1;
 
 
 
         }
         if($shipnamee == 1) {
-            $waittime = 30;
+            $waittime = 5;
+            //$_SESSION['waittime'] = $waittime;
+
+
+
+        }
+
+
+        if($shipnamee == 2) {
+            $waittime = 3;
             //$_SESSION['waittime'] = $waittime;
 
 
@@ -205,6 +262,7 @@ values (:cash)";
         $end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$_SESSION["duration"].'minutes', strtotime($_SESSION["start_time"])));
 
 
+
         $_SESSION["end_time"]=$end_time;
 
 
@@ -212,6 +270,7 @@ values (:cash)";
 
 
 
+        //header("location: tasks.php?id=$id");
 
 
 
@@ -223,11 +282,6 @@ values (:cash)";
 
 
 
-        echo "<script>
-        //alert('Je hebt te weinig geld');
-        window.location.href='time.php';
-        </script>";
-        exit;
 
 
 
@@ -250,18 +304,11 @@ values (:cash)";
 
 
         //if ($remainingSeconds < 1) {
-            $id = $_GET['id'];
-
-            $sql = "UPDATE users SET commodities = commodities + 1200 WHERE id = :id";
-            $prepare = $db->prepare($sql);
-            $prepare->execute([
-                ':id' => $id
-            ]);
 
 
 
 
-            //header("location: index.php?id=$id");
+            header("location: index.php?id=$id");
         //}
 
 
@@ -278,7 +325,85 @@ values (:cash)";
 
     if ($_POST['type'] === 'mine_jupiter') {
 
+
+
+        session_start();
+
         $id = $_GET['id'];
+
+        $shipnamee=$_POST['shipchoice'];
+
+        // $waittime;
+
+
+        if($shipnamee == 3) {
+            $waittime = 2;
+
+
+
+        }
+        if($shipnamee == 1) {
+            $waittime = 10;
+            //$_SESSION['waittime'] = $waittime;
+
+
+
+        }
+
+        if($shipnamee == 2) {
+            $waittime = 6;
+            //$_SESSION['waittime'] = $waittime;
+
+
+
+        }
+
+
+
+
+
+        $sql3 = "UPDATE users SET duration = $waittime WHERE id = :id";
+        $prepare3 = $db->prepare($sql3);
+        $prepare3->execute([
+            ':id' => $id
+        ]);
+
+        $duration="";
+        //$id = 1;
+
+        $sql = "SELECT * FROM `users` WHERE id=$id";
+        $query = $db->query($sql);
+
+
+        while($users = $query->fetch(PDO::FETCH_ASSOC))
+        {
+            $duration=$users["duration"];
+        }
+
+        $_SESSION["duration"]=$duration;
+
+        $_SESSION["start_time"]=date("Y-m-d H:i:s");
+
+        $end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$_SESSION["duration"].'minutes', strtotime($_SESSION["start_time"])));
+
+
+
+
+        $_SESSION["end_time2"]=$end_time;
+
+
+
+
+
+
+        //header("location: tasks.php?id=$id");
+
+
+
+
+
+
+
 
         $sql = "UPDATE users  SET commodities = commodities + 3200 WHERE id = :id";
         $prepare = $db->prepare($sql);
@@ -291,7 +416,73 @@ values (:cash)";
 
     if ($_POST['type'] === 'mine_saturnus') {
 
+        session_start();
+
         $id = $_GET['id'];
+
+        $shipnamee=$_POST['shipchoice'];
+
+        // $waittime;
+
+
+        if($shipnamee == 3) {
+            $waittime = 3;
+
+
+
+        }
+        if($shipnamee == 1) {
+            $waittime = 15;
+            //$_SESSION['waittime'] = $waittime;
+
+
+
+        }
+
+        if($shipnamee == 2) {
+            $waittime = 9;
+            //$_SESSION['waittime'] = $waittime;
+
+
+
+        }
+
+
+
+
+
+        $sql3 = "UPDATE users SET duration = $waittime WHERE id = :id";
+        $prepare3 = $db->prepare($sql3);
+        $prepare3->execute([
+            ':id' => $id
+        ]);
+
+        $duration="";
+        //$id = 1;
+
+        $sql = "SELECT * FROM `users` WHERE id=$id";
+        $query = $db->query($sql);
+
+
+        while($users = $query->fetch(PDO::FETCH_ASSOC))
+        {
+            $duration=$users["duration"];
+        }
+
+        $_SESSION["duration"]=$duration;
+
+        $_SESSION["start_time"]=date("Y-m-d H:i:s");
+
+        $end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$_SESSION["duration"].'minutes', strtotime($_SESSION["start_time"])));
+
+
+
+
+        $_SESSION["end_time3"]=$end_time;
+
+
+
+
 
         $sql = "UPDATE users SET commodities = commodities + 4800 WHERE id = :id";
         $prepare = $db->prepare($sql);
@@ -317,6 +508,8 @@ if ($_POST['type'] === 'buy_hispenia') {
     $userid = $prepare->fetch(PDO::FETCH_ASSOC);
 
 
+
+
     if($userid['cash'] < 60000) {
         echo "<script>
         alert('Je hebt te weinig geld');
@@ -324,6 +517,32 @@ if ($_POST['type'] === 'buy_hispenia') {
         </script>";
         exit;
     }
+
+    $sql5 = " SELECT *  FROM ownedships 
+   LEFT JOIN ships
+     ON ships.id = ownedships.shipid
+ WHERE ownedships.userid = $id";
+
+//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+    $query = $db->query($sql5);
+    $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($shipinfos
+
+             as $shipinfo) {
+        $usership = htmlentities($shipinfo['shipname']);
+//echo $shipname;
+    }
+
+
+
+        if($usership == 'Hispenia') {
+            echo "<script>
+        alert('Je hebt dit schip al');
+        window.location.href='trading.php?id=$id';
+        </script>";
+            exit;
+        }
 
 
 

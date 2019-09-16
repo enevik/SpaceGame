@@ -14,6 +14,8 @@ $userid = isset($_GET['id']) ? $_GET['id'] : '';
 
 
 
+
+
 if($userid) {
 
     $sql5 = " SELECT *  FROM ownedships 
@@ -127,7 +129,7 @@ if($userid) {
 
 
             <div class="button">
-               
+
                 <form action="databaseController.php?id=<?= $id ?>" method="post">
                     <select name="shipchoice">
                         <?php
@@ -146,8 +148,8 @@ if($userid) {
 
                         ?>
                     </select>
-
-
+                    
+                    
                     <input type="hidden" name="type" value="mine_jupiter">
                     <input type="submit" value="Mine">
                 </form>
@@ -183,6 +185,27 @@ if($userid) {
             </div>
             <div class="button">
                 <form action="databaseController.php?id=<?= $id ?>" method="post">
+                    <select name="shipchoice">
+                        <?php
+                        //session_start();
+                        foreach ($shipinfos
+
+                                 as $shipinfo) {
+
+                            echo "<option value=".$shipinfo['id'].">".$shipinfo['shipname']."</option>";
+                        }
+                        //$waittime = 0;
+
+                        // $_SESSION['shipname']=$shipinfo['shipname'];
+                        //$country = $_POST['country'];
+
+
+                        ?>
+                    </select>
+
+
+
+
                     <input type="hidden" name="type" value="mine_saturnus">
                     <input type="submit" value="Mine">
                 </form>
