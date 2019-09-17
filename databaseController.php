@@ -17,6 +17,32 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
 /**/
 
 
+if($_POST['type'] == 'create') {
+
+
+    $shipname = $_POST['shipname'];
+    $price = $_POST['price'];
+    $description = $_POST['description'];
+    $image = $_POST['image'];
+    $time = $_POST['timechoice'];
+
+
+    $sql = $db->prepare('INSERT INTO ships (shipname, price, description, shippic, joblength) 
+        VALUES ( :shipname, :price, :description, :shippic, :joblength)');
+
+
+//$prepare = $db->prepare($sql);
+
+    $sql->execute([
+        ':shipname' => $shipname,
+        ':price' => $price,
+        ':description' => $description,
+        ':shippic' => $image,
+        ':joblength' => $time
+
+    ]);
+
+}
 
 
 
@@ -209,39 +235,60 @@ values (:cash)";
 
         $id = $_GET['id'];
 
-        $shipnamee=$_POST['shipchoice'];
+        $shipid=$_POST['shipchoice'];
 
        // $waittime;
 
+        $sql = "SELECT * FROM ships WHERE id = :shipid";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':shipid' => $shipid
 
-        if($shipnamee == 3) {
-            $waittime = 1;
-
-
-
-        }
-        if($shipnamee == 1) {
-            $waittime = 5;
-            //$_SESSION['waittime'] = $waittime;
-
-
-
-        }
-
-
-        if($shipnamee == 2) {
-            $waittime = 3;
-            //$_SESSION['waittime'] = $waittime;
-
-
-
-        }
-
-        $sql3 = "UPDATE users SET duration = $waittime WHERE id = :id";
-        $prepare3 = $db->prepare($sql3);
-        $prepare3->execute([
-            ':id' => $id
         ]);
+
+//$query = $db->query($sql);
+        $shipnames = $prepare->fetchAll(PDO::FETCH_ASSOC);
+
+        //var_dump($shipnames); die;
+
+        foreach ($shipnames as $shipname) {
+            $joblength = $shipname['joblength'];
+
+
+            //var_dump($joblength);
+            $length = round($joblength / 7); // 3
+
+
+            /*if($shipnamee == 3) {
+                $waittime = 1;
+
+
+
+            }
+            if($shipnamee == 1) {
+                $waittime = 5;
+                //$_SESSION['waittime'] = $waittime;
+
+
+
+            }
+
+
+            if($shipnamee == 2) {
+                $waittime = 3;
+                //$_SESSION['waittime'] = $waittime;
+
+
+
+            }*/
+
+            $sql3 = "UPDATE users SET duration = $length WHERE id = :id";
+            $prepare3 = $db->prepare($sql3);
+            $prepare3->execute([
+                ':id' => $id
+            ]);
+
+        }
 
         $duration="";
         //$id = 1;
@@ -331,42 +378,61 @@ values (:cash)";
 
         $id = $_GET['id'];
 
-        $shipnamee=$_POST['shipchoice'];
+        $shipid=$_POST['shipchoice'];
 
         // $waittime;
 
 
-        if($shipnamee == 3) {
-            $waittime = 2;
+        $sql = "SELECT * FROM ships WHERE id = :shipid";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':shipid' => $shipid
 
-
-
-        }
-        if($shipnamee == 1) {
-            $waittime = 10;
-            //$_SESSION['waittime'] = $waittime;
-
-
-
-        }
-
-        if($shipnamee == 2) {
-            $waittime = 6;
-            //$_SESSION['waittime'] = $waittime;
-
-
-
-        }
-
-
-
-
-
-        $sql3 = "UPDATE users SET duration = $waittime WHERE id = :id";
-        $prepare3 = $db->prepare($sql3);
-        $prepare3->execute([
-            ':id' => $id
         ]);
+
+//$query = $db->query($sql);
+        $shipnames = $prepare->fetchAll(PDO::FETCH_ASSOC);
+
+        //var_dump($shipnames); die;
+
+        foreach ($shipnames as $shipname) {
+            $joblength = $shipname['joblength'];
+
+
+            //var_dump($joblength);
+            $length = round($joblength / 5); // 3
+
+
+            /*if($shipnamee == 3) {
+                $waittime = 2;
+
+
+
+            }
+            if($shipnamee == 1) {
+                $waittime = 10;
+                //$_SESSION['waittime'] = $waittime;
+
+
+
+            }
+
+            if($shipnamee == 2) {
+                $waittime = 6;
+                //$_SESSION['waittime'] = $waittime;
+
+
+
+            }*/
+
+
+            $sql3 = "UPDATE users SET duration = $length WHERE id = :id";
+            $prepare3 = $db->prepare($sql3);
+            $prepare3->execute([
+                ':id' => $id
+            ]);
+
+        }
 
         $duration="";
         //$id = 1;
@@ -420,43 +486,60 @@ values (:cash)";
 
         $id = $_GET['id'];
 
-        $shipnamee=$_POST['shipchoice'];
+        $shipid=$_POST['shipchoice'];
 
         // $waittime;
 
+        $sql = "SELECT * FROM ships WHERE id = :shipid";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':shipid' => $shipid
 
-        if($shipnamee == 3) {
-            $waittime = 3;
-
-
-
-        }
-        if($shipnamee == 1) {
-            $waittime = 15;
-            //$_SESSION['waittime'] = $waittime;
-
-
-
-        }
-
-        if($shipnamee == 2) {
-            $waittime = 9;
-            //$_SESSION['waittime'] = $waittime;
-
-
-
-        }
-
-
-
-
-
-        $sql3 = "UPDATE users SET duration = $waittime WHERE id = :id";
-        $prepare3 = $db->prepare($sql3);
-        $prepare3->execute([
-            ':id' => $id
         ]);
 
+//$query = $db->query($sql);
+        $shipnames = $prepare->fetchAll(PDO::FETCH_ASSOC);
+
+        //var_dump($shipnames); die;
+
+        foreach ($shipnames as $shipname) {
+            $joblength = $shipname['joblength'];
+
+
+            //var_dump($joblength);
+            $length = round($joblength / 3); // 3
+
+
+            /*if($shipnamee == 3) {
+                $waittime = 3;
+
+
+
+            }
+            if($shipnamee == 1) {
+                $waittime = 15;
+                //$_SESSION['waittime'] = $waittime;
+
+
+
+            }
+
+            if($shipnamee == 2) {
+                $waittime = 9;
+                //$_SESSION['waittime'] = $waittime;
+
+
+
+            }*/
+
+
+            $sql3 = "UPDATE users SET duration = $length WHERE id = :id";
+            $prepare3 = $db->prepare($sql3);
+            $prepare3->execute([
+                ':id' => $id
+            ]);
+
+        }
         $duration="";
         //$id = 1;
 
@@ -493,172 +576,9 @@ values (:cash)";
         header("location: index.php?id=$id");
     }
 
-if ($_POST['type'] === 'buy_hispenia') {
-
-    $id = $_GET['id'];
-
-    $sql = "SELECT * FROM users WHERE id = :id";
-    $prepare = $db->prepare($sql);
-    $prepare->execute([
-        ':id' => $id
-
-    ]);
-
-//$query = $db->query($sql);
-    $userid = $prepare->fetch(PDO::FETCH_ASSOC);
 
 
-
-
-    if($userid['cash'] < 60000) {
-        echo "<script>
-        alert('Je hebt te weinig geld');
-        window.location.href='trading.php?id=$id';
-        </script>";
-        exit;
-    }
-
-    $sql5 = " SELECT *  FROM ownedships 
-   LEFT JOIN ships
-     ON ships.id = ownedships.shipid
- WHERE ownedships.userid = $id";
-
-//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
-    $query = $db->query($sql5);
-    $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
-
-    foreach ($shipinfos
-
-             as $shipinfo) {
-        $usership = htmlentities($shipinfo['shipname']);
-//echo $shipname;
-    }
-
-
-
-        if($usership == 'Hispenia') {
-            echo "<script>
-        alert('Je hebt dit schip al');
-        window.location.href='trading.php?id=$id';
-        </script>";
-            exit;
-        }
-
-
-
-        $shipname = 'Hispenia';
-
-        $sql2 = "SELECT * FROM users WHERE id = :id";
-        $prepare2 = $db->prepare($sql2);
-        $prepare2->execute([
-            ':id' => $id
-        ]);
-        $users = $prepare2->fetch(PDO::FETCH_ASSOC);
-        //$Name = $users['username'];
-
-
-        $sql3 = "SELECT * FROM ships WHERE shipname=:shipname";
-        $prepare3 = $db->prepare($sql3);
-        $prepare3->execute([
-            ':shipname' => $shipname
-        ]);
-
-        $shipinfo = $prepare3->fetch();
-
-        $shipid = $shipinfo['id'];
-
-
-        $sql = "INSERT INTO ownedships ( shipid, userid) 
-        VALUES ( :shipid, :userid)";
-        $prepare = $db->prepare($sql);
-        $prepare->execute([
-            //':Name' => $name,
-            ':shipid' => $shipid,
-            ':userid' => $id
-        ]);
-
-        $sql3 = "UPDATE users SET cash = cash - 60000 WHERE id = :id";
-        $prepare3 = $db->prepare($sql3);
-        $prepare3->execute([
-        ':id' => $id
-        ]);
-
-
-        header("location: index.php?id=$id");
-
-
-}
-
-if ($_POST['type'] === 'buy_hunter') {
-
-    $id = $_GET['id'];
-
-    $sql = "SELECT * FROM users WHERE id = :id";
-    $prepare = $db->prepare($sql);
-    $prepare->execute([
-        ':id' => $id
-
-    ]);
-
-//$query = $db->query($sql);
-    $userid = $prepare->fetch(PDO::FETCH_ASSOC);
-
-    if($userid['cash'] < 80000) {
-        echo "<script>
-        alert('Je hebt te weinig geld');
-        window.location.href='trading.php?id=$id';
-        </script>";
-        exit;
-    }
-
-
-
-
-        $shipname = 'Hunter-Gratzner';
-
-        $sql2 = "SELECT * FROM users WHERE id = :id";
-        $prepare2 = $db->prepare($sql2);
-        $prepare2->execute([
-            ':id' => $id
-        ]);
-        $users = $prepare2->fetch(PDO::FETCH_ASSOC);
-        //$Name = $users['username'];
-
-
-        $sql3 = "SELECT * FROM ships WHERE shipname=:shipname";
-        $prepare3 = $db->prepare($sql3);
-        $prepare3->execute([
-            ':shipname' => $shipname
-        ]);
-
-        $shipinfo = $prepare3->fetch();
-
-        $shipid = $shipinfo['id'];
-
-
-        $sql = "INSERT INTO ownedships ( shipid, userid) 
-        VALUES ( :shipid, :userid)";
-        $prepare = $db->prepare($sql);
-        $prepare->execute([
-            //':Name' => $name,
-            ':shipid' => $shipid,
-            ':userid' => $id
-        ]);
-
-        $sql3 = "UPDATE users SET cash = cash - 80000 WHERE id = :id";
-        $prepare3 = $db->prepare($sql3);
-        $prepare3->execute([
-            ':id' => $id
-        ]);
-
-
-
-        header("location: index.php?id=$id");
-
-
-}
-
-if ($_POST['type'] === 'buy_millenium') {
+if ($_POST['type'] === 'buy_ship') {
 
     $id = $_GET['id'];
 
@@ -673,19 +593,12 @@ if ($_POST['type'] === 'buy_millenium') {
 //$query = $db->query($sql);
     $userid = $prepare->fetch(PDO::FETCH_ASSOC);
 
-    if($userid['cash'] < 80000) {
-        echo "<script>
-        alert('Je hebt te weinig geld');
-        window.location.href='trading.php?id=$id';
-        </script>";
-        exit;
-    }
 
 
 
 
 
-        $shipname = 'Millenium';
+        //$shipname = 'Millenium';
         //$price = 100000;
 
         $sql2 = "SELECT * FROM users WHERE id = :id";
@@ -698,15 +611,31 @@ if ($_POST['type'] === 'buy_millenium') {
         //$Name = $users['username'];
 
 
-        $sql3 = "SELECT * FROM ships WHERE shipname=:shipname";
-        $prepare3 = $db->prepare($sql3);
-        $prepare3->execute([
-            ':shipname' => $shipname
-        ]);
+    $sql = "SELECT * FROM ships";
+    $query = $db->query($sql);
+    $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        $shipinfo = $prepare3->fetch();
+    foreach ($shipinfos as $shipinfo) {
+        $shipname = htmlentities($shipinfo['shipname']);
+        $shippic = htmlentities($shipinfo['shippic']);
+        $shipid = htmlentities($shipinfo['id']);
+        $shipdescription = htmlentities($shipinfo['description']);
+        $time = htmlentities($shipinfo['joblength']);
+        $shipprice = htmlentities($shipinfo['price']);
 
-        $shipid = $shipinfo['id'];
+        if($userid['cash'] < $shipprice) {
+            echo "<script>
+        alert('Je hebt te weinig geld');
+        window.location.href='trading.php?id=$id';
+        </script>";
+            exit;
+        }
+
+
+
+        //$shipinfo = $prepare3->fetch();
+
+        //$shipid = $shipinfo['id'];
 
 
         $sql = "INSERT INTO ownedships ( shipid, userid) 
@@ -718,12 +647,12 @@ if ($_POST['type'] === 'buy_millenium') {
             ':userid' => $id
         ]);
 
-        $sql3 = "UPDATE users SET cash = cash - 100000 WHERE id = :id";
+        $sql3 = "UPDATE users SET cash = cash - $shipprice WHERE id = :id";
         $prepare3 = $db->prepare($sql3);
         $prepare3->execute([
             ':id' => $id
         ]);
-
+    }
 
 
         header("location: index.php?id=$id");
@@ -734,32 +663,51 @@ if ($_POST['type'] === 'buy_millenium') {
 
 
 
-if ($_POST['type'] === 'upgrade_millenium_engine') {
 
 
-        $id = $_GET['id'];
-
-        $shipname = 'Millenium';
-
-        $sql2 = "SELECT * FROM users WHERE id = :id";
-        $prepare2 = $db->prepare($sql2);
-        $prepare2->execute([
-            ':id' => $id
-        ]);
-        $users = $prepare2->fetch(PDO::FETCH_ASSOC);
-        //$Name = $users['username'];
+if ($_POST['type'] === 'upgrade_engine') {
 
 
+    $id = $_GET['id'];
 
-        $sql3 = "SELECT * FROM ships WHERE shipname=:shipname";
-        $prepare3 = $db->prepare($sql3);
-        $prepare3->execute([
-            ':shipname' => $shipname
-        ]);
+    /*$sql5 = " SELECT *  FROM ownedships
+   LEFT JOIN ships
+     ON ships.id = ownedships.shipid
+ WHERE ownedships.userid = :id";
 
-        $shipinfo = $prepare3->fetch();
+    $prepare = $db->prepare($sql5);
+    $prepare->execute([
+        ':id' => $id
 
-        $shipid = $shipinfo['id'];
+    ]);
+
+    //$query = $db->query($sql);
+    $shipinfos = $prepare->fetch(PDO::FETCH_ASSOC);*/
+
+    $sql = "SELECT * FROM users WHERE name=:username";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':username' => $username
+    ]);
+
+    $users = $prepare->fetch();
+
+    $users = $users['id'];
+
+    $sql = "SELECT * FROM ownedships WHERE shipid = :id";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':id' => $id
+
+    ]);
+
+    //$query = $db->query($sql);
+    $shipinfos = $prepare->fetch(PDO::FETCH_ASSOC);
+
+//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+
+
+
 
 
 
@@ -767,135 +715,76 @@ if ($_POST['type'] === 'upgrade_millenium_engine') {
         $prepare = $db->prepare($sql);
         $prepare->execute([
             //':engine' => '1',
-            ':shipid' => 3,
+            ':shipid' => $id,
             //':userid' => $id
 
         ]);
 
-
-
-    header("location: index.php?id=$id");
-}
-
-if ($_POST['type'] === 'upgrade_hunter_engine') {
-
-
-    $id = $_GET['id'];
-
-    $shipname = 'Hunter-Gratzner';
-
-    $sql2 = "SELECT * FROM users WHERE id = :id";
-    $prepare2 = $db->prepare($sql2);
-    $prepare2->execute([
-        ':id' => $id
-    ]);
-    $users = $prepare2->fetch(PDO::FETCH_ASSOC);
-    //$Name = $users['username'];
-
-
-
-    $sql3 = "SELECT * FROM ships WHERE shipname=:shipname";
-    $prepare3 = $db->prepare($sql3);
-    $prepare3->execute([
-        ':shipname' => $shipname
-    ]);
-
-    $shipinfo = $prepare3->fetch();
-
-    $shipid = $shipinfo['id'];
-
-
-
-    $sql = "UPDATE ownedships SET engine = 1 WHERE shipid=:shipid";
+    $sql = "SELECT * FROM ownedships WHERE shipid = :id";
     $prepare = $db->prepare($sql);
     $prepare->execute([
-        //':engine' => '1',
-        ':shipid' => 2,
-        //':userid' => $id
+        ':id' => $id
 
     ]);
 
+    //$query = $db->query($sql);
+    $shipinfos = $prepare->fetch(PDO::FETCH_ASSOC);
+
+    $userid = $shipinfos['userid'];
 
 
-    header("location: index.php?id=$id");
+
+    header("location: index.php?id=$userid");
 }
 
 
-if ($_POST['type'] === 'upgrade_hispenia_engine') {
 
+
+
+
+
+if ($_POST['type'] === 'upgrade_cargo') {
 
     $id = $_GET['id'];
 
-    $shipname = 'Hispenia';
+    /*$sql5 = " SELECT *  FROM ownedships
+   LEFT JOIN ships
+     ON ships.id = ownedships.shipid
+ WHERE ownedships.userid = :id";
 
-    $sql2 = "SELECT * FROM users WHERE id = :id";
-    $prepare2 = $db->prepare($sql2);
-    $prepare2->execute([
+    $prepare = $db->prepare($sql5);
+    $prepare->execute([
         ':id' => $id
-    ]);
-    $users = $prepare2->fetch(PDO::FETCH_ASSOC);
-    //$Name = $users['username'];
 
-
-
-    $sql3 = "SELECT * FROM ships WHERE shipname=:shipname";
-    $prepare3 = $db->prepare($sql3);
-    $prepare3->execute([
-        ':shipname' => $shipname
     ]);
 
-    $shipinfo = $prepare3->fetch();
+    //$query = $db->query($sql);
+    $shipinfos = $prepare->fetch(PDO::FETCH_ASSOC);*/
 
-    $shipid = $shipinfo['id'];
-
-
-
-    $sql = "UPDATE ownedships SET engine = 1 WHERE shipid=:shipid";
+    $sql = "SELECT * FROM users WHERE name=:username";
     $prepare = $db->prepare($sql);
     $prepare->execute([
-        //':engine' => '1',
-        ':shipid' => 1,
-        //':userid' => $id
-
+        ':username' => $username
     ]);
 
+    $users = $prepare->fetch();
 
+    $users = $users['id'];
 
-    header("location: index.php?id=$id");
-}
-
-
-
-
-
-
-
-if ($_POST['type'] === 'upgrade_millenium_cargo') {
-
-
-    $id = $_GET['id'];
-
-    $shipname = 'Millenium';
-
-    $sql2 = "SELECT * FROM users WHERE id = :id";
-    $prepare2 = $db->prepare($sql2);
-    $prepare2->execute([
+    $sql = "SELECT * FROM ownedships WHERE shipid = :id";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
         ':id' => $id
-    ]);
-    $users = $prepare2->fetch(PDO::FETCH_ASSOC);
-    //$Name = $users['username'];
 
-
-
-    $sql3 = "SELECT * FROM ships WHERE shipname=:shipname";
-    $prepare3 = $db->prepare($sql3);
-    $prepare3->execute([
-        ':shipname' => $shipname
     ]);
 
-    $shipinfo = $prepare3->fetch();
+    //$query = $db->query($sql);
+    $shipinfos = $prepare->fetch(PDO::FETCH_ASSOC);
 
-    $shipid = $shipinfo['id'];
+//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+
+
+
 
 
 
@@ -903,100 +792,30 @@ if ($_POST['type'] === 'upgrade_millenium_cargo') {
     $prepare = $db->prepare($sql);
     $prepare->execute([
         //':engine' => '1',
-        ':shipid' => 3,
+        ':shipid' => $id,
         //':userid' => $id
 
     ]);
 
-
-
-    header("location: index.php?id=$id");
-}
-
-if ($_POST['type'] === 'upgrade_hunter_cargo') {
-
-
-    $id = $_GET['id'];
-
-    $shipname = 'Hunter-Gratzner';
-
-    $sql2 = "SELECT * FROM users WHERE id = :id";
-    $prepare2 = $db->prepare($sql2);
-    $prepare2->execute([
-        ':id' => $id
-    ]);
-    $users = $prepare2->fetch(PDO::FETCH_ASSOC);
-    //$Name = $users['username'];
-
-
-
-    $sql3 = "SELECT * FROM ships WHERE shipname=:shipname";
-    $prepare3 = $db->prepare($sql3);
-    $prepare3->execute([
-        ':shipname' => $shipname
-    ]);
-
-    $shipinfo = $prepare3->fetch();
-
-    $shipid = $shipinfo['id'];
-
-
-
-    $sql = "UPDATE ownedships SET cargo = 1 WHERE shipid=:shipid";
+    $sql = "SELECT * FROM ownedships WHERE shipid = :id";
     $prepare = $db->prepare($sql);
     $prepare->execute([
-        //':engine' => '1',
-        ':shipid' => 2,
-        //':userid' => $id
-
-    ]);
-
-
-
-    header("location: index.php?id=$id");
-}
-
-
-if ($_POST['type'] === 'upgrade_hispenia_cargo') {
-
-
-    $id = $_GET['id'];
-
-    $shipname = 'Hispenia';
-
-    $sql2 = "SELECT * FROM users WHERE id = :id";
-    $prepare2 = $db->prepare($sql2);
-    $prepare2->execute([
         ':id' => $id
-    ]);
-    $users = $prepare2->fetch(PDO::FETCH_ASSOC);
-    //$Name = $users['username'];
-
-
-
-    $sql3 = "SELECT * FROM ships WHERE shipname=:shipname";
-    $prepare3 = $db->prepare($sql3);
-    $prepare3->execute([
-        ':shipname' => $shipname
-    ]);
-
-    $shipinfo = $prepare3->fetch();
-
-    $shipid = $shipinfo['id'];
-
-
-
-    $sql = "UPDATE ownedships SET cargo = 1 WHERE shipid=:shipid";
-    $prepare = $db->prepare($sql);
-    $prepare->execute([
-        //':engine' => '1',
-        ':shipid' => 1,
-        //':userid' => $id
 
     ]);
 
+    //$query = $db->query($sql);
+    $shipinfos = $prepare->fetch(PDO::FETCH_ASSOC);
+
+    $userid = $shipinfos['userid'];
 
 
-    header("location: index.php?id=$id");
+
+    header("location: index.php?id=$userid");
 }
+
+
+
+
+
 

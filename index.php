@@ -1,6 +1,6 @@
 <?php
 require 'header.php';
-session_start();
+//session_start();
 
 
 
@@ -81,16 +81,34 @@ if($userid) {
 //echo $shipname;
 
 
-        ?>
-    <div id="response">Mars</div>
+
+   $responseMars = '<div id="response">Mars</div>
 
     <script type="text/javascript">
 
+
+
+
+
+
+
+
+
+
+
+
+
         setInterval(function () {
+
+
 
             var xmlhtpp = new XMLHttpRequest();
             xmlhtpp.open("GET", "response.php", false);
             xmlhtpp.send(null);
+
+
+
+
             document.getElementById("response").innerHTML = xmlhtpp.responseText;
 
 
@@ -106,9 +124,16 @@ if($userid) {
 
 
 
-    </script>
 
-    <div id="response2">Jupiter</div>
+
+
+
+
+
+
+    </script>';
+
+    $responseJupiter = '<div id="response2">Jupiter</div>
 
     <script type="text/javascript">
 
@@ -131,30 +156,39 @@ if($userid) {
 
 
 
-    </script>
+    </script>';
 
 
-    <div id="response3">Saturnus</div>
+   $responseSaturnus = '<div id="response3">Saturnus</div>
 
     <script type="text/javascript">
+
+
+
+
+
+
+
+
+
+
 
 
 
         setInterval(function () {
 
 
+
             var xmlhtpp = new XMLHttpRequest();
-            xmlhtpp.open("GET", "response3.php?id=<?=$id?>", false);
+            xmlhtpp.open("GET", "response3.php", false);
             xmlhtpp.send(null);
+
+
+
+
             document.getElementById("response3").innerHTML = xmlhtpp.responseText;
 
-            if (xmlhtpp <= 0) {
 
-                clearInterval(timer);
-                document.getElementById('countdown').innerHTML = 'EXPIRED!';
-
-                return;
-            }
 
 
 
@@ -163,9 +197,20 @@ if($userid) {
 
         },1000)
 
-    </script>
 
-    <div id="responseTrade">Trades</div>
+
+
+
+
+
+
+
+
+
+
+    </script>';
+
+    $responseTrades = '<div id="responseTrade">Trades</div>
 
     <script type="text/javascript">
 
@@ -185,10 +230,10 @@ if($userid) {
 
         },1000)
 
-    </script>
+    </script>';
 
 
-
+?>
 
 
 
@@ -216,8 +261,10 @@ if($userid) {
                 <div class="tasks">
                     <h2>Tasks</h2>
                     <div>
-                        <p>mars</p>
-                        <p>jupiter</p>
+                        <p>Mars: <?php echo $responseMars ?></p>
+                        <p>Jupiter: <?php echo $responseJupiter ?></p>
+                        <p>Saturnus: <?php echo $responseSaturnus ?></p>
+                        <p>Trades: <?php echo $responseTrades ?></p>
                     </div>
                 </div>
             </div>

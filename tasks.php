@@ -10,8 +10,8 @@ require 'header.php';
 
 
 
-$userid = isset($_GET['id']) ? $_GET['id'] : '';
-
+//$userid = isset($_GET['id']) ? $_GET['id'] : '';
+$userid = $_SESSION['id'];
 
 
 

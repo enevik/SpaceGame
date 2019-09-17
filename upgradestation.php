@@ -6,7 +6,7 @@ require 'header.php';
 //$userid = $_GET['id'];
 
 
-
+//session_start();
 
 
 
@@ -96,25 +96,34 @@ $prepare4->execute([
 
 
 
+
+
 foreach ($shipinfos
 
 as $shipinfo) {
 $shipname = htmlentities($shipinfo['shipname']);
+$shippic = htmlentities($shipinfo['shippic']);
+$shipid = htmlentities($shipinfo['shipid']);
 //echo $shipname;
 
 
 ?>
+
+
+
+
+
 <div class="container">
     <div class="upgradestationGrid">
 
 
         <?php
         //var_dump($shipname);die;
-        if ($shipname == 'Millenium') {
+        //if ($shipname == 'Millenium') {
 
-            echo
+           /* echo
             "<li> <p>$shipname</p>
-                <img src='Images/falcon_spaceship.png'>
+                <img src='Images/$shippic'>
                 <div class='button'>
                     <form action='databaseController.php?id={$id}' method='post'>
                         <input type='hidden' name='type' value='upgrade_millenium_engine'>
@@ -128,13 +137,13 @@ $shipname = htmlentities($shipinfo['shipname']);
                     </form>
                 </div>
             </li>";
-        }
+        //}
 
-        if ($shipname == 'Hispenia') {
+        //if ($shipname == 'Hispenia') {
 
             echo
             "<li> <p>$shipname</p>
-                <img src='Images/hispenia.png'>
+                <img src='Images/$shippic'>
                 <div class='button'>
                     <form action='databaseController.php?id={$id}' method='post'>
                         <input type='hidden' name='type' value='upgrade_hispenia_engine'>
@@ -147,30 +156,30 @@ $shipname = htmlentities($shipinfo['shipname']);
                         <input type='submit' value='Upgrade Cargo hold'>
                     </form>
                 </div>
-            </li>";
-        }
+            </li>";*/
+        //}
 
 
-        if ($shipname == 'Hunter-Gratzner') {
+        //if ($shipname == 'Hunter-Gratzner') {
 
 
             echo
             "<li> <p>$shipname</p>
-                <img src='Images/Hunter-Gratzner.png' class='Hunter-Gratzner'>
+                <img src='Images/$shippic'>
                 <div class='button'>
-                    <form action='databaseController.php?id={$id}' method='post'>
-                        <input type='hidden' name='type' value='upgrade_hunter_engine'>
+                    <form action='databaseController.php?id={$shipid}' method='post'>
+                        <input type='hidden' name='type' value='upgrade_engine'>
                         <input type='submit' value='Upgrade Engine'>
                     </form>
                 </div>
                 <div class='button'>
-                    <form action='databaseController.php?id={$id}' method='post'>
-                        <input type='hidden' name='type' value='upgrade_hunter_cargo'>
+                    <form action='databaseController.php?id={$shipid}' method='post'>
+                        <input type='hidden' name='type' value='upgrade_cargo'>
                         <input type='submit' value='Upgrade Cargo hold'>
                     </form>
                 </div>
             </li>";
-        }
+        //}
         }
         }
 ?>

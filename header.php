@@ -11,6 +11,7 @@
 require 'config.php';
 //require 'databaseController.php';
 
+session_start();
 
 //if(isset($_SESSION['username'])) {
     $sql = "SELECT * FROM `users`";
@@ -102,6 +103,7 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
                 <a href="upgradestation.php?id=<?=$id?>">Space Station</a>
                 <a href="create_login.php?id=<?=$id?>">Create new user</a>
                 <a href="leaderbord.php?id=<?=$id?>">Leaderbord</a>
+                <a href="createShip.php?id=<?=$id?>">Create Ship</a>
 
 
 
@@ -111,7 +113,7 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
         <div class="cac">
-            <div class="cash">
+            <div class="cash" id="cash">
 
 
                 <p><span>Cash: $</span> <?php echo $userinfo['cash'] ?></p>
@@ -119,7 +121,7 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
             </div>
 
-            <div class="commodities">
+            <div class="commodities" id="commodities">
 
                 <p><span>Commodities: 〄</span> <?php echo $userinfo['commodities'] ?></strong></p>
 
