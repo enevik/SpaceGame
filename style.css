@@ -59,8 +59,15 @@ header div{
 	flex-direction: column;
 }
 .cash p{
-	margin: 5px;
+	margin: 7px;
 }
+
+.cac span {
+    /*background: #E82031;*/
+    /*padding: 3px;*/
+    color: #E82031;
+}
+
 .commodities p{
 	margin: 5px;
 }
