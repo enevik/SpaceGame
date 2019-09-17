@@ -90,18 +90,17 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
 <body>
 <header>
     <div class="headerflex">
-        <div>
+        <div class="logo">
             <!-- placeholder for the logo <-->
-            <h1>Logo</h1>
+            <img src="Images/battle_space_logo.png" alt="">
         </div>
         <div>
             <div class="navbar">
                 <a href="index.php?id=<?=$id?>">Home</a>
-                <a href="trading.php?id=<?=$id?>">shop</a>
-
-                <a href="tasks.php?id=<?=$id?>">tasks</a>
-                <a href="upgradestation.php?id=<?=$id?>">station</a>
-           <a href="create_login.php?id=<?=$id?>">Create new user</a>
+                <a href="trading.php?id=<?=$id?>">Shop</a>
+                <a href="tasks.php?id=<?=$id?>">Tasks</a>
+                <a href="upgradestation.php?id=<?=$id?>">Space Station</a>
+                <a href="create_login.php?id=<?=$id?>">Create new user</a>
                 <a href="leaderbord.php?id=<?=$id?>">Leaderbord</a>
 
 

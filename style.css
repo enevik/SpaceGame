@@ -42,12 +42,18 @@ header div{
 }
 .navbar a{
 	text-decoration: none;
-	padding: 5px;
-	border: 1px solid #ffffff;
+	padding: 10px;
+	border: 2px solid #E82031;
+    border-radius: 15px;
 	margin: 5px;
 	margin-bottom: 0;
 	color: white;
 }
+
+.navbar a:hover {
+    background: #E82031;
+}
+
 .cac{
 	display: flex;
 	flex-direction: column;
@@ -57,6 +63,10 @@ header div{
 }
 .commodities p{
 	margin: 5px;
+}
+
+.headerflex .logo img {
+    width: 150px;
 }
 
 /* main page */
