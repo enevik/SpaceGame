@@ -116,7 +116,7 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
             <div class="cash" id="cash">
 
 
-                <p><span>Cash: $</span> <?php echo $userinfo['cash'] ?></p>
+                <p><span>Cash: Ƒ</span> <?php echo $userinfo['cash'] ?></p>
 
 
             </div>

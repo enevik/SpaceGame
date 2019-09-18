@@ -20,6 +20,7 @@ $ships = $query->fetchAll(PDO::FETCH_ASSOC);*/
 
 if($userid) {
 
+
     $sql5 = " SELECT *  FROM ownedships 
    LEFT JOIN ships
      ON ships.id = ownedships.shipid
@@ -82,7 +83,7 @@ if($userid) {
 
 
 
-   $responseMars = '<div id="response">Mars</div>
+   $responseMars = '<div id="response"></div>
 
     <script type="text/javascript">
 
@@ -133,7 +134,7 @@ if($userid) {
 
     </script>';
 
-    $responseJupiter = '<div id="response2">Jupiter</div>
+    $responseJupiter = '<div id="response2"></div>
 
     <script type="text/javascript">
 
@@ -159,7 +160,7 @@ if($userid) {
     </script>';
 
 
-   $responseSaturnus = '<div id="response3">Saturnus</div>
+   $responseSaturnus = '<div id="response3"></div>
 
     <script type="text/javascript">
 
@@ -210,7 +211,7 @@ if($userid) {
 
     </script>';
 
-    $responseTrades = '<div id="responseTrade">Trades</div>
+    $responseTrades = '<div id="responseTrade"></div>
 
     <script type="text/javascript">
 

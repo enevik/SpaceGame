@@ -91,26 +91,20 @@ $shipprice = htmlentities($shipinfo['price']);
         </div>
         <div class="info">
             <h3>Informatie over schip</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum error labore, magnam maiores modi
-                officiis quis similique. Animi at cumque eos, ex iste quod reiciendis velit vitae voluptas voluptatibus?
-                Repellendus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem delectus ducimus est
-                et expedita explicabo, impedit itaque iure laborum magnam neque quaerat quas quidem, repellat suscipit
-                tempora temporibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem consectetur cumque
-                cupiditate dicta dolor dolore eligendi, ipsa iure iusto libero maxime modi molestias nulla odit
-                praesentium quam, quibusdam rem sint!</p>
+            <p><?php echo $shipdescription ?></p>
         </div>
     </div>
     <div class="task">
         <div class="info-task">
             <h3>Task time: <?php echo $time. ' min or less' ?></h3>
-            <p>Lorem ipsum dolor sit amet, libero maxime, minus modi necessitatibus omnis quas quasi suscipit?</p>
+
         </div>
         <div class="commodities">
             <h3>Money</h3>
             <p><?php echo $shipprice ?></p>
         </div>
         <div class="button">
-            <form action="databaseController.php?userid=<?= $id ?>&shipid=<?=$shipid?>" method="post">
+            <form  action="databaseController.php?userid=<?= $id ?>&shipid=<?=$shipid?>" method="post">
                 <input type="hidden" name="type" value="buy_ship">
                 <input type="submit" value="Buy">
             </form>

@@ -19,28 +19,56 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 if($_POST['type'] == 'create') {
 
+    session_start();
 
-    $shipname = $_POST['shipname'];
-    $price = $_POST['price'];
-    $description = $_POST['description'];
-    $image = $_POST['image'];
-    $time = $_POST['timechoice'];
+    $id = $_GET['id'];
+
+    $sql = "SELECT * FROM users";
+    $query = $db->query($sql);
+    $users = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach($users as $user) {
+        $admin = $user['admin'];
 
 
-    $sql = $db->prepare('INSERT INTO ships (shipname, price, description, shippic, joblength) 
+        if ($admin == 1) {
+
+
+            $shipname = $_POST['shipname'];
+            $price = $_POST['price'];
+            $description = $_POST['description'];
+            $image = $_POST['image'];
+            $time = $_POST['timechoice'];
+
+
+            $sql = $db->prepare('INSERT INTO ships (shipname, price, description, shippic, joblength) 
         VALUES ( :shipname, :price, :description, :shippic, :joblength)');
 
 
 //$prepare = $db->prepare($sql);
 
-    $sql->execute([
-        ':shipname' => $shipname,
-        ':price' => $price,
-        ':description' => $description,
-        ':shippic' => $image,
-        ':joblength' => $time
+            $sql->execute([
+                ':shipname' => $shipname,
+                ':price' => $price,
+                ':description' => $description,
+                ':shippic' => $image,
+                ':joblength' => $time
 
-    ]);
+            ]);
+        } else {
+            $alert = "You're not an admin";
+
+            echo "<script>
+        //alert('Je hebt te weinig geld');
+        alert('$alert');
+        window.location.href='index.php?id=$id';
+        </script>";
+            exit;
+
+        }
+    }
+    header("location: index.php?id=$id");
+
 
 }
 
@@ -577,7 +605,7 @@ values (:cash)";
     }
 
 
-if ($_POST['type'] === 'buy_hispenia') {
+/*if ($_POST['type'] === 'buy_hispenia') {
     $id = $_GET['id'];
     $sql = "SELECT * FROM users WHERE id = :id";
     $prepare = $db->prepare($sql);
@@ -641,12 +669,14 @@ if ($_POST['type'] === 'buy_hispenia') {
         ':id' => $id
     ]);
     header("location: index.php?id=$id");
-}
+}*/
 
 
 
 
 if ($_POST['type'] === 'buy_ship') {
+
+    session_start();
 
     $id = $_GET['userid'];
 
@@ -701,8 +731,17 @@ if ($_POST['type'] === 'buy_ship') {
             $usership = htmlentities($shipinfo['shipid']);
 //echo $shipname;
 
+
+
+
+
+
             if ($usership == $shipid) {
                 echo "<script>
+
+
+
+
         alert('Je hebt dit schip al');
         window.location.href='trading.php?id=$id';
         </script>";
