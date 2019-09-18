@@ -577,10 +577,80 @@ values (:cash)";
     }
 
 
+if ($_POST['type'] === 'buy_hispenia') {
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM users WHERE id = :id";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':id' => $id
+    ]);
+//$query = $db->query($sql);
+    $userid = $prepare->fetch(PDO::FETCH_ASSOC);
+    if($userid['cash'] < 60000) {
+        echo "<script>
+        alert('Je hebt te weinig geld');
+        window.location.href='trading.php?id=$id';
+        </script>";
+        exit;
+    }
+    $sql5 = " SELECT *  FROM ownedships 
+   LEFT JOIN ships
+     ON ships.id = ownedships.shipid
+ WHERE ownedships.userid = $id";
+//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+    $query = $db->query($sql5);
+    $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($shipinfos
+             as $shipinfo) {
+        $usership = htmlentities($shipinfo['shipname']);
+//echo $shipname;
+    }
+    if($usership == 'Hispenia') {
+        echo "<script>
+        alert('Je hebt dit schip al');
+        window.location.href='trading.php?id=$id';
+        </script>";
+        exit;
+    }
+    $shipname = 'Hispenia';
+    $sql2 = "SELECT * FROM users WHERE id = :id";
+    $prepare2 = $db->prepare($sql2);
+    $prepare2->execute([
+        ':id' => $id
+    ]);
+    $users = $prepare2->fetch(PDO::FETCH_ASSOC);
+    //$Name = $users['username'];
+    $sql3 = "SELECT * FROM ships WHERE shipname=:shipname";
+    $prepare3 = $db->prepare($sql3);
+    $prepare3->execute([
+        ':shipname' => $shipname
+    ]);
+    $shipinfo = $prepare3->fetch();
+    $shipid = $shipinfo['id'];
+    $sql = "INSERT INTO ownedships ( shipid, userid) 
+        VALUES ( :shipid, :userid)";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        //':Name' => $name,
+        ':shipid' => $shipid,
+        ':userid' => $id
+    ]);
+    $sql3 = "UPDATE users SET cash = cash - 60000 WHERE id = :id";
+    $prepare3 = $db->prepare($sql3);
+    $prepare3->execute([
+        ':id' => $id
+    ]);
+    header("location: index.php?id=$id");
+}
+
+
+
 
 if ($_POST['type'] === 'buy_ship') {
 
-    $id = $_GET['id'];
+    $id = $_GET['userid'];
+
+    $shipid = $_GET['shipid'];
 
 
     $sql = "SELECT * FROM users WHERE id = :id";
@@ -598,38 +668,57 @@ if ($_POST['type'] === 'buy_ship') {
 
 
 
+
+
         //$shipname = 'Millenium';
         //$price = 100000;
 
-        $sql2 = "SELECT * FROM users WHERE id = :id";
-        $prepare2 = $db->prepare($sql2);
-        $prepare2->execute([
-            ':id' => $id,
-            //':cash' => $price
-        ]);
-        $users = $prepare2->fetch(PDO::FETCH_ASSOC);
+
         //$Name = $users['username'];
 
 
-    $sql = "SELECT * FROM ships";
+    $sql = "SELECT * FROM ships WHERE id = $shipid";
     $query = $db->query($sql);
     $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($shipinfos as $shipinfo) {
-        $shipname = htmlentities($shipinfo['shipname']);
-        $shippic = htmlentities($shipinfo['shippic']);
-        $shipid = htmlentities($shipinfo['id']);
-        $shipdescription = htmlentities($shipinfo['description']);
-        $time = htmlentities($shipinfo['joblength']);
-        $shipprice = htmlentities($shipinfo['price']);
+        $shipname = $shipinfo['shipname'];
+        $shippic = $shipinfo['shippic'];
+        //$shipid = $shipinfo['id'];
+        $shipdescription = $shipinfo['description'];
+        $time = $shipinfo['joblength'];
+        $shipprice = $shipinfo['price'];
 
-        if($userid['cash'] < $shipprice) {
+        $sql5 = " SELECT *  FROM ownedships 
+   LEFT JOIN ships
+     ON ships.id = ownedships.shipid
+ WHERE ownedships.userid = $id";
+//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+        $query = $db->query($sql5);
+        $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($shipinfos
+                 as $shipinfo) {
+            $usership = htmlentities($shipinfo['shipid']);
+//echo $shipname;
+
+            if ($usership == $shipid) {
+                echo "<script>
+        alert('Je hebt dit schip al');
+        window.location.href='trading.php?id=$id';
+        </script>";
+                exit;
+            }
+        }
+
+
+        if ($userid['cash'] < $shipprice) {
             echo "<script>
         alert('Je hebt te weinig geld');
         window.location.href='trading.php?id=$id';
         </script>";
             exit;
         }
+
 
 
 
@@ -652,10 +741,12 @@ if ($_POST['type'] === 'buy_ship') {
         $prepare3->execute([
             ':id' => $id
         ]);
+
     }
 
 
         header("location: index.php?id=$id");
+
 
 
 

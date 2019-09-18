@@ -71,7 +71,7 @@ foreach ($shipinfos
 as $shipinfo) {
 $shipname = htmlentities($shipinfo['shipname']);
 $shippic = htmlentities($shipinfo['shippic']);
-//$shipid = htmlentities($shipinfo['shipid']);
+$shipid = htmlentities($shipinfo['id']);
 $shipdescription = htmlentities($shipinfo['description']);
 $time = htmlentities($shipinfo['joblength']);
 $shipprice = htmlentities($shipinfo['price']);
@@ -102,7 +102,7 @@ $shipprice = htmlentities($shipinfo['price']);
     </div>
     <div class="task">
         <div class="info-task">
-            <h3>Task time: <?php echo $time. ' min' ?></h3>
+            <h3>Task time: <?php echo $time. ' min or less' ?></h3>
             <p>Lorem ipsum dolor sit amet, libero maxime, minus modi necessitatibus omnis quas quasi suscipit?</p>
         </div>
         <div class="commodities">
@@ -110,12 +110,13 @@ $shipprice = htmlentities($shipinfo['price']);
             <p><?php echo $shipprice ?></p>
         </div>
         <div class="button">
-            <form action="databaseController.php?id=<?= $id ?>" method="post">
+            <form action="databaseController.php?userid=<?= $id ?>&shipid=<?=$shipid?>" method="post">
                 <input type="hidden" name="type" value="buy_ship">
                 <input type="submit" value="Buy">
             </form>
         </div>
     </div>
+
 
 
 </div>
