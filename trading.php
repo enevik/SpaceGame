@@ -55,7 +55,7 @@ $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
         <label for="username">Grondstoffen:</label>
         <input type="text" name="material" id="material" placeholder="vul aantal grondstoffen in">
 
-        <input type="submit" class="button sellbutton" value="Verkopen">
+        <input type="submit" class="blueButton" value="Verkopen">
     </div>
 
 
@@ -99,9 +99,9 @@ $shipprice = htmlentities($shipinfo['price']);
             <h3 class="info-task">Task time: <?php echo $time. ' min or less' ?></h3>
             <h3 class="commodities">Money</h3>
             <p><?php echo $shipprice ?></p>
-            <form class="button"  action="databaseController.php?userid=<?= $id ?>&shipid=<?=$shipid?>" method="post">
+            <form class="blueButton"  action="databaseController.php?userid=<?= $id ?>&shipid=<?=$shipid?>" method="post">
                 <input type="hidden" name="type" value="buy_ship">
-                <input type="submit" class="button" value="BUY">
+                <input type="submit" class="blueButton" value="BUY">
             </form>
     </div>
 </div>
