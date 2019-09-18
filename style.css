@@ -114,6 +114,24 @@ body{
 }
 .sellmaterial {
 	text-align: center;
+	background-color: rgba( 232, 49, 49, 0.5);
+	padding-top: 30px;
+	padding-bottom: 30px;
+	border-radius: 15px;
+}
+.sellmaterial *{
+	margin:5px;
+}
+.sellmaterial input[type=text]{
+	border-radius: 5px;
+	background-color: rgba(232, 49,49,0.5);
+	border: none;
+	color: white;
+	height: 20px;
+}
+::placeholder{
+	color: white;
+	opacity: 0.7;
 }
 footer{
 	display: flex;
@@ -127,7 +145,7 @@ h1 {
 
 .planet {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr ;
 	grid-gap: 5px;
 }
 
@@ -165,15 +183,9 @@ h1 {
 	padding-top: 25px;
 	padding-bottom: 25px;
 }
-
-.info-task {
-	padding: 10px;
-}
-
 .commodities {
 	text-align: right;
 }
-
 .button {
 	margin: auto;
 	text-align: center;
@@ -217,48 +229,6 @@ h1 {
 	width: 420px;
 	height: auto;
 }
-
-/*Login/create page*/
-
-.grid-container {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-gap: 5px;
-}
-
-.grid-container .content {
-	padding: 40px;
-	background: rgba( 232, 49, 49, 0.5);
-	border-radius: 15px;
-}
-
-.content input[type=submit] {
-	border: none;
-	border-radius: 15px;
-	padding: 15px 32px;
-	background: #ed2f2f;
-	margin: 20px;
-}
-
-/*leaderbord page*/
-
-.grid-container {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-}
-
-.grid-container .grid-item li{
-	padding: 5px;
-	background: rgba( 232, 49, 49, 0.5);
-	border-radius: 15px;
-	margin-bottom: 2px;
-}
-
-.grid-container .grid-item ol {
-	list-style-type: none;
-}
-
-/*upgradestation page*/
 
 .upgradestationGrid{
 	display: flex;
@@ -307,4 +277,62 @@ h1 {
 	padding: 15px 32px;
 	background: #ed2f2f;
 	margin: 5px;
+}
+/*Login/create page*/
+
+.grid-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 5px;
+}
+
+.grid-container .content {
+	padding: 40px;
+	background: rgba( 232, 49, 49, 0.5);
+	border-radius: 15px;
+}
+
+.content input[type=submit] {
+	border: none;
+	border-radius: 15px;
+	padding: 15px 32px;
+	background: #ed2f2f;
+	margin: 20px;
+}
+
+/*leaderbord page*/
+
+.grid-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.grid-container .grid-item li{
+	padding: 5px;
+	background: rgba( 232, 49, 49, 0.5);
+	border-radius: 15px;
+	margin-bottom: 2px;
+}
+
+.grid-container .grid-item ol {
+	list-style-type: none;
+}
+/*trading.php*/
+.planet{
+	margin-bottom: 5px;
+}
+.trading-task *{
+	align-items: center;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	padding: 5px;
+}
+.button{
+	margin: 3px;
+	text-decoration: none;
+	background-color: darkblue;
+	border: none;
+	border-radius: 9%;
+	color: white;
 }

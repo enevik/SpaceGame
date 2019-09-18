@@ -55,7 +55,7 @@ $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
         <label for="username">Grondstoffen:</label>
         <input type="text" name="material" id="material" placeholder="vul aantal grondstoffen in">
 
-        <input type="submit" value="Verkopen">
+        <input type="submit" class="button sellbutton" value="Verkopen">
     </div>
 
 
@@ -89,37 +89,24 @@ $shipprice = htmlentities($shipinfo['price']);
         <div class="image">
             <img src="<?php echo 'Images/' . $shippic; ?>"
         </div>
-        <div class="info">
+    </div>
+        <div class="trading-info">
             <h3>Informatie over schip</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci at autem, culpa dolore eligendi harum ipsum iure, laboriosam magnam nesciunt nihil provident rem similique sint sit, soluta tempora voluptatibus.</p>
             <p><?php echo $shipdescription ?></p>
         </div>
-    </div>
-    <div class="task">
-        <div class="info-task">
-            <h3>Task time: <?php echo $time. ' min or less' ?></h3>
-
-        </div>
-        <div class="commodities">
-            <h3>Money</h3>
+    <div class="trading-task">
+            <h3 class="info-task">Task time: <?php echo $time. ' min or less' ?></h3>
+            <h3 class="commodities">Money</h3>
             <p><?php echo $shipprice ?></p>
-        </div>
-        <div class="button">
-            <form  action="databaseController.php?userid=<?= $id ?>&shipid=<?=$shipid?>" method="post">
+            <form class="button"  action="databaseController.php?userid=<?= $id ?>&shipid=<?=$shipid?>" method="post">
                 <input type="hidden" name="type" value="buy_ship">
-                <input type="submit" value="Buy">
+                <input type="submit" class="button" value="BUY">
             </form>
-        </div>
     </div>
-
-
-
 </div>
-
-
 </body>
-
 <?php
 }
 ?>
-
 </html>
