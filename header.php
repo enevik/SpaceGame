@@ -71,6 +71,8 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
     $userid = $prepare->fetch(PDO::FETCH_ASSOC);
 
 */
+
+$admin = $userinfo['admin'];
 ?>
 
 
@@ -101,9 +103,14 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
                 <a href="trading.php?id=<?=$id?>">Shop</a>
                 <a href="tasks.php?id=<?=$id?>">Tasks</a>
                 <a href="upgradestation.php?id=<?=$id?>">Space Station</a>
-                <a href="create_login.php?id=<?=$id?>">Create new user</a>
+                <a href="create_login.php?id=<?=$id?>">Login/Register</a>
                 <a href="leaderbord.php?id=<?=$id?>">Leaderbord</a>
-                <a href="createShip.php?id=<?=$id?>">Create Ship</a>
+                <?php
+                if ($admin == 1) {
+                    echo '<a href="createShip.php?id=<?=$id?>">Create Ship</a>';
+                }
+                ?>
+
 
 
 
