@@ -89,8 +89,6 @@ as $shipinfo) {
     $timejupiter = htmlentities($shipinfo['joblengthjupiter']);
     $timesaturnus = htmlentities($shipinfo['joblengthsaturnus']);
     $shipprice = htmlentities($shipinfo['price']);
-//echo $shipname;
-
 
 
 ?>
@@ -109,26 +107,25 @@ as $shipinfo) {
             voluptatibus.</p>
         <p><?php echo $shipdescription ?></p>
         <p><?php
-            foreach ($userships
+            foreach ($userships as $usership) {
+            $usershipname = htmlentities($usership['shipname']);
+            $usershippic = htmlentities($usership['shippic']);
+            $usershipid = htmlentities($usership['shipid']);
 
-            as $usership) {
-                $usershipname = htmlentities($usership['shipname']);
-                $usershippic = htmlentities($usership['shippic']);
-                $usershipid = htmlentities($usership['shipid']);
-                //echo $shipname;
-
-
-                if ($shipname == $usershipname) {
-                    echo "Je hebt dit schip al";
-                    // achtergrond grijs maken
-                }
-            }
-
-
-
+            if ($shipname == $usershipname) {
                 ?>
+                <style>
+                    .planet div {
+                        background-color: rgba(232,49,49,0.5);
+                    }
+                </style>
+                <p style="background-color:blue;">je hebt deze al</p>
+            <?php
+            }
+        }
+                 ?>
+        </p>
 
-            </p>
         </div>
     <div class="trading-task">
             <h3 class="info-task">Task time Mars: <?php echo $timemars. ' min' ?></h3>
