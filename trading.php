@@ -119,8 +119,8 @@ as $shipinfo) {
 
 
                 if ($shipname == $usershipname) {
-
                     echo "Je hebt dit schip al";
+                    // achtergrond grijs maken
                 }
             }
 

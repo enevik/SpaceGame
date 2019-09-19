@@ -364,3 +364,11 @@ h1 {
 	padding: 25px;
 	font-weight: bold;
 }
+.trading-task h3{
+	margin: 1px;
+	font-size: 1em;
+}
+.trading-task p{
+	margin:0;
+	padding: 0;
+}
