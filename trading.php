@@ -25,9 +25,11 @@ $contact = $prepare->fetch(PDO::FETCH_ASSOC);
 
 
 
-$sql = "SELECT * FROM ships";
+$sql = "SELECT * FROM ships WHERE id <> '7'";
 $query = $db->query($sql);
 $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
 
 
 $sql5 = " SELECT *  FROM ownedships 
@@ -98,7 +100,24 @@ as $shipinfo) {
         </div>
         <div class="image">
             <img src="<?php echo 'Images/' . $shippic; ?>"
+
         </div>
+        <?php
+        foreach ($userships
+
+                 as $usership) {
+            $usershipname = htmlentities($usership['shipname']);
+            $usershippic = htmlentities($usership['shippic']);
+            $usershipid = htmlentities($usership['shipid']);
+            //echo $shipname;
+
+
+            if ($shipname == $usershipname) {
+
+                echo "<h2>'Je hebt dit schip al'</h2>";
+            }
+        }
+        ?>
     </div>
     <div class="trading-info">
         <h3>Informatie over schip</h3>
@@ -106,26 +125,7 @@ as $shipinfo) {
             ipsum iure, laboriosam magnam nesciunt nihil provident rem similique sint sit, soluta tempora
             voluptatibus.</p>
         <p><?php echo $shipdescription ?></p>
-        <p><?php
-            foreach ($userships as $usership) {
-            $usershipname = htmlentities($usership['shipname']);
-            $usershippic = htmlentities($usership['shippic']);
-            $usershipid = htmlentities($usership['shipid']);
-
-            if ($shipname == $usershipname) {
-                ?>
-                <style>
-                    .planet div {
-                        background-color: rgba(232,49,49,0.5);
-                    }
-                </style>
-                <p style="background-color:blue;">je hebt deze al</p>
-            <?php
-            }
-        }
-                 ?>
-        </p>
-
+       
         </div>
     <div class="trading-task">
             <h3 class="info-task">Task time Mars: <?php echo $timemars. ' min' ?></h3>

@@ -21,7 +21,7 @@ if($userid) {
     $sql5 = " SELECT *  FROM ownedships 
    LEFT JOIN ships
      ON ships.id = ownedships.shipid
- WHERE ownedships.userid = $userid";
+ WHERE ownedships.userid = $userid AND ownedships.endtime = '' AND ownedships.endtime2 = '' AND ownedships.endtime3 = ''";
 
 //$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
     $query = $db->query($sql5);

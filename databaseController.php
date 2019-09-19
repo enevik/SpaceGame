@@ -83,81 +83,76 @@ if($_POST['type'] == 'create') {
 if ($_POST['type'] == 'business') {
     session_start();
 
-    $id = $_GET['id'];
+    if($_SESSION['busyjob'] > 0) {
 
-    $sql3 = "UPDATE users SET duration = 1440 WHERE id = :id";
-    $prepare3 = $db->prepare($sql3);
-    $prepare3->execute([
-        ':id' => $id
-    ]);
+        $id = $_GET['id'];
 
-    $duration="";
-    //$id = 1;
+        echo "<script>
+        //alert('Je hebt te weinig geld');
+        alert('Taak al bezig');
+        window.location.href='index.php?id=$id';
+        </script>";
+        exit;
 
-    $sql = "SELECT * FROM `users` WHERE id=$id";
-    $query = $db->query($sql);
-
-
-    while($users = $query->fetch(PDO::FETCH_ASSOC))
-    {
-        $duration=$users["duration"];
     }
-
-    $_SESSION["duration"]=$duration;
-
-    $_SESSION["start_time"]=date("Y-m-d H:i:s");
-
-    $end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$_SESSION["duration"].'minutes', strtotime($_SESSION["start_time"])));
+    else {
 
 
-    $_SESSION["end_timeTrade"]=$end_time;
+        $id = $_GET['id'];
+
+        $sql3 = "UPDATE users SET duration = 1440 WHERE id = :id";
+        $prepare3 = $db->prepare($sql3);
+        $prepare3->execute([
+            ':id' => $id
+        ]);
+
+        $duration = "";
+        //$id = 1;
+
+        $sql = "SELECT * FROM `users` WHERE id=$id";
+        $query = $db->query($sql);
 
 
+        while ($users = $query->fetch(PDO::FETCH_ASSOC)) {
+            $duration = $users["duration"];
+        }
+
+        $_SESSION["duration"] = $duration;
+
+        $_SESSION["start_time"] = date("Y-m-d H:i:s");
+
+        $end_time = $end_time = date('Y-m-d H:i:s', strtotime('+' . $_SESSION["duration"] . 'minutes', strtotime($_SESSION["start_time"])));
 
 
+        $_SESSION["end_timeTrade"] = $end_time;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    $sql = 'UPDATE users SET
+        $sql = 'UPDATE users SET
               cash      = cash + 1000
             WHERE id = :id';
-    $prepare = $db->prepare($sql);
-    $prepare->execute([
-        //':cash' => $add,
-        ':id' => $id
-    ]);
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            //':cash' => $add,
+            ':id' => $id
+        ]);
 
-    $messages = array(
-        'Transferred passangers of spacebus',
-        'Traded commodities for more valuable ones',
-        'Fixed someone their ship'
-    );
+        $messages = array(
+            'Transferred passangers of spacebus',
+            'Traded commodities for more valuable ones',
+            'Fixed someone their ship'
+        );
 
-    $alert = $messages[rand(0, count($messages) - 1)];
+        $alert = $messages[rand(0, count($messages) - 1)];
 
-    echo "<script>
+        echo "<script>
         //alert('Je hebt te weinig geld');
         alert('$alert');
         window.location.href='index.php?id=$id';
         </script>";
-    exit;
+        exit;
 
 
-
-
+    }
 
 }
 
@@ -294,7 +289,8 @@ values (:cash)";
 
         $shipid=$_POST['shipchoice'];
 
-       // $waittime;
+        // $waittime;
+
 
         $sql = "SELECT * FROM ships WHERE id = :shipid";
         $prepare = $db->prepare($sql);
@@ -306,10 +302,15 @@ values (:cash)";
 //$query = $db->query($sql);
         $shipnames = $prepare->fetchAll(PDO::FETCH_ASSOC);
 
+
+
         //var_dump($shipnames); die;
 
         foreach ($shipnames as $shipname) {
             $joblength = $shipname['joblengthmars'];
+
+            $rightshipname = $shipname['shipname'];
+            $_SESSION["shipname"] = $rightshipname;
 
 
             //var_dump($joblength);
@@ -320,34 +321,39 @@ values (:cash)";
             $shipinfo = $query->fetch(PDO::FETCH_ASSOC);
 
 
-            if($shipinfo['cargo'] == 1) {
+
+
+            if($shipinfo['engine'] == 1) {
                 $length = round($joblength / 7); // 3
             }
             else {
                 $length = $joblength;
             }
+            //$length = round($joblength / 5); // 3
+
+
             /*if($shipnamee == 3) {
-                $waittime = 1;
+                $waittime = 2;
 
 
 
             }
             if($shipnamee == 1) {
-                $waittime = 5;
+                $waittime = 10;
                 //$_SESSION['waittime'] = $waittime;
 
 
 
             }
 
-
             if($shipnamee == 2) {
-                $waittime = 3;
+                $waittime = 6;
                 //$_SESSION['waittime'] = $waittime;
 
 
 
             }*/
+
 
             $sql3 = "UPDATE users SET duration = $length WHERE id = :id";
             $prepare3 = $db->prepare($sql3);
@@ -355,6 +361,23 @@ values (:cash)";
                 ':id' => $id
             ]);
 
+
+
+        }
+
+        $sql5 = " SELECT * FROM ownedships WHERE shipid = $shipid";
+
+//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+        $query = $db->query($sql5);
+        $shipinfo = $query->fetch(PDO::FETCH_ASSOC);
+
+
+
+        if($shipinfo['cargo'] == 1) {
+            $_SESSION['commoditiesmars'] = $commodities = 1800;
+        }
+        else {
+            $_SESSION['commoditiesmars'] = $commodities = 1200;
         }
 
         $duration="";
@@ -369,15 +392,39 @@ values (:cash)";
             $duration=$users["duration"];
         }
 
-        $_SESSION["duration"]=$duration;
+        //$_SESSION["duration"]=$duration;
 
         $_SESSION["start_time"]=date("Y-m-d H:i:s");
 
-        $end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$_SESSION["duration"].'minutes', strtotime($_SESSION["start_time"])));
+        $starttime = date("Y-m-d H:i:s");
+
+        //$end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$_SESSION["duration"].'minutes', strtotime($_SESSION["start_time"])));
+
+        $end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$duration.'minutes', strtotime($starttime)));
 
 
 
-        $_SESSION["end_time"]=$end_time;
+        $sql6 = "UPDATE ownedships SET endtime = :endtime WHERE shipid = :shipid AND userid = :userid";
+        //var_dump($sql6);
+        $prepare4 = $db->prepare($sql6);
+        $prepare4->execute([
+            ':endtime' => $end_time,
+            ':shipid' => $shipid,
+            ':userid' => $id
+        ]);
+
+
+
+
+
+
+
+
+
+
+        $_SESSION["end_time2"]=$end_time;
+
+
 
 
 
@@ -393,48 +440,13 @@ values (:cash)";
 
 
 
+        /*$sql = "UPDATE users  SET commodities = commodities + 3200 WHERE id = :id";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':id' => $id
+        ]);*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*if (!isset($_SESSION['countdown'])) {
-            $_SESSION['countdown'] = 5;
-            $_SESSION['time_started'] = time();
-        }
-
-        $now = time();
-        $timeSince = $now - $_SESSION['time_started'];
-        $remainingSeconds = abs($_SESSION['countdown']);*/
-
-
-        //if ($remainingSeconds < 1) {
-
-
-
-
-            header("location: index.php?id=$id");
-        //}
-
-
-
-
-
-
-
-
-
-
-        exit;
+        header("location: index.php?id=$id");
     }
 
     if ($_POST['type'] === 'mine_jupiter') {
@@ -460,10 +472,15 @@ values (:cash)";
 //$query = $db->query($sql);
         $shipnames = $prepare->fetchAll(PDO::FETCH_ASSOC);
 
+
+
         //var_dump($shipnames); die;
 
         foreach ($shipnames as $shipname) {
             $joblength = $shipname['joblengthjupiter'];
+
+            $rightshipname = $shipname['shipname'];
+            $_SESSION["shipname"] = $rightshipname;
 
 
             //var_dump($joblength);
@@ -474,7 +491,9 @@ values (:cash)";
             $shipinfo = $query->fetch(PDO::FETCH_ASSOC);
 
 
-            if($shipinfo['cargo'] == 1) {
+
+
+            if($shipinfo['engine'] == 1) {
                 $length = round($joblength / 5); // 3
             }
             else {
@@ -525,10 +544,10 @@ values (:cash)";
 
 
         if($shipinfo['cargo'] == 1) {
-            $_SESSION['commodities'] = $commodities = 4800;
+            $_SESSION['commoditiesjupiter'] = $commodities = 4800;
         }
         else {
-            $_SESSION['commodities'] = $commodities = 3200;
+            $_SESSION['commoditiesjupiter'] = $commodities = 3200;
         }
 
         $duration="";
@@ -543,16 +562,39 @@ values (:cash)";
             $duration=$users["duration"];
         }
 
-        $_SESSION["duration"]=$duration;
+        //$_SESSION["duration"]=$duration;
 
         $_SESSION["start_time"]=date("Y-m-d H:i:s");
 
-        $end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$_SESSION["duration"].'minutes', strtotime($_SESSION["start_time"])));
+        $starttime = date("Y-m-d H:i:s");
+
+        //$end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$_SESSION["duration"].'minutes', strtotime($_SESSION["start_time"])));
+
+        $end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$duration.'minutes', strtotime($starttime)));
+
+
+
+        $sql6 = "UPDATE ownedships SET endtime2 = :endtime WHERE shipid = :shipid AND userid = :userid";
+        //var_dump($sql6);
+        $prepare4 = $db->prepare($sql6);
+        $prepare4->execute([
+            ':endtime' => $end_time,
+            ':shipid' => $shipid,
+            ':userid' => $id
+        ]);
+
+
+
+
+
+
 
 
 
 
         $_SESSION["end_time2"]=$end_time;
+
+
 
 
 
@@ -578,7 +620,6 @@ values (:cash)";
     }
 
     if ($_POST['type'] === 'mine_saturnus') {
-
         session_start();
 
         $id = $_GET['id'];
@@ -586,6 +627,7 @@ values (:cash)";
         $shipid=$_POST['shipchoice'];
 
         // $waittime;
+
 
         $sql = "SELECT * FROM ships WHERE id = :shipid";
         $prepare = $db->prepare($sql);
@@ -597,10 +639,15 @@ values (:cash)";
 //$query = $db->query($sql);
         $shipnames = $prepare->fetchAll(PDO::FETCH_ASSOC);
 
+
+
         //var_dump($shipnames); die;
 
         foreach ($shipnames as $shipname) {
             $joblength = $shipname['joblengthsaturnus'];
+
+            $rightshipname = $shipname['shipname'];
+            $_SESSION["shipname"] = $rightshipname;
 
 
             //var_dump($joblength);
@@ -611,22 +658,25 @@ values (:cash)";
             $shipinfo = $query->fetch(PDO::FETCH_ASSOC);
 
 
-            if($shipinfo['cargo'] == 1) {
+
+
+            if($shipinfo['engine'] == 1) {
                 $length = round($joblength / 3); // 3
             }
             else {
                 $length = $joblength;
             }
+            //$length = round($joblength / 5); // 3
 
 
             /*if($shipnamee == 3) {
-                $waittime = 3;
+                $waittime = 2;
 
 
 
             }
             if($shipnamee == 1) {
-                $waittime = 15;
+                $waittime = 10;
                 //$_SESSION['waittime'] = $waittime;
 
 
@@ -634,7 +684,7 @@ values (:cash)";
             }
 
             if($shipnamee == 2) {
-                $waittime = 9;
+                $waittime = 6;
                 //$_SESSION['waittime'] = $waittime;
 
 
@@ -648,7 +698,25 @@ values (:cash)";
                 ':id' => $id
             ]);
 
+
+
         }
+
+        $sql5 = " SELECT * FROM ownedships WHERE shipid = $shipid";
+
+//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+        $query = $db->query($sql5);
+        $shipinfo = $query->fetch(PDO::FETCH_ASSOC);
+
+
+
+        if($shipinfo['cargo'] == 1) {
+            $_SESSION['commoditiessaturnus'] = $commodities = 7800;
+        }
+        else {
+            $_SESSION['commoditiessaturnus'] = $commodities = 5200;
+        }
+
         $duration="";
         //$id = 1;
 
@@ -661,26 +729,54 @@ values (:cash)";
             $duration=$users["duration"];
         }
 
-        $_SESSION["duration"]=$duration;
+        //$_SESSION["duration"]=$duration;
 
-        $_SESSION["start_time"]=date("Y-m-d H:i:s");
+        //$_SESSION["start_time"]=date("Y-m-d H:i:s");
 
-        $end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$_SESSION["duration"].'minutes', strtotime($_SESSION["start_time"])));
+        $starttime = date("Y-m-d H:i:s");
 
+        //$end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$_SESSION["duration"].'minutes', strtotime($_SESSION["start_time"])));
 
-
-
-        $_SESSION["end_time3"]=$end_time;
-
+        $end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$duration.'minutes', strtotime($starttime)));
 
 
 
-
-        $sql = "UPDATE users SET commodities = commodities + 4800 WHERE id = :id";
-        $prepare = $db->prepare($sql);
-        $prepare->execute([
-            ':id' => $id
+        $sql6 = "UPDATE ownedships SET endtime3 = :endtime WHERE shipid = :shipid AND userid = :userid";
+        //var_dump($sql6);
+        $prepare4 = $db->prepare($sql6);
+        $prepare4->execute([
+            ':endtime' => $end_time,
+            ':shipid' => $shipid,
+            ':userid' => $id
         ]);
+
+
+
+
+
+
+
+
+
+
+        $_SESSION["end_time2"]=$end_time;
+
+
+
+
+
+
+
+
+        //header("location: tasks.php?id=$id");
+
+
+
+
+
+
+
+
 
         header("location: index.php?id=$id");
     }

@@ -18,6 +18,8 @@ if (isset($_SESSION['end_timeTrade'])) {
 
     $differenceinseconds = $timesecond - $timefirst;
 
+    $_SESSION['busyjob'] = $differenceinseconds;
+
 
     if ($differenceinseconds == "00:00:00") {
 
