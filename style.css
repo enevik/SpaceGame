@@ -332,8 +332,35 @@ h1 {
 .button{
 	margin: 3px;
 	text-decoration: none;
-	background-color: darkblue;
 	border: none;
 	border-radius: 9%;
 	color: white;
+}
+.blueButton{
+	background-color: darkblue;
+	margin: 3px;
+	text-decoration: none;
+	border: none;
+	border-radius: 9%;
+	color: white;
+}
+/*createShip.php*/
+.createshipflex div{
+	background: rgba(232, 49, 49, 0.5);
+	padding: 20px;
+	border-radius: 15px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;	
+	margin-right: 25%;
+	margin-left: 25%;
+	font-weight: bold;
+}
+.createshipbutton{
+	background-color: 	rgba(232,49,49,0.5);
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 25px;
+	font-weight: bold;
 }
