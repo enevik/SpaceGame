@@ -11,7 +11,7 @@ require 'header.php';
 
 
 //$userid = isset($_GET['id']) ? $_GET['id'] : '';
-$userid = $_SESSION['id'];
+$userid = $_GET['id'];
 
 
 

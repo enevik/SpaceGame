@@ -30,6 +30,18 @@ $query = $db->query($sql);
 $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
+$sql5 = " SELECT *  FROM ownedships 
+   LEFT JOIN ships
+     ON ships.id = ownedships.shipid
+ WHERE ownedships.userid = $id";
+
+//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+$query = $db->query($sql5);
+$userships = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
 
 ?>
 
@@ -69,19 +81,19 @@ $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
 foreach ($shipinfos
 
 as $shipinfo) {
-$shipname = htmlentities($shipinfo['shipname']);
-$shippic = htmlentities($shipinfo['shippic']);
-$shipid = htmlentities($shipinfo['id']);
-$shipdescription = htmlentities($shipinfo['description']);
-$time = htmlentities($shipinfo['joblength']);
-$shipprice = htmlentities($shipinfo['price']);
+    $shipname = htmlentities($shipinfo['shipname']);
+    $shippic = htmlentities($shipinfo['shippic']);
+    $shipid = htmlentities($shipinfo['id']);
+    $shipdescription = htmlentities($shipinfo['description']);
+    $timemars = htmlentities($shipinfo['joblengthmars']);
+    $timejupiter = htmlentities($shipinfo['joblengthjupiter']);
+    $timesaturnus = htmlentities($shipinfo['joblengthsaturnus']);
+    $shipprice = htmlentities($shipinfo['price']);
 //echo $shipname;
 
 
+
 ?>
-
-
-
     <div class="planet">
         <div class="title">
             <h2><?php echo $shipname ?></h2>
@@ -90,13 +102,39 @@ $shipprice = htmlentities($shipinfo['price']);
             <img src="<?php echo 'Images/' . $shippic; ?>"
         </div>
     </div>
-        <div class="trading-info">
-            <h3>Informatie over schip</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci at autem, culpa dolore eligendi harum ipsum iure, laboriosam magnam nesciunt nihil provident rem similique sint sit, soluta tempora voluptatibus.</p>
-            <p><?php echo $shipdescription ?></p>
+    <div class="trading-info">
+        <h3>Informatie over schip</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci at autem, culpa dolore eligendi harum
+            ipsum iure, laboriosam magnam nesciunt nihil provident rem similique sint sit, soluta tempora
+            voluptatibus.</p>
+        <p><?php echo $shipdescription ?></p>
+        <p><?php
+            foreach ($userships
+
+            as $usership) {
+                $usershipname = htmlentities($usership['shipname']);
+                $usershippic = htmlentities($usership['shippic']);
+                $usershipid = htmlentities($usership['shipid']);
+                //echo $shipname;
+
+
+                if ($shipname == $usershipname) {
+
+                    echo "Je hebt dit schip al";
+                }
+            }
+
+
+
+                ?>
+
+            </p>
         </div>
     <div class="trading-task">
-            <h3 class="info-task">Task time: <?php echo $time. ' min or less' ?></h3>
+            <h3 class="info-task">Task time Mars: <?php echo $timemars. ' min' ?></h3>
+            <h3 class="info-task">Task time Jupiter: <?php echo $timejupiter. ' min' ?></h3>
+            <h3 class="info-task">Task time Saturnus: <?php echo $timesaturnus. ' min' ?></h3>
+
             <h3 class="commodities">Money</h3>
             <p><?php echo $shipprice ?></p>
             <form class="button"  action="databaseController.php?userid=<?= $id ?>&shipid=<?=$shipid?>" method="post">

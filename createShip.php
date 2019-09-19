@@ -1,12 +1,14 @@
 <?php
 require 'config.php';
 
+$id = $_GET['id'];
+
 require  'header.php'
 ?>
 
 
 
-<form action="databaseController.php" method="post">
+<form action="databaseController.php?id=<?=$id?>" method="post">
     <input type="hidden" name="type" value="create">
     <div class="form-group">
         <label for="shipname">Shipname:</label>
@@ -29,19 +31,63 @@ require  'header.php'
     </div>
 
     <div class="form-group">
-        <label for="length">Taakduur:</label>
+        <label for="length">Taakduur Mars:</label>
 
-            <select name="timechoice">
+            <select name="timechoicemars">
+                <option value="1">1 min</option>
+                <option value="2">2 min</option>
+                <option value="3">3 min</option>
                 <option value="5">5 min</option>
                 <option value="10">10 min</option>
                 <option value="15">15 min</option>
                 <option value="20">20 min</option>
-                <option value="25">25 min</option>
+
+
             </select>
 
 
 
     </div>
+
+    <div class="form-group">
+        <label for="length">Taakduur Jupiter:</label>
+
+        <select name="timechoicejupiter">
+            <option value="1">1 min</option>
+            <option value="2">2 min</option>
+            <option value="3">3 min</option>
+            <option value="5">5 min</option>
+            <option value="10">10 min</option>
+            <option value="15">15 min</option>
+            <option value="20">20 min</option>
+
+
+        </select>
+
+
+
+    </div>
+
+    <div class="form-group">
+        <label for="length">Taakduur Saturnus:</label>
+
+        <select name="timechoicesaturnus">
+            <option value="1">1 min</option>
+            <option value="2">2 min</option>
+            <option value="3">3 min</option>
+            <option value="5">5 min</option>
+            <option value="10">10 min</option>
+            <option value="15">15 min</option>
+            <option value="20">20 min</option>
+
+
+        </select>
+
+
+
+    </div>
+
+
 
 
     <input type="submit" value="Verzenden">

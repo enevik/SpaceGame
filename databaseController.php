@@ -23,12 +23,12 @@ if($_POST['type'] == 'create') {
 
     $id = $_GET['id'];
 
-    $sql = "SELECT * FROM users";
+    $sql = "SELECT * FROM users WHERE id = $id";
     $query = $db->query($sql);
-    $users = $query->fetchAll(PDO::FETCH_ASSOC);
+    $users = $query->fetch(PDO::FETCH_ASSOC);
 
-    foreach($users as $user) {
-        $admin = $user['admin'];
+
+        $admin = $users['admin'];
 
 
         if ($admin == 1) {
@@ -38,11 +38,13 @@ if($_POST['type'] == 'create') {
             $price = $_POST['price'];
             $description = $_POST['description'];
             $image = $_POST['image'];
-            $time = $_POST['timechoice'];
+            $timemars = $_POST['timechoicemars'];
+            $timejupiter = $_POST['timechoicejupiter'];
+            $timesaturnus = $_POST['timechoicesaturnus'];
 
 
-            $sql = $db->prepare('INSERT INTO ships (shipname, price, description, shippic, joblength) 
-        VALUES ( :shipname, :price, :description, :shippic, :joblength)');
+            $sql = $db->prepare('INSERT INTO ships (shipname, price, description, shippic, joblengthmars, joblengthjupiter, joblengthsaturnus) 
+        VALUES ( :shipname, :price, :description, :shippic, :joblengthmars, :joblengthjupiter, :joblengthsaturnus)');
 
 
 //$prepare = $db->prepare($sql);
@@ -52,21 +54,23 @@ if($_POST['type'] == 'create') {
                 ':price' => $price,
                 ':description' => $description,
                 ':shippic' => $image,
-                ':joblength' => $time
+                ':joblengthmars' => $timemars,
+                ':joblengthjupiter' => $timejupiter,
+                ':joblengthsaturnus' => $timesaturnus
 
             ]);
         } else {
             $alert = "You're not an admin";
 
             echo "<script>
-        //alert('Je hebt te weinig geld');
-        alert('$alert');
+        alert('You are are not an admin');
+        //alert('$alert');
         window.location.href='index.php?id=$id';
         </script>";
             exit;
 
         }
-    }
+
     header("location: index.php?id=$id");
 
 
@@ -230,6 +234,31 @@ values (:cash)";
             ':cash' => $cash
         ]);
 
+        $sql = "SELECT * FROM `users` where `name`='$username'";
+        $query = $db->query($sql);
+        $userinfo = $query->fetch(PDO::FETCH_ASSOC);
+
+
+
+
+        //$shipid = 7;
+        //$userinfo = $prepare->fetch();
+
+        $userid = $userinfo['id'];
+
+        var_dump($userinfo);
+
+
+        $sql = "INSERT INTO ownedships ( shipid, userid)
+        VALUES ( :shipid, :userid)";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            //':Name' => $name,
+            ':shipid' => 7,
+            ':userid' => $userid
+        ]);
+
+
         header("location: index.php");
         exit;
     }
@@ -280,13 +309,23 @@ values (:cash)";
         //var_dump($shipnames); die;
 
         foreach ($shipnames as $shipname) {
-            $joblength = $shipname['joblength'];
+            $joblength = $shipname['joblengthmars'];
 
 
             //var_dump($joblength);
-            $length = round($joblength / 7); // 3
+            $sql5 = " SELECT * FROM ownedships WHERE shipid = $shipid";
+
+//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+            $query = $db->query($sql5);
+            $shipinfo = $query->fetch(PDO::FETCH_ASSOC);
 
 
+            if($shipinfo['cargo'] == 1) {
+                $length = round($joblength / 7); // 3
+            }
+            else {
+                $length = $joblength;
+            }
             /*if($shipnamee == 3) {
                 $waittime = 1;
 
@@ -424,11 +463,24 @@ values (:cash)";
         //var_dump($shipnames); die;
 
         foreach ($shipnames as $shipname) {
-            $joblength = $shipname['joblength'];
+            $joblength = $shipname['joblengthjupiter'];
 
 
             //var_dump($joblength);
-            $length = round($joblength / 5); // 3
+            $sql5 = " SELECT * FROM ownedships WHERE shipid = $shipid";
+
+//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+            $query = $db->query($sql5);
+            $shipinfo = $query->fetch(PDO::FETCH_ASSOC);
+
+
+            if($shipinfo['cargo'] == 1) {
+                $length = round($joblength / 5); // 3
+            }
+            else {
+                $length = $joblength;
+            }
+            //$length = round($joblength / 5); // 3
 
 
             /*if($shipnamee == 3) {
@@ -460,6 +512,23 @@ values (:cash)";
                 ':id' => $id
             ]);
 
+
+
+        }
+
+        $sql5 = " SELECT * FROM ownedships WHERE shipid = $shipid";
+
+//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+        $query = $db->query($sql5);
+        $shipinfo = $query->fetch(PDO::FETCH_ASSOC);
+
+
+
+        if($shipinfo['cargo'] == 1) {
+            $_SESSION['commodities'] = $commodities = 4800;
+        }
+        else {
+            $_SESSION['commodities'] = $commodities = 3200;
         }
 
         $duration="";
@@ -499,11 +568,11 @@ values (:cash)";
 
 
 
-        $sql = "UPDATE users  SET commodities = commodities + 3200 WHERE id = :id";
+        /*$sql = "UPDATE users  SET commodities = commodities + 3200 WHERE id = :id";
         $prepare = $db->prepare($sql);
         $prepare->execute([
             ':id' => $id
-        ]);
+        ]);*/
 
         header("location: index.php?id=$id");
     }
@@ -531,11 +600,23 @@ values (:cash)";
         //var_dump($shipnames); die;
 
         foreach ($shipnames as $shipname) {
-            $joblength = $shipname['joblength'];
+            $joblength = $shipname['joblengthsaturnus'];
 
 
             //var_dump($joblength);
-            $length = round($joblength / 3); // 3
+            $sql5 = " SELECT * FROM ownedships WHERE shipid = $shipid";
+
+//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+            $query = $db->query($sql5);
+            $shipinfo = $query->fetch(PDO::FETCH_ASSOC);
+
+
+            if($shipinfo['cargo'] == 1) {
+                $length = round($joblength / 3); // 3
+            }
+            else {
+                $length = $joblength;
+            }
 
 
             /*if($shipnamee == 3) {
@@ -716,7 +797,7 @@ if ($_POST['type'] === 'buy_ship') {
         $shippic = $shipinfo['shippic'];
         //$shipid = $shipinfo['id'];
         $shipdescription = $shipinfo['description'];
-        $time = $shipinfo['joblength'];
+        //$time = $shipinfo['joblength'];
         $shipprice = $shipinfo['price'];
 
         $sql5 = " SELECT *  FROM ownedships 
@@ -734,19 +815,6 @@ if ($_POST['type'] === 'buy_ship') {
 
 
 
-
-
-            if ($usership == $shipid) {
-                echo "<script>
-
-
-
-
-        alert('Je hebt dit schip al');
-        window.location.href='trading.php?id=$id';
-        </script>";
-                exit;
-            }
         }
 
 
@@ -766,7 +834,7 @@ if ($_POST['type'] === 'buy_ship') {
         //$shipid = $shipinfo['id'];
 
 
-        $sql = "INSERT INTO ownedships ( shipid, userid) 
+        $sql = "INSERT INTO ownedships ( shipid, userid)
         VALUES ( :shipid, :userid)";
         $prepare = $db->prepare($sql);
         $prepare->execute([

@@ -1,4 +1,5 @@
 <?php
+require 'config.php';
 
 session_start();
 
@@ -19,7 +20,13 @@ if (isset($_SESSION['end_time2'])) {
 
         $id = $_SESSION['id'];
 
-        $sql = "UPDATE users SET commodities = commodities + 1200 WHERE id = :id";
+        //var_dump($id);
+
+        $commodities = $_SESSION['commodities'];
+
+        //var_dump($commodities); die;
+
+        $sql = "UPDATE users SET commodities = commodities + $commodities WHERE id = :id";
         $prepare = $db->prepare($sql);
         $prepare->execute([
             ':id' => $id
