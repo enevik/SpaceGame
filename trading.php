@@ -92,6 +92,23 @@ as $shipinfo) {
     $timesaturnus = htmlentities($shipinfo['joblengthsaturnus']);
     $shipprice = htmlentities($shipinfo['price']);
 
+ 
+            foreach ($userships as $usership) {
+            $usershipname = htmlentities($usership['shipname']);
+            $usershippic = htmlentities($usership['shippic']);
+            $usershipid = htmlentities($usership['shipid']);
+
+            if ($shipname == $usershipname) {
+                ?>
+    <style>
+        .planet div {
+            background-color: rgba(232,49,49,0.5);
+        }
+    </style>
+    <p style="background-color:blue;">je hebt deze al</p>
+    <?php
+    }
+    }
 
 ?>
     <div class="planet">
@@ -102,6 +119,7 @@ as $shipinfo) {
             <img src="<?php echo 'Images/' . $shippic; ?>"
 
         </div>
+<<<<<<< Updated upstream
         <?php
         foreach ($userships
 
@@ -118,6 +136,8 @@ as $shipinfo) {
             }
         }
         ?>
+=======
+>>>>>>> Stashed changes
     </div>
     <div class="trading-info">
         <h3>Informatie over schip</h3>
@@ -125,7 +145,13 @@ as $shipinfo) {
             ipsum iure, laboriosam magnam nesciunt nihil provident rem similique sint sit, soluta tempora
             voluptatibus.</p>
         <p><?php echo $shipdescription ?></p>
+<<<<<<< Updated upstream
        
+=======
+        <p>
+        </p>
+
+>>>>>>> Stashed changes
         </div>
     <div class="trading-task">
             <h3 class="info-task">Task time Mars: <?php echo $timemars. ' min' ?></h3>
