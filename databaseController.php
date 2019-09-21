@@ -208,48 +208,59 @@ if ($_POST['type'] == 'business') {
         $username = $_POST['username'];
         $cash = 5000;
 
-        $sql = "INSERT INTO users (name, cash) VALUES (:username, :cash)";
-        $prepare = $db->prepare($sql);
-        $prepare->execute([
-            ':username' => $username,
-            ':cash' => $cash
-        ]);
-
-        $sql = "SELECT * FROM `users` where `name`='$username'";
+        $sql = "SELECT * FROM users WHERE name='$username' LIMIT 1";
         $query = $db->query($sql);
-        $userinfo = $query->fetch(PDO::FETCH_ASSOC);
+        $user = $query->fetch(PDO::FETCH_ASSOC);
+
+        if ($user['name'] === $username) {
+            echo "<script>
+        alert('Username already exists');
+        window.location.href='create_login.php';
+        </script>";
+            exit;
+        }
+        else {
 
 
+            $sql = "INSERT INTO users (name, cash) VALUES (:username, :cash)";
+            $prepare = $db->prepare($sql);
+            $prepare->execute([
+                ':username' => $username,
+                ':cash' => $cash
+            ]);
+
+            $sql = "SELECT * FROM `users` where `name`='$username'";
+            $query = $db->query($sql);
+            $userinfo = $query->fetch(PDO::FETCH_ASSOC);
 
 
-        //$shipid = 7;
-        //$userinfo = $prepare->fetch();
+            //$shipid = 7;
+            //$userinfo = $prepare->fetch();
 
-        $userid = $userinfo['id'];
+            $userid = $userinfo['id'];
 
-        //var_dump($userinfo);
+            //var_dump($userinfo);
 
 
-        $sql = "INSERT INTO ownedships ( shipid, userid)
+            $sql = "INSERT INTO ownedships ( shipid, userid)
         VALUES ( :shipid, :userid)";
-        $prepare = $db->prepare($sql);
-        $prepare->execute([
-            //':Name' => $name,
-            ':shipid' => 7,
-            ':userid' => $userid
-        ]);
+            $prepare = $db->prepare($sql);
+            $prepare->execute([
+                //':Name' => $name,
+                ':shipid' => 7,
+                ':userid' => $userid
+            ]);
 
-        session_start();
-
-
-
-        $_SESSION['id'] = $userid;
+            session_start();
 
 
+            $_SESSION['id'] = $userid;
 
-        header("location: index.php");
 
-        exit;
+            header("location: index.php");
+
+            exit;
+        }
     }
 
     if ($_POST['type'] == 'loginuser') {
@@ -670,7 +681,7 @@ if ($_POST['type'] === 'buy_ship') {
         if ($userid['cash'] < $shipprice) {
             echo "<script>
         alert('Je hebt te weinig geld');
-        window.location.href='trading.php?id=$id';
+        window.location.href='trading.php';
         </script>";
             exit;
         }
