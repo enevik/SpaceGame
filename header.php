@@ -13,6 +13,8 @@ require 'config.php';
 
 session_start();
 
+
+
 //if(isset($_SESSION['username'])) {
     $sql = "SELECT * FROM `users`";
     $query = $db->query($sql);
@@ -25,7 +27,9 @@ session_start();
 
 //}
 
-$id = isset($_GET['id']) ? $_GET['id'] : '';
+//$id = isset($_GET['id']) ? $_GET['id'] : '';
+$id = $_SESSION['id'];
+
 
 
 
@@ -42,6 +46,8 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 
 
     //$id = $_SESSION['id'];
+
+
 
 
 
@@ -99,15 +105,15 @@ $admin = $userinfo['admin'];
         </div>
         <div>
             <div class="navbar">
-                <a href="index.php?id=<?=$id?>">Home</a>
-                <a href="trading.php?id=<?=$id?>">Shop</a>
-                <a href="tasks.php?id=<?=$id?>">Tasks</a>
-                <a href="upgradestation.php?id=<?=$id?>">Space Station</a>
-                <a href="create_login.php?id=<?=$id?>">Login/Register</a>
-                <a href="leaderbord.php?id=<?=$id?>">Leaderbord</a>
+                <a href="index.php">Home</a>
+                <a href="trading.php">Shop</a>
+                <a href="tasks.php">Tasks</a>
+                <a href="upgradestation.php">Space Station</a>
+                <a href="create_login.php">Login/Register</a>
+                <a href="leaderbord.php">Leaderbord</a>
                 <?php
                 if ($admin == 1) {
-                    echo '<a href="createShip.php?id=<?=$id?>">Create Ship</a>';
+                    echo '<a href="createShip.php">Create Ship</a>';
                 }
                 ?>
 
@@ -117,6 +123,7 @@ $admin = $userinfo['admin'];
 
             </div>
         </div>
+
 
 
         <div class="cac">

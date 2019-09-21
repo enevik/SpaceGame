@@ -8,7 +8,8 @@
 
 require 'header.php';
 
-$id = $_GET['id'];
+//$id = $_GET['id'];
+$id = $_SESSION['id'];
 
 
 
@@ -37,7 +38,6 @@ $sql5 = " SELECT *  FROM ownedships
      ON ships.id = ownedships.shipid
  WHERE ownedships.userid = $id";
 
-//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
 $query = $db->query($sql5);
 $userships = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -66,10 +66,10 @@ $userships = $query->fetchAll(PDO::FETCH_ASSOC);
     <div class="sellmaterial">
         <input type="hidden" name="type" value="material">
 
-        <label for="username">Grondstoffen:</label>
-        <input type="text" name="material" id="material" placeholder="vul aantal grondstoffen in">
+        <label for="username">Commodities:</label>
+        <input type="text" name="material" id="material" placeholder="amount of commodities">
 
-        <input type="submit" class="blueButton" value="Verkopen">
+        <input type="submit" class="blueButton" value="Exchange">
     </div>
 
 
@@ -93,22 +93,7 @@ as $shipinfo) {
     $shipprice = htmlentities($shipinfo['price']);
 
  
-            foreach ($userships as $usership) {
-            $usershipname = htmlentities($usership['shipname']);
-            $usershippic = htmlentities($usership['shippic']);
-            $usershipid = htmlentities($usership['shipid']);
 
-            if ($shipname == $usershipname) {
-                ?>
-    <style>
-        .planet div {
-            background-color: rgba(232,49,49,0.5);
-        }
-    </style>
-    <p style="background-color:blue;">je hebt deze al</p>
-    <?php
-    }
-    }
 
 ?>
     <div class="planet">
@@ -119,7 +104,7 @@ as $shipinfo) {
             <img src="<?php echo 'Images/' . $shippic; ?>"
 
         </div>
-<<<<<<< Updated upstream
+
         <?php
         foreach ($userships
 
@@ -132,26 +117,21 @@ as $shipinfo) {
 
             if ($shipname == $usershipname) {
 
-                echo "<h2>'Je hebt dit schip al'</h2>";
+                echo "<h2 class='shipalready'>You've already got this ship</h2>";
             }
         }
         ?>
-=======
->>>>>>> Stashed changes
+
     </div>
     <div class="trading-info">
-        <h3>Informatie over schip</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci at autem, culpa dolore eligendi harum
-            ipsum iure, laboriosam magnam nesciunt nihil provident rem similique sint sit, soluta tempora
-            voluptatibus.</p>
+        <h3>Information about ship</h3>
+
         <p><?php echo $shipdescription ?></p>
-<<<<<<< Updated upstream
-       
-=======
+
         <p>
         </p>
 
->>>>>>> Stashed changes
+
         </div>
     <div class="trading-task">
             <h3 class="info-task">Task time Mars: <?php echo $timemars. ' min' ?></h3>
@@ -159,7 +139,7 @@ as $shipinfo) {
             <h3 class="info-task">Task time Saturnus: <?php echo $timesaturnus. ' min' ?></h3>
 
             <h3 class="commodities">Money</h3>
-            <p><?php echo $shipprice ?></p>
+            <p class="pricelabel"><?php echo $shipprice ?></p>
             <form class="blueButton"  action="databaseController.php?userid=<?= $id ?>&shipid=<?=$shipid?>" method="post">
                 <input type="hidden" name="type" value="buy_ship">
                 <input type="submit" class="blueButton" value="BUY">

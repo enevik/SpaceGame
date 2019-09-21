@@ -23,9 +23,9 @@ foreach ($shipinfos as $shipinfo) {
     $sql5 = " SELECT *  FROM ownedships 
    LEFT JOIN ships
      ON ships.id = ownedships.shipid
- WHERE ownedships.shipid = $shipid";
+ WHERE ownedships.shipid = $shipid AND ownedships.userid = $id";
 
-//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+
     $query = $db->query($sql5);
     $shipnames = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -51,11 +51,8 @@ foreach ($shipinfos as $shipinfo) {
 
             $id = $_SESSION['id'];
 
-            //var_dump($id);
 
             $commodities = $_SESSION['commoditiesmars'];
-
-            //var_dump($commodities); die;
 
             $sql = "UPDATE users SET commodities = commodities + $commodities WHERE id = :id";
             $prepare = $db->prepare($sql);
@@ -63,25 +60,33 @@ foreach ($shipinfos as $shipinfo) {
                 ':id' => $id
             ]);
 
-            $sql = "UPDATE ownedships SET endtime = :endtime WHERE userid = :id AND shipid = :shipid";
+
+
+
+
+            /*$sql = "UPDATE ownedships SET endtime = :endtime WHERE userid = :id AND shipid = :shipid";
             $prepare = $db->prepare($sql);
             $prepare->execute([
                 ':endtime' => '',
                 ':id' => $id,
                 ':shipid' => $shipid
-            ]);
+            ]);*/
+
+            echo "You've earned your commodities!";
+
+
+            echo "<meta http-equiv=\"refresh\" content=\"3;URL=index.php\">";
 
 
         } else if ($differenceinseconds > 0) {
 
-            //echo "SUBMIT";
 
             echo $shipnamee, ": ", gmdate("H:i:s", $differenceinseconds), " ";
         }
     }
 
 
-}     //}
+}
 
 
 

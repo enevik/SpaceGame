@@ -1,9 +1,12 @@
 <?php
 require 'config.php';
 
-$id = $_GET['id'];
+//$id = $_GET['id'];
 
-require  'header.php'
+
+require  'header.php';
+
+$id = $_SESSION['id'];
 ?>
 
 
@@ -25,7 +28,8 @@ require  'header.php'
 
         <div class="form-group">
             <label for="description">description:</label>
-            <input type="text" name="description" id="description">
+
+            <textarea name="description" id="description" cols="20" rows="5"></textarea>
         </div>
 
         <div class="form-group">
@@ -35,12 +39,12 @@ require  'header.php'
 
     <!--Stashed changes-->
         <div class="form-group">
-            <label for="length">Taakduur Mars:</label>
+            <label for="length">Task time Mars:</label>
 
                 <select name="timechoicemars">
-                    <option value="1">1 min</option>
                     <option value="2">2 min</option>
                     <option value="3">3 min</option>
+                    <option value="4">4 min</option>
                     <option value="5">5 min</option>
                     <option value="10">10 min</option>
                     <option value="15">15 min</option>
@@ -54,12 +58,12 @@ require  'header.php'
         </div>
 
         <div class="form-group">
-            <label for="length">Taakduur Jupiter:</label>
+            <label for="length">Task time Jupiter:</label>
 
             <select name="timechoicejupiter">
-                <option value="1">1 min</option>
                 <option value="2">2 min</option>
                 <option value="3">3 min</option>
+                <option value="4">4 min</option>
                 <option value="5">5 min</option>
                 <option value="10">10 min</option>
                 <option value="15">15 min</option>
@@ -73,12 +77,12 @@ require  'header.php'
         </div>
 
         <div class="form-group">
-            <label for="length">Taakduur Saturnus:</label>
+            <label for="length">Task time Saturnus:</label>
 
             <select name="timechoicesaturnus">
-                <option value="1">1 min</option>
                 <option value="2">2 min</option>
                 <option value="3">3 min</option>
+                <option value="4">4 min</option>
                 <option value="5">5 min</option>
                 <option value="10">10 min</option>
                 <option value="15">15 min</option>
@@ -92,7 +96,7 @@ require  'header.php'
         </div>
 
 
-        <input type="submit" value="Verzenden" class="blueButton createshipbutton">
+        <input type="submit" value="Create" class="blueButton createshipbutton">
     </div>
 <!-- Updated upstream-->
 </form>

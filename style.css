@@ -307,6 +307,11 @@ h1 {
 	grid-template-columns: 1fr 1fr;
 }
 
+.shipalready {
+	text-align: center;
+	color: green;
+}
+
 .grid-container .grid-item li{
 	padding: 5px;
 	background: rgba( 232, 49, 49, 0.5);
@@ -336,6 +341,10 @@ h1 {
 	border-radius: 9%;
 	color: white;
 }
+
+
+
+
 .blueButton{
 	background-color: darkblue;
 	margin: 3px;
@@ -343,6 +352,7 @@ h1 {
 	border: none;
 	border-radius: 9%;
 	color: white;
+
 }
 /*createShip.php*/
 .createshipflex div{

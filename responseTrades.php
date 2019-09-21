@@ -3,13 +3,19 @@ require 'config.php';
 
 session_start();
 
-if (isset($_SESSION['end_timeTrade'])) {
+$id = $_SESSION['id'];
 
-    // it does; output the message
+$sql = "SELECT * FROM users WHERE id = $id";
+$query = $db->query($sql);
+$userinfos = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+foreach ($userinfos as $userinfo) {
 
 
     $from_time1 = date("Y-m-d H:i:s");
-    $to_time1 = $_SESSION["end_timeTrade"];
+    $to_time1 = $userinfo['job'];
 
 
     $timefirst = strtotime($from_time1);
@@ -42,12 +48,9 @@ if (isset($_SESSION['end_timeTrade'])) {
 
         $alert = $messages[rand(0, count($messages) - 1)];
 
-        echo "<script>
-        //alert('Je hebt te weinig geld');
-        alert('$alert');
-        //window.location.href='index.php?id=$id';
-        </script>";
-        exit;
+        echo "$alert";
+
+        echo "<meta http-equiv=\"refresh\" content=\"3;URL=index.php\">";
 
 
     } else if ($differenceinseconds > 0) {
@@ -58,8 +61,9 @@ if (isset($_SESSION['end_timeTrade'])) {
 
 
     }
-
 }
+
+//}
 
 
 

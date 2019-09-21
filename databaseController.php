@@ -5,23 +5,19 @@ require 'config.php';
 
 
 
-
- /*   //header('Location: index.php');
-    exit;
-}*/
-
 $sql = "SELECT * FROM `users`";
 $query = $db->query($sql);
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
-/**/
+
 
 
 if($_POST['type'] == 'create') {
 
     session_start();
 
-    $id = $_GET['id'];
+    //$id = $_GET['id'];
+    $id = $_SESSION['id'];
 
     $sql = "SELECT * FROM users WHERE id = $id";
     $query = $db->query($sql);
@@ -71,7 +67,7 @@ if($_POST['type'] == 'create') {
 
         }
 
-    header("location: index.php?id=$id");
+    header("location: index.php");
 
 
 }
@@ -85,11 +81,12 @@ if ($_POST['type'] == 'business') {
 
     if($_SESSION['busyjob'] > 0) {
 
-        $id = $_GET['id'];
+        //$id = $_GET['id'];
+        $id = $_SESSION['id'];
 
         echo "<script>
         //alert('Je hebt te weinig geld');
-        alert('Taak al bezig');
+        alert('Job ongoing already');
         window.location.href='index.php?id=$id';
         </script>";
         exit;
@@ -98,9 +95,10 @@ if ($_POST['type'] == 'business') {
     else {
 
 
-        $id = $_GET['id'];
+        //$id = $_GET['id'];
+        $id = $_SESSION['id'];
 
-        $sql3 = "UPDATE users SET duration = 1440 WHERE id = :id";
+        $sql3 = "UPDATE users SET job = 1440 WHERE id = :id";
         $prepare3 = $db->prepare($sql3);
         $prepare3->execute([
             ':id' => $id
@@ -114,40 +112,40 @@ if ($_POST['type'] == 'business') {
 
 
         while ($users = $query->fetch(PDO::FETCH_ASSOC)) {
-            $duration = $users["duration"];
+            $duration = $users["job"];
         }
 
-        $_SESSION["duration"] = $duration;
-
-        $_SESSION["start_time"] = date("Y-m-d H:i:s");
-
-        $end_time = $end_time = date('Y-m-d H:i:s', strtotime('+' . $_SESSION["duration"] . 'minutes', strtotime($_SESSION["start_time"])));
 
 
-        $_SESSION["end_timeTrade"] = $end_time;
+
+        $_SESSION["start_time"]=date("Y-m-d H:i:s");
+
+        $starttime = date("Y-m-d H:i:s");
 
 
-        $sql = 'UPDATE users SET
-              cash      = cash + 1000
-            WHERE id = :id';
-        $prepare = $db->prepare($sql);
-        $prepare->execute([
-            //':cash' => $add,
+
+        $end_time=$end_time=date('Y-m-d H:i:s', strtotime('+'.$duration.'minutes', strtotime($starttime)));
+
+
+
+        $sql6 = "UPDATE users SET job = :duration WHERE id = :id";
+        //var_dump($sql6);
+        $prepare4 = $db->prepare($sql6);
+        $prepare4->execute([
+            ':duration' => $end_time,
+
             ':id' => $id
         ]);
 
-        $messages = array(
-            'Transferred passangers of spacebus',
-            'Traded commodities for more valuable ones',
-            'Fixed someone their ship'
-        );
 
-        $alert = $messages[rand(0, count($messages) - 1)];
+
+
+
 
         echo "<script>
         //alert('Je hebt te weinig geld');
-        alert('$alert');
-        window.location.href='index.php?id=$id';
+        alert('Job started');
+        window.location.href='index.php';
         </script>";
         exit;
 
@@ -161,8 +159,10 @@ if ($_POST['type'] == 'business') {
 
 
     if ($_POST['type'] == 'material') {
+        session_start();
 
-        $id = $_GET['id'];
+        //$id = $_GET['id'];
+        $id = $_SESSION['id'];
         $sql = "SELECT * FROM users WHERE id = :id";
         $prepare = $db->prepare($sql);
         $prepare->execute([
@@ -179,16 +179,6 @@ if ($_POST['type'] == 'business') {
         $amount = $length * $cash;
         $add = $realcash += $amount;
 
-        //$id = 1;
-        /*$sql = "INSERT INTO `users` (cash)
-values (:cash)";
-
-        $prepare = $db->prepare($sql);
-        $prepare->execute([
-            ':cash' => $add
-            //':team2'     => $team2
-        ]);*/
-
         $sql = 'UPDATE users SET
               cash      = :cash
             WHERE id = :id';
@@ -204,21 +194,17 @@ values (:cash)";
             ':id' => $id
         ]);
 
-        header("location: index.php?id=$id");
-
-
-
-        // $realcash += $amount;
-
-
-//echo $realcash;
+        header("location: index.php");
 
 
     }
-//}
+
 
 
     if ($_POST['type'] == 'createuser') {
+
+
+
         $username = $_POST['username'];
         $cash = 5000;
 
@@ -241,7 +227,7 @@ values (:cash)";
 
         $userid = $userinfo['id'];
 
-        var_dump($userinfo);
+        //var_dump($userinfo);
 
 
         $sql = "INSERT INTO ownedships ( shipid, userid)
@@ -253,13 +239,29 @@ values (:cash)";
             ':userid' => $userid
         ]);
 
+        session_start();
+
+
+
+        $_SESSION['id'] = $userid;
+
+
 
         header("location: index.php");
+
         exit;
     }
 
     if ($_POST['type'] == 'loginuser') {
+
+
+            session_destroy();
+            unset($_SESSION['id']);
+
+
+
         session_start();
+
 
         $username = $_POST['username'];
 
@@ -272,25 +274,20 @@ values (:cash)";
         $users = $prepare->fetch();
 
         $users = $users['id'];
-        $_SESSION['id'] = $users['id'];
-        //$_SESSION['username'] = $username;
-        //$_SESSION['commodities'] = $users['commodities'];
-        //$_SESSION['cash'] = $users['cash'];
-        //$_SESSION['loginCheck'] = true;
+        $_SESSION['id'] = $users;
 
-        header( "location: index.php?id=$users");
+
+        header( "location: index.php");
         exit;
     }
 
     if ($_POST['type'] === 'mine_mars') {
         session_start();
 
-        $id = $_GET['id'];
+        //$id = $_GET['id'];
+        $id = $_SESSION['id'];
 
         $shipid=$_POST['shipchoice'];
-
-        // $waittime;
-
 
         $sql = "SELECT * FROM ships WHERE id = :shipid";
         $prepare = $db->prepare($sql);
@@ -303,17 +300,12 @@ values (:cash)";
         $shipnames = $prepare->fetchAll(PDO::FETCH_ASSOC);
 
 
-
-        //var_dump($shipnames); die;
-
         foreach ($shipnames as $shipname) {
             $joblength = $shipname['joblengthmars'];
 
             $rightshipname = $shipname['shipname'];
             $_SESSION["shipname"] = $rightshipname;
 
-
-            //var_dump($joblength);
             $sql5 = " SELECT * FROM ownedships WHERE shipid = $shipid";
 
 //$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
@@ -324,35 +316,11 @@ values (:cash)";
 
 
             if($shipinfo['engine'] == 1) {
-                $length = round($joblength / 7); // 3
+                $length = round($joblength / 7 *2); // 3
             }
             else {
                 $length = $joblength;
             }
-            //$length = round($joblength / 5); // 3
-
-
-            /*if($shipnamee == 3) {
-                $waittime = 2;
-
-
-
-            }
-            if($shipnamee == 1) {
-                $waittime = 10;
-                //$_SESSION['waittime'] = $waittime;
-
-
-
-            }
-
-            if($shipnamee == 2) {
-                $waittime = 6;
-                //$_SESSION['waittime'] = $waittime;
-
-
-
-            }*/
 
 
             $sql3 = "UPDATE users SET duration = $length WHERE id = :id";
@@ -367,7 +335,6 @@ values (:cash)";
 
         $sql5 = " SELECT * FROM ownedships WHERE shipid = $shipid";
 
-//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
         $query = $db->query($sql5);
         $shipinfo = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -414,39 +381,11 @@ values (:cash)";
         ]);
 
 
-
-
-
-
-
-
-
-
         $_SESSION["end_time2"]=$end_time;
 
 
 
-
-
-
-
-
-        //header("location: tasks.php?id=$id");
-
-
-
-
-
-
-
-
-        /*$sql = "UPDATE users  SET commodities = commodities + 3200 WHERE id = :id";
-        $prepare = $db->prepare($sql);
-        $prepare->execute([
-            ':id' => $id
-        ]);*/
-
-        header("location: index.php?id=$id");
+        header("location: index.php");
     }
 
     if ($_POST['type'] === 'mine_jupiter') {
@@ -455,11 +394,11 @@ values (:cash)";
 
         session_start();
 
-        $id = $_GET['id'];
+        //$id = $_GET['id'];
+        $id = $_SESSION['id'];
+
 
         $shipid=$_POST['shipchoice'];
-
-        // $waittime;
 
 
         $sql = "SELECT * FROM ships WHERE id = :shipid";
@@ -469,12 +408,9 @@ values (:cash)";
 
         ]);
 
-//$query = $db->query($sql);
         $shipnames = $prepare->fetchAll(PDO::FETCH_ASSOC);
 
 
-
-        //var_dump($shipnames); die;
 
         foreach ($shipnames as $shipname) {
             $joblength = $shipname['joblengthjupiter'];
@@ -486,7 +422,6 @@ values (:cash)";
             //var_dump($joblength);
             $sql5 = " SELECT * FROM ownedships WHERE shipid = $shipid";
 
-//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
             $query = $db->query($sql5);
             $shipinfo = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -494,36 +429,11 @@ values (:cash)";
 
 
             if($shipinfo['engine'] == 1) {
-                $length = round($joblength / 5); // 3
+                $length = round($joblength / 5 * 2); // 3
             }
             else {
                 $length = $joblength;
             }
-            //$length = round($joblength / 5); // 3
-
-
-            /*if($shipnamee == 3) {
-                $waittime = 2;
-
-
-
-            }
-            if($shipnamee == 1) {
-                $waittime = 10;
-                //$_SESSION['waittime'] = $waittime;
-
-
-
-            }
-
-            if($shipnamee == 2) {
-                $waittime = 6;
-                //$_SESSION['waittime'] = $waittime;
-
-
-
-            }*/
-
 
             $sql3 = "UPDATE users SET duration = $length WHERE id = :id";
             $prepare3 = $db->prepare($sql3);
@@ -537,7 +447,6 @@ values (:cash)";
 
         $sql5 = " SELECT * FROM ownedships WHERE shipid = $shipid";
 
-//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
         $query = $db->query($sql5);
         $shipinfo = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -583,50 +492,19 @@ values (:cash)";
             ':userid' => $id
         ]);
 
-
-
-
-
-
-
-
-
-
         $_SESSION["end_time2"]=$end_time;
 
 
-
-
-
-
-
-
-        //header("location: tasks.php?id=$id");
-
-
-
-
-
-
-
-
-        /*$sql = "UPDATE users  SET commodities = commodities + 3200 WHERE id = :id";
-        $prepare = $db->prepare($sql);
-        $prepare->execute([
-            ':id' => $id
-        ]);*/
-
-        header("location: index.php?id=$id");
+        header("location: index.php");
     }
 
     if ($_POST['type'] === 'mine_saturnus') {
         session_start();
 
-        $id = $_GET['id'];
+        //$id = $_GET['id'];
+        $id = $_SESSION['id'];
 
         $shipid=$_POST['shipchoice'];
-
-        // $waittime;
 
 
         $sql = "SELECT * FROM ships WHERE id = :shipid";
@@ -636,12 +514,9 @@ values (:cash)";
 
         ]);
 
-//$query = $db->query($sql);
         $shipnames = $prepare->fetchAll(PDO::FETCH_ASSOC);
 
 
-
-        //var_dump($shipnames); die;
 
         foreach ($shipnames as $shipname) {
             $joblength = $shipname['joblengthsaturnus'];
@@ -653,7 +528,6 @@ values (:cash)";
             //var_dump($joblength);
             $sql5 = " SELECT * FROM ownedships WHERE shipid = $shipid";
 
-//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
             $query = $db->query($sql5);
             $shipinfo = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -661,35 +535,12 @@ values (:cash)";
 
 
             if($shipinfo['engine'] == 1) {
-                $length = round($joblength / 3); // 3
+                $length = round($joblength / 3 *2); // 3
             }
             else {
                 $length = $joblength;
             }
-            //$length = round($joblength / 5); // 3
 
-
-            /*if($shipnamee == 3) {
-                $waittime = 2;
-
-
-
-            }
-            if($shipnamee == 1) {
-                $waittime = 10;
-                //$_SESSION['waittime'] = $waittime;
-
-
-
-            }
-
-            if($shipnamee == 2) {
-                $waittime = 6;
-                //$_SESSION['waittime'] = $waittime;
-
-
-
-            }*/
 
 
             $sql3 = "UPDATE users SET duration = $length WHERE id = :id";
@@ -704,7 +555,6 @@ values (:cash)";
 
         $sql5 = " SELECT * FROM ownedships WHERE shipid = $shipid";
 
-//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
         $query = $db->query($sql5);
         $shipinfo = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -751,102 +601,16 @@ values (:cash)";
         ]);
 
 
-
-
-
-
-
-
-
-
         $_SESSION["end_time2"]=$end_time;
 
 
 
 
-
-
-
-
-        //header("location: tasks.php?id=$id");
-
-
-
-
-
-
-
-
-
-        header("location: index.php?id=$id");
+        header("location: index.php");
     }
 
 
-/*if ($_POST['type'] === 'buy_hispenia') {
-    $id = $_GET['id'];
-    $sql = "SELECT * FROM users WHERE id = :id";
-    $prepare = $db->prepare($sql);
-    $prepare->execute([
-        ':id' => $id
-    ]);
-//$query = $db->query($sql);
-    $userid = $prepare->fetch(PDO::FETCH_ASSOC);
-    if($userid['cash'] < 60000) {
-        echo "<script>
-        alert('Je hebt te weinig geld');
-        window.location.href='trading.php?id=$id';
-        </script>";
-        exit;
-    }
-    $sql5 = " SELECT *  FROM ownedships 
-   LEFT JOIN ships
-     ON ships.id = ownedships.shipid
- WHERE ownedships.userid = $id";
-//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
-    $query = $db->query($sql5);
-    $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($shipinfos
-             as $shipinfo) {
-        $usership = htmlentities($shipinfo['shipname']);
-//echo $shipname;
-    }
-    if($usership == 'Hispenia') {
-        echo "<script>
-        alert('Je hebt dit schip al');
-        window.location.href='trading.php?id=$id';
-        </script>";
-        exit;
-    }
-    $shipname = 'Hispenia';
-    $sql2 = "SELECT * FROM users WHERE id = :id";
-    $prepare2 = $db->prepare($sql2);
-    $prepare2->execute([
-        ':id' => $id
-    ]);
-    $users = $prepare2->fetch(PDO::FETCH_ASSOC);
-    //$Name = $users['username'];
-    $sql3 = "SELECT * FROM ships WHERE shipname=:shipname";
-    $prepare3 = $db->prepare($sql3);
-    $prepare3->execute([
-        ':shipname' => $shipname
-    ]);
-    $shipinfo = $prepare3->fetch();
-    $shipid = $shipinfo['id'];
-    $sql = "INSERT INTO ownedships ( shipid, userid) 
-        VALUES ( :shipid, :userid)";
-    $prepare = $db->prepare($sql);
-    $prepare->execute([
-        //':Name' => $name,
-        ':shipid' => $shipid,
-        ':userid' => $id
-    ]);
-    $sql3 = "UPDATE users SET cash = cash - 60000 WHERE id = :id";
-    $prepare3 = $db->prepare($sql3);
-    $prepare3->execute([
-        ':id' => $id
-    ]);
-    header("location: index.php?id=$id");
-}*/
+
 
 
 
@@ -855,7 +619,8 @@ if ($_POST['type'] === 'buy_ship') {
 
     session_start();
 
-    $id = $_GET['userid'];
+    //$id = $_GET['userid'];
+    $id = $_SESSION['id'];
 
     $shipid = $_GET['shipid'];
 
@@ -867,21 +632,9 @@ if ($_POST['type'] === 'buy_ship') {
 
     ]);
 
-//$query = $db->query($sql);
     $userid = $prepare->fetch(PDO::FETCH_ASSOC);
 
 
-
-
-
-
-
-
-        //$shipname = 'Millenium';
-        //$price = 100000;
-
-
-        //$Name = $users['username'];
 
 
     $sql = "SELECT * FROM ships WHERE id = $shipid";
@@ -900,7 +653,7 @@ if ($_POST['type'] === 'buy_ship') {
    LEFT JOIN ships
      ON ships.id = ownedships.shipid
  WHERE ownedships.userid = $id";
-//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+
         $query = $db->query($sql5);
         $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
         foreach ($shipinfos
@@ -948,7 +701,7 @@ if ($_POST['type'] === 'buy_ship') {
     }
 
 
-        header("location: index.php?id=$id");
+        header("location: index.php");
 
 
 
@@ -960,75 +713,71 @@ if ($_POST['type'] === 'buy_ship') {
 
 
 if ($_POST['type'] === 'upgrade_engine') {
+    session_start();
 
 
     $id = $_GET['id'];
+    $userid = $_SESSION['id'];
 
-    /*$sql5 = " SELECT *  FROM ownedships
-   LEFT JOIN ships
-     ON ships.id = ownedships.shipid
- WHERE ownedships.userid = :id";
 
-    $prepare = $db->prepare($sql5);
-    $prepare->execute([
-        ':id' => $id
 
-    ]);
 
-    //$query = $db->query($sql);
-    $shipinfos = $prepare->fetch(PDO::FETCH_ASSOC);*/
 
-    $sql = "SELECT * FROM users WHERE name=:username";
+    $sql = "SELECT * FROM ownedships WHERE shipid = :id AND userid=:userid";
     $prepare = $db->prepare($sql);
     $prepare->execute([
-        ':username' => $username
-    ]);
-
-    $users = $prepare->fetch();
-
-    $users = $users['id'];
-
-    $sql = "SELECT * FROM ownedships WHERE shipid = :id";
-    $prepare = $db->prepare($sql);
-    $prepare->execute([
-        ':id' => $id
+        ':id' => $id,
+        ':userid' => $userid
 
     ]);
 
-    //$query = $db->query($sql);
+
     $shipinfos = $prepare->fetch(PDO::FETCH_ASSOC);
 
-//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+    if($shipinfos['engine'] == 1) {
+
+        echo "<script>
+        //alert('Je hebt te weinig geld');
+        alert('Engine already upgraded');
+        window.location.href='index.php';
+        </script>";
+        exit;
+    }
+    else {
 
 
-
-
-
-
-        $sql = "UPDATE ownedships SET engine = 1 WHERE shipid=:shipid";
+        $sql = "UPDATE ownedships SET engine = 1 WHERE shipid=:shipid AND userid=:userid";
         $prepare = $db->prepare($sql);
         $prepare->execute([
             //':engine' => '1',
             ':shipid' => $id,
-            //':userid' => $id
+            ':userid' => $userid
 
         ]);
 
-    $sql = "SELECT * FROM ownedships WHERE shipid = :id";
-    $prepare = $db->prepare($sql);
-    $prepare->execute([
-        ':id' => $id
-
-    ]);
-
-    //$query = $db->query($sql);
-    $shipinfos = $prepare->fetch(PDO::FETCH_ASSOC);
-
-    $userid = $shipinfos['userid'];
 
 
+        $sql = "UPDATE users SET cash = cash - 1000 WHERE id = :id";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':id' => $userid
 
-    header("location: index.php?id=$userid");
+        ]);
+
+        $alert = "Engine upgraded, your ship will now mine faster!";
+
+        echo "<script>
+        //alert('Je hebt te weinig geld');
+        alert('$alert');
+        window.location.href='index.php';
+        </script>";
+        exit;
+    }
+
+
+
+
+    //header("location: index.php?id=$userid");
 }
 
 
@@ -1038,74 +787,69 @@ if ($_POST['type'] === 'upgrade_engine') {
 
 
 if ($_POST['type'] === 'upgrade_cargo') {
+    session_start();
+
 
     $id = $_GET['id'];
+    $userid = $_SESSION['id'];
 
-    /*$sql5 = " SELECT *  FROM ownedships
-   LEFT JOIN ships
-     ON ships.id = ownedships.shipid
- WHERE ownedships.userid = :id";
 
-    $prepare = $db->prepare($sql5);
-    $prepare->execute([
-        ':id' => $id
 
-    ]);
 
-    //$query = $db->query($sql);
-    $shipinfos = $prepare->fetch(PDO::FETCH_ASSOC);*/
-
-    $sql = "SELECT * FROM users WHERE name=:username";
+    $sql = "SELECT * FROM ownedships WHERE shipid = :id AND userid=:userid";
     $prepare = $db->prepare($sql);
     $prepare->execute([
-        ':username' => $username
-    ]);
-
-    $users = $prepare->fetch();
-
-    $users = $users['id'];
-
-    $sql = "SELECT * FROM ownedships WHERE shipid = :id";
-    $prepare = $db->prepare($sql);
-    $prepare->execute([
-        ':id' => $id
+        ':id' => $id,
+        ':userid' => $userid
 
     ]);
 
-    //$query = $db->query($sql);
+
     $shipinfos = $prepare->fetch(PDO::FETCH_ASSOC);
 
-//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
+    if($shipinfos['cargo'] == 1) {
+
+        echo "<script>
+        //alert('Je hebt te weinig geld');
+        alert('Cargo hold already upgraded');
+        window.location.href='index.php';
+        </script>";
+        exit;
+    }
+    else {
+
+
+        $sql = "UPDATE ownedships SET cargo = 1 WHERE shipid=:shipid AND userid=:userid";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            //':engine' => '1',
+            ':shipid' => $id,
+            ':userid' => $userid
+
+        ]);
+
+
+        $sql = "UPDATE users SET cash = cash - 1000 WHERE id = :id";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':id' => $userid
+
+        ]);
+
+
+        $alert = "Cargo hold upgraded, your ship can now hold more commodities!";
+
+        echo "<script>
+        //alert('Je hebt te weinig geld');
+        alert('$alert');
+        window.location.href='index.php';
+        </script>";
+        exit;
+    }
 
 
 
-
-
-
-    $sql = "UPDATE ownedships SET cargo = 1 WHERE shipid=:shipid";
-    $prepare = $db->prepare($sql);
-    $prepare->execute([
-        //':engine' => '1',
-        ':shipid' => $id,
-        //':userid' => $id
-
-    ]);
-
-    $sql = "SELECT * FROM ownedships WHERE shipid = :id";
-    $prepare = $db->prepare($sql);
-    $prepare->execute([
-        ':id' => $id
-
-    ]);
-
-    //$query = $db->query($sql);
-    $shipinfos = $prepare->fetch(PDO::FETCH_ASSOC);
-
-    $userid = $shipinfos['userid'];
-
-
-
-    header("location: index.php?id=$userid");
+    //header("location: index.php?id=$userid");
 }
 
 

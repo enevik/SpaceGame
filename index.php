@@ -6,8 +6,8 @@ require 'header.php';
 
 
 
-$userid = isset($_GET['id']) ? $_GET['id'] : '';
-
+//$userid = isset($_GET['id']) ? $_GET['id'] : '';
+$userid = $_SESSION['id'];
 
 
 
@@ -26,60 +26,9 @@ if($userid) {
      ON ships.id = ownedships.shipid
  WHERE ownedships.userid = $userid";
 
-//$sql0 = "select * from ownedships WHERE ownedships.userid=$userid left join ships on ownedships.shipid = ships.id";
     $query = $db->query($sql5);
     $shipinfos = $query->fetchAll(PDO::FETCH_ASSOC);
 
-
-    /*$sql3 = "SELECT * FROM ownedships WHERE userid=:userid";
-    $prepare3 = $db->prepare($sql3);
-    $prepare3->execute([
-        ':userid' => $userid
-    ]);
-
-    $ships = $prepare3->fetch();
-
-    //var_dump($ships);
-
-    $shipid = $ships['shipid'];
-
-
-    /*$sql4 = "SELECT * FROM ships WHERE id=:id";
-    $prepare4 = $db->prepare($sql4);
-    $prepare4->execute([
-        ':id' => $shipid
-    ]);*/
-
-    /*foreach ($shipid as $shipi) {
-        $sql = "SELECT * FROM ships WHERE id = $shipi";
-        $query = $db->query($sql);
-        $shipinfos = $query->fetch(PDO::FETCH_ASSOC);
-    }*/
-
-
-//$shipinfos = $prepare4->fetch();
-
-
-//$shipname = $ships['shipname'];
-
-//var_dump($shipinfos);
-
-
-//echo $shipinfos['shipname'];
-
-//$shipinfos = array();
-
-    /*foreach( $shipinfos as $shipinfo)
-    {
-
-        echo $shipinfo['shipname'];
-
-        //...
-    }*/
-
-
-
-//echo $shipname;
 
 
 
@@ -147,10 +96,15 @@ if($userid) {
 
 
 
+            
 
 
 
         },1000)
+        
+        
+        
+       
 
 
 
@@ -243,7 +197,7 @@ if($userid) {
     <div class="container">
             <div class="maingrid">
                 <div class="personalinformation">
-                    <h2>Persoonlijke informatie</h2>
+                    <h2>Personal information</h2>
                     <div>
                         <p>Name: <?php echo $userinfo['name'] ?></p>
                         <p>Ships: <?php
@@ -262,10 +216,14 @@ if($userid) {
                 <div class="tasks">
                     <h2>Tasks</h2>
                     <div>
-                        <p>Mars: <?php echo $responseMars ?></p>
-                        <p>Jupiter: <?php echo $responseJupiter ?></p>
-                        <p>Saturnus: <?php echo $responseSaturnus ?></p>
-                        <p>Trades: <?php echo $responseTrades ?></p>
+                        <h4>Mars:</h4>
+                        <p><?php echo $responseMars ?></p>
+                        <h4>Jupiter:</h4>
+                        <p><?php echo $responseJupiter ?></p>
+                        <h4>Saturnus:</h4>
+                        <p><?php echo $responseSaturnus ?></p>
+                        <h4>Trades:</h4>
+                        <p><?php echo $responseTrades ?></p>
                     </div>
                 </div>
             </div>
@@ -275,6 +233,7 @@ if($userid) {
         <?php
 
 }
+
 
 require 'footer.php';
 ?>
